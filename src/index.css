@@ -58,12 +58,13 @@ input[type="text"] {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     margin: 10px;
 }
 
 .header_p {
     color: #FFBD1A;
+    padding-left: 5px;
 }
 
 nav {
@@ -170,29 +171,45 @@ a {
 
 /* ------------------ Home ----------------------*/
 
-.home{
+.home {
     background-image: url('../public/imagenes/engranaje.svg');
-    background-size: 600px;
+    background-size: 700px;
     background-position: center;
     background-repeat: no-repeat;
     background-position-x: 0px;
-    /* height: 1000px; */
 }
 
-.homeCardCategorias{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+.imgFondo {
+    height: 300px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 50% 15% 35%;
+    justify-items: center;
 }
 
 .imgFondo img {
+    height: 300px;
     width: 100%;
-    height: auto;
+    position: absolute;
+    z-index: -1;
 }
 
-.categorias{
+.imgFondo h1 {
+    grid-row: 1/2;
+    border-radius: 10px;
+    align-self: flex-end;
+    text-align: center;
+}
+
+.imgFondo p {
+    grid-row: 3/4;
+    font-size: 25px;
+    align-self: start;
+    text-align: center;
+}
+
+.categorias {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -200,19 +217,28 @@ a {
     gap: 30px;
 }
 
-.categorias h2{
+.homeCardCategorias {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.homeH2 {
     text-align: center;
     color: #DF922F;
     margin-top: 20px;
 }
 
-.categorias p{
-    text-align: center;
+.homeP {
+    text-align: justify;
     margin-left: 50px;
     margin-right: 50px;
+    font-size: 20px;
 }
 
-.CardCategorias{
+.CardCategorias {
     width: 120px;
     height: 120px;
     display: grid;
@@ -221,7 +247,7 @@ a {
     margin: 25px;
 }
 
-.CardCategoriasImg{
+.CardCategoriasImg {
     grid-column: 1/2;
     grid-row: 1/2;
     background-color: #E6E7E8;
@@ -232,7 +258,7 @@ a {
     align-items: center;
 }
 
-.CardCategoriasP{
+.CardCategoriasP {
     grid-column: 1/2;
     grid-row: 2/3;
     background-color: #FFBD1A;
@@ -244,21 +270,166 @@ a {
     font-weight: bold;
 }
 
+/* ----- Card Producto -----*/
+
+.homeCardProductos {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.CardProducto {
+    width: 200px;
+    height: 200px;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 60% 40%;
+    margin: 15px;
+    /* border: 1px solid #a7a7a7; */
+    border-radius: 10px;
+}
+
+.CardCProductoImg {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CardCProductoImg img {
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.CardProductoInfo {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    background-color: #E6E7E8;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.CardProductoInfo h5 {
+    font-size: 15px;
+}
+
+.CardProductoInfo p {
+    font-size: 15px;
+}
+
+.CardProductoInfo span {
+    font-size: 12px;
+}
+
+.CardProductoInfo button {
+    height: 25px;
+    width: 100px;
+    border: none;
+    background-color: #FFBD1A;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+/*-- Paginados --*/
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+/* .pagination li {
+    margin: 0 5px;
+  } */
+
+.pagination a {
+    display: inline-block;
+    padding: 5px 10px;
+    /* background-color: #E6E7E8; */
+    color: #000000;
+    text-decoration: none;
+    border: 1px solid #b8b8b8;
+    border-radius: 5px;
+}
+
+.pagination a:hover {
+    background-color: #E6E7E8;
+    border-color: #b8b8b8;
+}
+
+.pagination .active a {
+    background-color: #E6E7E8;
+    border-color: #FFBD1A;
+}
 
 @media (max-width:700px) {
 
-    .home{
+    .home {
         background-size: 400px;
+        background-repeat: space;
+    }
+
+    .homeP {
+        font-size: 15px;
     }
 
     .imgFondo {
-      /*hacer que la imagen se recorte*/
+        height: 150px;
+        width: 100%;
+        grid-template-rows: 57% 8% 35%;
     }
 
-    .homeCardCategorias{
+    .imgFondo img {
+        height: 150px;
+        width: 100%;
+        position: absolute;
+        z-index: -1;
     }
 
+    .imgFondo h1 {
+        font-size: 20px;
+        width: 150px;
+    }
 
+    .imgFondo p {
+        font-size: 12px;
+        width: 150px;
+    }
+
+    .CardProducto {
+        width: 150px;
+        height: 150px;
+    }
+
+    .CardProductoInfo h5 {
+        font-size: 13px;
+    }
+
+    .CardProductoInfo p {
+        font-size: 14px;
+    }
+
+    .CardProductoInfo span {
+        font-size: 10px;
+    }
+
+    .CardProductoInfo button {
+        height: 18px;
+        width: 70px;
+        border: none;
+        background-color: #FFBD1A;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 10px;
+    }
 }
 
 /* ------------------ Footer ----------------------*/
@@ -386,14 +557,14 @@ h4 {
 @media (max-width:700px) {
 
     .footer {
-        grid-template-rows: 40% 30% 30%;
+        grid-template-rows: 30% 40% 30%;
         grid-template-columns: 100%;
         height: 400px;
     }
 
     .footerContacto {
         grid-column: 1/2;
-        grid-row: 1/2;
+        grid-row: 2/3;
     }
 
     h4 {
@@ -431,7 +602,7 @@ h4 {
 
     .noticiasFooter {
         grid-column: 1/2;
-        grid-row: 2/3;
+        grid-row: 1/2;
     }
 
     .siguenosFooter h4 {
