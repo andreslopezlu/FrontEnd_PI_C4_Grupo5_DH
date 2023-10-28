@@ -16,6 +16,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    z-index: 1;
 }
 
 .menuImg {
@@ -53,13 +55,30 @@ input[type="text"] {
     border-radius: 10px;
 }
 
-.header_iniciarSesion {
+/* .header_iniciarSesion {
     width: 145px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
     margin: 10px;
+} */
+
+.header_iniciarSesion {
+    width: 100px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin: 10px;
+}
+
+.header_iniciarSesion button {
+    border: none;
+    border-radius: 5px;
+    padding: 2px;
+    background-color: #FFBD1A;
 }
 
 .header_p {
@@ -115,17 +134,23 @@ a {
 }
 
 
-@media (max-width:700px) {
+@media (max-width:860px) {
 
     .header {
         height: 60px;
+        display: grid;
+        grid-template-columns: 25% 50% 35%;
+        grid-template-rows: 100%;
     }
 
     .logo_menu {
+        grid-column: 1/2;
+        grid-row: 1/2;
         display: grid;
         grid-template-columns: 50% 50%;
         grid-template-rows: 100%;
         align-items: center;
+        width: 100px;
     }
 
     .menuImg {
@@ -134,25 +159,53 @@ a {
         margin: 10px;
         grid-column: 1/2;
         grid-row: 1/2;
+        justify-self: center;
     }
 
     .logoPage {
         width: 50px;
         grid-column: 2/3;
         grid-row: 1/2;
-        margin-left: 5px;
+        margin-left: -5px;
+        justify-self: center;
+    }
+
+    .headerBusqueda {
+        grid-column: 2/3;
+        grid-row: 1/2;
+        width: 100%;
     }
 
     input[type="busqueda"] {
-        margin-left: 15px;
+        margin-left: 0px;
+        padding-left: 25px;
     }
 
     .headerLogoLupa {
-        margin-left: 25px;
+        margin-left: 5px;
     }
 
-    .header_iniciarSesion {
+    /* .header_iniciarSesion {
         width: 70px;
+    } */
+
+    .header_iniciarSesion {
+        grid-column: 3/4;
+        grid-row: 1/2;
+        width: 110px;
+        height: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        margin: 0px;
+    }
+
+    .header_iniciarSesion button {
+        border: none;
+        border-radius: 5px;
+        padding: 2px;
+        background-color: #FFBD1A;
     }
 
     .menuNav {
@@ -172,7 +225,7 @@ a {
 /* ------------------ Home ----------------------*/
 
 .home {
-    background-image: url('../public/imagenes/engranaje.svg');
+    background-image: url('../imagenes/engranaje.svg');
     background-size: 700px;
     background-position: center;
     background-repeat: no-repeat;
@@ -180,12 +233,13 @@ a {
 }
 
 .imgFondo {
-    height: 300px;
+    height: 400px;
     width: 100%;
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 50% 15% 35%;
     justify-items: center;
+    padding-top: 100px;
 }
 
 .imgFondo img {
@@ -197,7 +251,6 @@ a {
 
 .imgFondo h1 {
     grid-row: 1/2;
-    border-radius: 10px;
     align-self: flex-end;
     text-align: center;
 }
@@ -294,6 +347,7 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .CardCProductoImg img {
@@ -336,6 +390,11 @@ a {
     font-weight: bold;
 }
 
+.CardProductoVisibilidad {
+    display: none;
+}
+
+
 /*-- Paginados --*/
 
 .pagination {
@@ -370,7 +429,7 @@ a {
     border-color: #FFBD1A;
 }
 
-@media (max-width:700px) {
+@media (max-width:860px) {
 
     .home {
         background-size: 400px;
@@ -382,9 +441,10 @@ a {
     }
 
     .imgFondo {
-        height: 150px;
+        height: 210px;
         width: 100%;
         grid-template-rows: 57% 8% 35%;
+        padding-top: 60px;
     }
 
     .imgFondo img {
@@ -392,6 +452,7 @@ a {
         width: 100%;
         position: absolute;
         z-index: -1;
+
     }
 
     .imgFondo h1 {
@@ -431,6 +492,143 @@ a {
         font-size: 10px;
     }
 }
+
+/* ------------------ Productos ----------------------*/
+
+.productos {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.productos h2 {
+    color: #DF922F;
+}
+
+.productos button {
+    width: 400px;
+    height: 65px;
+    border: none;
+    border-radius: 10px;
+    background-color: #DF922F;
+    font-size: 20px;
+    font-weight: 700;
+    color: #000000;
+}
+
+.productos button a {
+    color: #000000;
+}
+
+@media (max-width:860px) {
+
+    .productos {
+        height: 260px;
+    }
+
+    .productos button {
+        width: 250px;
+        height: 50px;
+        font-size: 18px;
+    }
+
+}
+
+/* Agregar Producto */
+
+.añadirProductos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+}
+
+.formAñadirProducto {
+    position: relative;
+    text-align: center;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    text-align: center;
+}
+
+.añadirProductos h2 {
+    font-size: 24px;
+    color: #DF922F;
+    text-align: center;
+}
+
+.añadirProductosImg {
+    max-width: 100px;
+    max-height: 100px;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formImgSalir {
+    width: 40px;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+}
+
+/* select,
+input[type="file"],
+input[type="text"],
+input[type="number"],
+textarea  */
+
+.estilosForm {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+}
+
+.formPrecio {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputPrecio {
+    width: 240px;
+}
+
+.formPrecio p {
+    font-size: 15px;
+    padding-left: 3px;
+}
+
+.formAñadirProducto button {
+    background-color: #DF922F;
+    color: #000000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.formAñadirProducto button:hover {
+    background-color: #f3cb96;
+}
+
 
 /* ------------------ Footer ----------------------*/
 
@@ -526,8 +724,10 @@ h4 {
 
 .fomFooter {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 80px;
     gap: 10px;
 }
 

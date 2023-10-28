@@ -5,7 +5,7 @@ function Footer() {
     <footer>
       <div className='footer'>
         <div className='divLogoFooter'>
-          <img className='logoFooter' src="../public/imagenes/logo.png" alt="logo" />
+          <img className='logoFooter' src="../imagenes/logo.png" alt="logo" />
         </div>
         <div className='footerContacto'>
           <h4>CONTACTO</h4>
@@ -45,11 +45,11 @@ function Footer() {
         <div className='siguenosFooter'>
           <h4>SIGUENOS</h4>
           <div className='footer_logos'>
-            <img className='logoRedSocial' src="../public/imagenes/facebook.png" alt="logo_facebook" />
-            <img className='logoRedSocial' src="../public/imagenes/messenger.png" alt="logo_messenger" />
-            <img className='logoRedSocial' src="../public/imagenes/instagram.png" alt="logo_instagram" />
-            <img className='logoRedSocial' src="../public/imagenes/whatsapp.png" alt="logo_whatsapp" />
-            <img className='logoRedSocial' src="../public/imagenes/twitter.png" alt="logo_twitter" />
+            <img className='logoRedSocial' src="../imagenes/facebook.png" alt="logo_facebook" />
+            <img className='logoRedSocial' src="../imagenes/messenger.png" alt="logo_messenger" />
+            <img className='logoRedSocial' src="../imagenes/instagram.png" alt="logo_instagram" />
+            <img className='logoRedSocial' src="../imagenes/whatsapp.png" alt="logo_whatsapp" />
+            <img className='logoRedSocial' src="../imagenes/twitter.png" alt="logo_twitter" />
           </div>
         </div>
       </div>

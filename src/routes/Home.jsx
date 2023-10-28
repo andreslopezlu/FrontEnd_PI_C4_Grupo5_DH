@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
 import { useState, useEffect } from 'react';
-import Categorias from '../componets/Categorias'
-import Producto from '../componets/Producto'
+import Categorias from '../componets/Categorias';
+import CardProducto from '../componets/CardProducto';
 import ReactPaginate from 'react-paginate';
+
 
 
 function Home() {
@@ -34,7 +35,6 @@ function Home() {
       name: 'Especializadas'
     }
   ]
-
   const recomendados = [
     {
       id: 1,
@@ -280,13 +280,12 @@ function Home() {
 
   const [productosMezclados, setProductosMezclados] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [productosPorPagina, setProductosPorPagina] = useState(10); // Cantidad inicial
+  const [productosPorPagina, setProductosPorPagina] = useState(10);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const handleResize = () => {
       // Obtener el ancho de la ventana
       const windowWidth = window.innerWidth;
-
       // Ajustar la cantidad de productos por página según la resolución
       if (windowWidth <= 700) {
         setProductosPorPagina(6); // Por ejemplo, 6 productos por página para resoluciones menores o iguales a 768px
@@ -294,19 +293,15 @@ function Home() {
         setProductosPorPagina(10); // Valor predeterminado de 10 productos por página para otras resoluciones
       }
     };
-
     // Agregar un event listener para detectar cambios en la ventana
     window.addEventListener('resize', handleResize);
-
     // Llamar a handleResize una vez para establecer la cantidad inicial de productos por página
     handleResize();
-
     // Eliminar el event listener cuando el componente se desmonte
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
-
+  }, []);*/
 
   useEffect(() => {
     const mezclarArray = (array) => {
@@ -322,8 +317,8 @@ function Home() {
   }, []);
 
 
-  const totalProducts = productosMezclados.length;
-  const totalPages = Math.ceil(totalProducts / productosPorPagina);
+  const totalProductos = productosMezclados.length;
+  const totalPages = Math.ceil(totalProductos / productosPorPagina);
   const offset = currentPage * productosPorPagina;
   const currentProducts = productosMezclados.slice(offset, offset + productosPorPagina);
 
@@ -335,11 +330,6 @@ function Home() {
 
   return (
     <div>
-      <div className='imgFondo'>
-        <img src="../public/imagenes/fondoo.png" alt="img_fondo" />
-        <h1>ALQUILER DE HERRAMIENTAS</h1>
-        <p>Construyendo Futuro Juntos</p>
-      </div>
       <div className='home'>
         <div className='categorias'>
           <h2 className='homeH2'>CATEGORIAS</h2>
@@ -359,11 +349,13 @@ function Home() {
           <p className='homeP'>Descubre nuestra selección de herramientas altamente recomendadas</p>
           <div className='homeCardCategorias homeCardProductos'>
             {currentProducts.map(props => (
-              <Producto
+              <CardProducto
                 key={props.id}
                 img={props.img}
                 name={props.name}
                 precio={props.precio}
+                mostrarBotonAlquilar={true}
+                mostrarBotonEliminar={false}
               />
             ))}
           </div>

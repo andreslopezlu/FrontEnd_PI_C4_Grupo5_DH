@@ -4,7 +4,7 @@ function Categorias(props) {
     return (
         <div className='CardCategorias'>
             <div className='CardCategoriasImg'>
-                <img src={`../public/imagenes/${props.img}`} alt="" />
+                <img src={`../imagenes/${props.img}`} alt="" />
             </div>
             <div className='CardCategoriasP'>
                 <p>{props.name}</p>

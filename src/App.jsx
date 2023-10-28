@@ -8,11 +8,11 @@ import Footer from './componets/Footer'
 function App() {
 
   return (
-    <>
+    <div className='app'>
       <Header />
       <Outlet />
       <Footer />
-    </>
+    </div>
   )
 }
 
