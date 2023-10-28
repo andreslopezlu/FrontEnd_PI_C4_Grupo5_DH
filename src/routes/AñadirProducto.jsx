@@ -6,7 +6,7 @@ function AñadirProducto() {
     <div className='añadirProductos'>
       <h2>AGREGAR PRODUCTO</h2>
       <div className='formAñadirProducto'>
-        <Link to='/producto'><img className='formImgSalir' src="../imagenes/salir.png" alt="" /></Link>
+        <Link to='/administrador'><img className='formImgSalir' src="../imagenes/salir.png" alt="" /></Link>
         <form action="">
           <div>
             <select className='estilosForm' name="" id="">

@@ -4,7 +4,7 @@ import CardProducto from '../componets/CardProducto'
 import { NavLink, Link } from 'react-router-dom'
 
 
-function Producto() {
+function Administrador() {
 
     const [mostrarProductos, setMostrarProductos] = useState(false);
 
@@ -261,7 +261,7 @@ function Producto() {
     return (
         <div>
             <div className='productos'>
-                <h2>PRODUCTOS</h2>
+                <h2>ADMINISTRACIÓN</h2>
                 <Link to='/añadir_producto'><button className='boton'>AGREGAR</button></Link>
                 <button
                 className='boton'
@@ -287,4 +287,4 @@ function Producto() {
     )
 }
 
-export default Producto
+export default Administrador

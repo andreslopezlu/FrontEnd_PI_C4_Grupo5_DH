@@ -17,14 +17,14 @@ function Header() {
                 <li>
                   <Link to='/home'>HOME</Link>
                 </li>
-                <li> 
-                  <Link to='/producto'>PRODUCTOS</Link>
-                </li>
                 <li>
                   <Link to='/favs'>OFERTAS</Link>
                 </li>
                 <li>
                   <Link to='/contacto'>CONTACTO</Link>
+                </li>
+                <li> 
+                  <Link to='/administrador'>ADMINISTRACIÓN</Link>
                 </li>
               </ul>
             </div>
