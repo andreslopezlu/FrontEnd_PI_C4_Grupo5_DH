@@ -20,6 +20,17 @@
     z-index: 1;
 }
 
+.boton{
+    background-color: #ffb61a;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.boton:hover{
+    cursor: pointer;
+    background-color: #e99100;
+}
+
 .menuImg {
     display: none;
 }
@@ -78,7 +89,6 @@ input[type="text"] {
     border: none;
     border-radius: 5px;
     padding: 2px;
-    background-color: #FFBD1A;
 }
 
 .header_p {
@@ -205,7 +215,6 @@ a {
         border: none;
         border-radius: 5px;
         padding: 2px;
-        background-color: #FFBD1A;
     }
 
     .menuNav {
@@ -289,6 +298,7 @@ a {
     margin-left: 50px;
     margin-right: 50px;
     font-size: 20px;
+    width: 70%;
 }
 
 .CardCategorias {
@@ -385,7 +395,6 @@ a {
     height: 25px;
     width: 100px;
     border: none;
-    background-color: #FFBD1A;
     border-radius: 10px;
     font-weight: bold;
 }
@@ -486,7 +495,6 @@ a {
         height: 18px;
         width: 70px;
         border: none;
-        background-color: #FFBD1A;
         border-radius: 5px;
         font-weight: bold;
         font-size: 10px;
@@ -513,7 +521,6 @@ a {
     height: 65px;
     border: none;
     border-radius: 10px;
-    background-color: #DF922F;
     font-size: 20px;
     font-weight: 700;
     color: #000000;
@@ -615,20 +622,13 @@ textarea  */
 }
 
 .formAñadirProducto button {
-    background-color: #DF922F;
     color: #000000;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s;
 }
-
-.formAñadirProducto button:hover {
-    background-color: #f3cb96;
-}
-
 
 /* ------------------ Footer ----------------------*/
 
@@ -715,7 +715,6 @@ h4 {
 }
 
 .botonFooter {
-    background-color: #FFBD1A;
     padding: 7px;
     border: 1px solid #000000;
     border-radius: 10px;

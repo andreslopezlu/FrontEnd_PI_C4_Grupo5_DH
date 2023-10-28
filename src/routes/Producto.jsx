@@ -262,8 +262,12 @@ function Producto() {
         <div>
             <div className='productos'>
                 <h2>PRODUCTOS</h2>
-                <Link to='/añadir_producto'><button>AGREGAR</button></Link>
-                <button onClick={toggleProductos}>LISTAR</button>
+                <Link to='/añadir_producto'><button className='boton'>AGREGAR</button></Link>
+                <button
+                className='boton'
+                onClick={toggleProductos}>
+                LISTAR
+                </button>
             </div>
 
             <div className='homeCardCategorias homeCardProductos'>

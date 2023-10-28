@@ -6,7 +6,7 @@ function Categorias(props) {
             <div className='CardCategoriasImg'>
                 <img src={`../imagenes/${props.img}`} alt="" />
             </div>
-            <div className='CardCategoriasP'>
+            <div className='CardCategoriasP boton'>
                 <p>{props.name}</p>
             </div>
         </div>

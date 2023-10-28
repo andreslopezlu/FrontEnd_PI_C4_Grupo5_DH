@@ -11,8 +11,8 @@ function CardProducto(props) {
             <div className='CardProductoInfo'>
                 <h5>{props.name}</h5>
                 <p>{props.precio} <span>COP / Día</span></p>
-                {props.mostrarBotonAlquilar && <button>ALQUILAR</button>}
-                {props.mostrarBotonEliminar && <button>Eliminar</button>}
+                {props.mostrarBotonAlquilar && <button className='boton'>ALQUILAR</button>}
+                {props.mostrarBotonEliminar && <button className='boton'>Eliminar</button>}
             </div>
         </div>
     )

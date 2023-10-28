@@ -36,7 +36,7 @@ function Footer() {
               placeholder='Tu Correo'
             />
             <input
-              className='botonFooter'
+              className='botonFooter boton'
               type='submit'
               value="SUSCRIBETE"
             />

@@ -303,6 +303,7 @@ function Home() {
     };
   }, []);*/
 
+
   useEffect(() => {
     const mezclarArray = (array) => {
       const arrayMezclado = [...array];

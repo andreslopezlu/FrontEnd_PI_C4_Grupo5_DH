@@ -52,7 +52,7 @@ function AñadirProducto() {
             </textarea>
           </div>
           <div>
-            <button>Agregar</button>
+            <button className='boton'>Agregar</button>
           </div>
         </form>
       </div>
