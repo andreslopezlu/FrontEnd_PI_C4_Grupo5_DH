@@ -857,3 +857,27 @@ h4 {
     }
 
 }
+
+.productList {
+    width: 70%;
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+.productList th, .productList td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.productList th {
+    background-color: #f2f2f2;
+}
+
+.productList tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.productList tr:hover {
+    background-color: #ddd;
+}
