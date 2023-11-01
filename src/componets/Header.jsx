@@ -37,8 +37,8 @@ function Header() {
         <div className='header_iniciarSesion'>
           {/* <img className='logoHeader' src="../imagenes/logo_iniciar_sesion.png" alt="logo_iniciar_sesion" />
           <p className='header_p'>Mi Cuenta</p> */}
-          <button className='boton'>Iniciar Sesión</button>
-          <button className='boton'>Crear Cuenta</button>
+          <button className='botonCuenta'>Iniciar Sesión</button>
+          <button className='botonCuenta'>Crear Cuenta</button>
         </div>
       </div>
       <div className='imgFondo'>
