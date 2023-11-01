@@ -42,7 +42,7 @@ function Header() {
         </div>
       </div>
       <div className='imgFondo'>
-        <img src="../imagenes/fondo.png" alt="img_fondo" />
+        <img src="../imagenes/banner.png" alt="img_fondo" />
         <h1>ALQUILER DE HERRAMIENTAS</h1>
         <p>Construyendo Futuro Juntos</p>
       </div>
