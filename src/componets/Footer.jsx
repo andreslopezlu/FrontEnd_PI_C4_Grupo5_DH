@@ -6,22 +6,24 @@ function Footer() {
       <div className='footer'>
         <div className='divLogoFooter'>
           <img className='logoFooter' src="../imagenes/logo.png" alt="logo" />
+          <p className='copyright'>Copyright © 1999-2023 </p>
+          <p className='copyright'>AlquiConstruye S.R.L.</p>
         </div>
         <div className='footerContacto'>
           <h4>CONTACTO</h4>
           <div className='footerContactoDireccion'>
             <h5 className='footerH5'>Dirección:</h5>
-            <p className='footerP'>123 Calle Principal</p>
-            <p className='footerP'>Cuidad de Ejemplo, 12345</p>
-            <p className='footerP'>Pais Ejemplo</p>
+            <p className='footerP'>P Sherman Calle Wallaby 42</p>
+            <p className='footerP'>Sidney</p>
+            <p className='footerP'>Australia</p>
           </div>
           <div className='footerContactoTel'>
             <h5 className='footerH5'>Teléfono:</h5>
-            <p className='footerP'>+1(555)123-4567</p>
+            <p className='footerP'>+61 2 9876 5432</p>
           </div>
           <div className='footerContactoEmail'>
-            <h5>Correo Electrónico:</h5>
-            <p className='footerP'>info@tuempresa.com</p>
+            <h5 className='footerH5'>Correo Electrónico:</h5>
+            <p className='footerP'>contacto@alquiconstruye.com</p>
           </div>
         </div>
         <div className='noticiasFooter'>

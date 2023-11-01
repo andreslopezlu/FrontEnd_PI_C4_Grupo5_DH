@@ -668,6 +668,11 @@ textarea  */
     margin-left: 10px;
 }
 
+.copyright {
+    font-size: 10px;
+    text-align: center;
+}
+
 .footerContacto {
     display: grid;
     grid-template-rows: 35% 32% 33%;
