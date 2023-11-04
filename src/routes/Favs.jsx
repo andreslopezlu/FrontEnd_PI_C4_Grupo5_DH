@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 function Favs() {
   return (
-    <div>Favs</div>
-  )
+    <div className="image-container">
+      <img src="/imagenes/ofertas.png" alt="img_ofertas" />
+    </div>
+  );
 }
 
-export default Favs
+export default Favs;
