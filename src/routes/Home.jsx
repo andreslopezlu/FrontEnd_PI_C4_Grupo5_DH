@@ -2,9 +2,6 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Categorias from '../componets/Categorias';
 import CardProducto from '../componets/CardProducto';
-import ReactPaginate from 'react-paginate';
-
-
 
 function Home() {
 
@@ -38,271 +35,260 @@ function Home() {
   const recomendados = [
     {
       id: 1,
-      img: 'andamios.png',
+      img: [
+        'andamio_inicio.png',
+        'andamio_1',
+        'andamio_2',
+        'andamio_3',
+        'andamio_4',
+      ],
       name: 'Andamios',
       precio: 60000
     },
     {
       id: 2,
-      img: 'carretilla_elevadora.png',
-      name: 'Carretilla Elevadora',
+      img: [
+        'carretilla_elevadora_inicio.png',
+        'carretilla_elevadora_1',
+        'carretilla_elevadora_2',
+        'carretilla_elevadora_3',
+        'carretilla_elevadora_4',
+      ],
+      name: 'carretilla_elevadora',
       precio: 80000
     },
     {
       id: 3,
-      img: 'cortadora_concreto.png',
+      img: [
+        'cortadora_concreto_inicio.png',
+        'cortadora_concreto_1',
+        'cortadora_concreto_2',
+        'cortadora_concreto_3',
+        'cortadora_concreto_4',
+      ],
       name: 'Cortadora de Concreto',
       precio: 100000
     },
     {
       id: 4,
-      img: 'generador_energia.png',
+      img: [
+        'generador_electrico_inicio.png',
+        'generador_electrico_1',
+        'generador_electrico_2',
+        'generador_electrico_3',
+        'generador_electrico_4',
+      ],
       name: 'Generador Electrico',
       precio: 120000
     },
     {
       id: 5,
-      img: 'lijadora_plana.png',
+      img: [
+        'lijadora_plana_inicio.png',
+        'lijadora_plana_1',
+        'lijadora_plana_2',
+        'lijadora_plana_3',
+        'lijadora_plana_4',
+      ],
       name: 'Lijadora Plana',
       precio: 85000
     },
     {
       id: 6,
-      img: 'martillo_demoledor.png',
+      img: [
+        'martillo_demoledor_inicio.png',
+        'martillo_demoledor_1',
+        'martillo_demoledor_2',
+        'martillo_demoledor_3',
+        'martillo_demoledor_4',
+      ],
       name: 'Martillo Demoledor',
       precio: 94000
     },
     {
       id: 7,
-      img: 'sierra_circular.png',
+      img: [
+        'sierra_circular_inicio.png',
+        'sierra_circular_1',
+        'sierra_circular_2',
+        'sierra_circular_3',
+        'sierra_circular_4',
+      ],
       name: 'Sierra Circular',
       precio: 40000
     },
     {
       id: 8,
-      img: 'taladro_atornillador.png',
+      img: [
+        'taladro_atornillador_inicio.png',
+        'taladro_atornillador_1',
+        'taladro_atornillador_2',
+        'taladro_atornillador_3',
+        'taladro_atornillador_4',
+      ],
       name: 'Taladro Atornillador',
       precio: 100000
     },
     {
       id: 9,
-      img: 'taladro_percutor.png',
+      img: [
+        'taladro_percutor_inicio.png',
+        'taladro_percutor_1',
+        'taladro_percutor_2',
+        'taladro_percutor_3',
+        'taladro_percutor_4',
+      ],
       name: 'Taladro Percutor',
       precio: 120000
     },
     {
       id: 10,
-      img: 'lijadora_plana.png',
-      name: 'Lijadora Plana',
+      img: [
+        'mezcladora_inicio.png',
+        'mezcladora_1',
+        'mezcladora_2',
+        'mezcladora_3',
+        'mezcladora_4',
+      ],
+      name: 'Mezcladora',
       precio: 85000
     },
     {
       id: 11,
-      img: 'andamios.png',
-      name: 'Andamios',
+      img: [
+        'aplanadora_inicio.png',
+        'aplanadora_1',
+        'aplanadora_2',
+        'aplanadora_3',
+        'aplanadora_4',
+      ],
+      name: 'Aplanadora',
       precio: 60000
     },
     {
       id: 12,
-      img: 'carretilla_elevadora.png',
-      name: 'Carretilla Elevadora',
+      img: [
+        'bobcat_inicio.png',
+        'bobcat_1',
+        'bobcat_2',
+        'bobcat_3',
+        'bobcat_4',
+      ],
+      name: 'BobCat',
       precio: 80000
     },
     {
       id: 13,
-      img: 'cortadora_concreto.png',
-      name: 'Cortadora de Concreto',
+      img: [
+        'bulldozer_inicio.png',
+        'bulldozer_1',
+        'bulldozer_2',
+        'bulldozer_3',
+        'bulldozer_4',
+      ],
+      name: 'Bulldozer',
       precio: 100000
     },
     {
       id: 14,
-      img: 'generador_energia.png',
-      name: 'Generador Electrico',
+      img: [
+        'camion_inicio.png',
+        'camion_1',
+        'camion_2',
+        'camion_3',
+        'camion_4',
+      ],
+      name: 'Camion',
       precio: 120000
     },
     {
       id: 15,
-      img: 'lijadora_plana.png',
-      name: 'Lijadora Plana',
+      img: [
+        'compresor_inicio.png',
+        'compresor_1',
+        'compresor_2',
+        'compresor_3',
+        'compresor_4',
+      ],
+      name: 'Compresor',
       precio: 85000
     },
     {
       id: 16,
-      img: 'andamios.png',
-      name: 'Andamios',
+      img: [
+        'equipo_soldadura_inicio.png',
+        'equipo_soldadura_1',
+        'equipo_soldadura_2',
+        'equipo_soldadura_3',
+        'equipo_soldadura_4',
+      ],
+      name: 'Equipo de Soldadura',
       precio: 60000
     },
     {
       id: 17,
-      img: 'sierra_circular.png',
-      name: 'Sierra Circular',
+      img: [
+        'excavadora_inicio.png',
+        'excavadora_1',
+        'excavadora_2',
+        'excavadora_3',
+        'excavadora_4',
+      ],
+      name: 'Excavadora',
       precio: 40000
     },
     {
       id: 18,
-      img: 'cortadora_concreto.png',
-      name: 'Cortadora de Concreto',
+      img: [
+        'grua_inicio.png',
+        'grua_1',
+        'grua_2',
+        'grua_3',
+        'grua_4',
+      ],
+      name: 'Grua',
       precio: 100000
     },
     {
       id: 19,
-      img: 'carretilla_elevadora.png',
-      name: 'Carretilla Elevadora',
+      img: [
+        'guantes_seguridad_inicio.png',
+        'guantes_seguridad_1',
+        'guantes_seguridad_2',
+        'guantes_seguridad_3',
+        'guantes_seguridad_4',
+      ],
+      name: 'Guantes Seguridad',
       precio: 80000
     },
     {
       id: 20,
-      img: 'taladro_percutor.png',
-      name: 'Taladro Percutor',
+      img: [
+        'volqueta_inicio.png',
+        'volqueta_1',
+        'volqueta_2',
+        'volqueta_3',
+        'volqueta_4',
+      ],
+      name: 'Volqueta',
       precio: 120000
     },
     {
       id: 21,
-      img: 'andamios.png',
-      name: 'Andamios',
+      img: [
+        'piloteadora_inicio.png',
+        'piloteadora_1',
+        'piloteadora_2',
+        'piloteadora_3',
+        'piloteadora_4',
+      ],
+      name: 'Piloteadora',
       precio: 60000
-    },
-    {
-      id: 22,
-      img: 'carretilla_elevadora.png',
-      name: 'Carretilla Elevadora',
-      precio: 80000
-    },
-    {
-      id: 23,
-      img: 'cortadora_concreto.png',
-      name: 'Cortadora de Concreto',
-      precio: 100000
-    },
-    {
-      id: 24,
-      img: 'generador_energia.png',
-      name: 'Generador Electrico',
-      precio: 120000
-    },
-    {
-      id: 25,
-      img: 'lijadora_plana.png',
-      name: 'Lijadora Plana',
-      precio: 85000
-    },
-    {
-      id: 26,
-      img: 'martillo_demoledor.png',
-      name: 'Martillo Demoledor',
-      precio: 94000
-    },
-    {
-      id: 27,
-      img: 'sierra_circular.png',
-      name: 'Sierra Circular',
-      precio: 40000
-    },
-    {
-      id: 28,
-      img: 'taladro_atornillador.png',
-      name: 'Taladro Atornillador',
-      precio: 100000
-    },
-    {
-      id: 29,
-      img: 'taladro_percutor.png',
-      name: 'Taladro Percutor',
-      precio: 120000
-    },
-    {
-      id: 30,
-      img: 'lijadora_plana.png',
-      name: 'Lijadora Plana',
-      precio: 85000
-    },
-    {
-      id: 31,
-      img: 'andamios.png',
-      name: 'Andamios',
-      precio: 60000
-    },
-    {
-      id: 32,
-      img: 'carretilla_elevadora.png',
-      name: 'Carretilla Elevadora',
-      precio: 80000
-    },
-    {
-      id: 33,
-      img: 'cortadora_concreto.png',
-      name: 'Cortadora de Concreto',
-      precio: 100000
-    },
-    {
-      id: 34,
-      img: 'generador_energia.png',
-      name: 'Generador Electrico',
-      precio: 120000
-    },
-    {
-      id: 35,
-      img: 'lijadora_plana.png',
-      name: 'Lijadora Plana',
-      precio: 85000
-    },
-    {
-      id: 36,
-      img: 'andamios.png',
-      name: 'Andamios',
-      precio: 60000
-    },
-    {
-      id: 37,
-      img: 'sierra_circular.png',
-      name: 'Sierra Circular',
-      precio: 40000
-    },
-    {
-      id: 38,
-      img: 'cortadora_concreto.png',
-      name: 'Cortadora de Concreto',
-      precio: 100000
-    },
-    {
-      id: 39,
-      img: 'carretilla_elevadora.png',
-      name: 'Carretilla Elevadora',
-      precio: 80000
-    },
-    {
-      id: 40,
-      img: 'taladro_percutor.png',
-      name: 'Taladro Percutor',
-      precio: 120000
     },
   ]
 
   const [productosMezclados, setProductosMezclados] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [productosPorPagina, setProductosPorPagina] = useState(10);
-
-  /*useEffect(() => {
-    const handleResize = () => {
-      // Obtener el ancho de la ventana
-      const windowWidth = window.innerWidth;
-      // Ajustar la cantidad de productos por página según la resolución
-      if (windowWidth <= 700) {
-        setProductosPorPagina(6); // Por ejemplo, 6 productos por página para resoluciones menores o iguales a 768px
-      } else {
-        setProductosPorPagina(10); // Valor predeterminado de 10 productos por página para otras resoluciones
-      }
-    };
-    // Agregar un event listener para detectar cambios en la ventana
-    window.addEventListener('resize', handleResize);
-    // Llamar a handleResize una vez para establecer la cantidad inicial de productos por página
-    handleResize();
-    // Eliminar el event listener cuando el componente se desmonte
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);*/
-
+  const productosPorPagina = 10;
 
   useEffect(() => {
     const mezclarArray = (array) => {
@@ -316,18 +302,6 @@ function Home() {
 
     mezclarArray(recomendados);
   }, []);
-
-
-  const totalProductos = productosMezclados.length;
-  const totalPages = Math.ceil(totalProductos / productosPorPagina);
-  const offset = currentPage * productosPorPagina;
-  const currentProducts = productosMezclados.slice(offset, offset + productosPorPagina);
-
-  const handlePageClick = ({ selected }) => {
-    setCurrentPage(selected);
-  };
-
-
 
   return (
     <div>
@@ -349,10 +323,12 @@ function Home() {
           <h2 className='homeH2'>RECOMENDADOS</h2>
           <p className='homeP'>Descubre nuestra selección de herramientas altamente recomendadas</p>
           <div className='homeCardCategorias homeCardProductos'>
-            {currentProducts.map(props => (
+          {productosMezclados.slice(0, productosPorPagina).map(props => (
               <CardProducto
                 key={props.id}
-                img={props.img}
+                id={props.id}
+                carpeta={props.carpeta}
+                img={props.img[0]}
                 name={props.name}
                 precio={props.precio}
                 mostrarBotonAlquilar={true}
@@ -360,21 +336,6 @@ function Home() {
               />
             ))}
           </div>
-          {totalPages > 1 && (
-            <ReactPaginate
-              previousLabel={'<'}
-              nextLabel={'>'}
-              breakLabel={'...'}
-              breakClassName={'break-me'}
-              pageCount={totalPages}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              onPageChange={handlePageClick}
-              containerClassName={'pagination'}
-              subContainerClassName={'pages pagination'}
-              activeClassName={'active'}
-            />
-          )}
         </div>
       </div>
     </div>

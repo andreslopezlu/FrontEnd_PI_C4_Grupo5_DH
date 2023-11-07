@@ -412,31 +412,34 @@ a {
     list-style: none;
     padding: 0;
     margin: 20px 0;
+    align-items: center;
 }
 
 /* .pagination li {
     margin: 0 5px;
   } */
 
-.pagination a {
+.pagination a, .botonFirst{
     display: inline-block;
     padding: 5px 10px;
-    /* background-color: #E6E7E8; */
     color: #000000;
     text-decoration: none;
     border: 1px solid #b8b8b8;
     border-radius: 5px;
+    background-color: #ffffff;
+    height: 35px;
 }
 
-.pagination a:hover {
+.pagination a:hover, .botonFirst:hover {
     background-color: #E6E7E8;
     border-color: #b8b8b8;
 }
 
-.pagination .active a {
+.pagination .active a{
     background-color: #E6E7E8;
     border-color: #FFBD1A;
 }
+
 
 @media (max-width:860px) {
 
@@ -629,6 +632,39 @@ textarea  */
     cursor: pointer;
     font-size: 16px;
 }
+
+/* ------------- Detalles -----------------*/
+
+.detallesNombre{
+    height: 70px;
+    width: 100%;
+    background-color: #000000;
+    color: #DF922F;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.detallesNombre h2{
+    font-size: 40px;
+}
+
+.detallesNombre img{
+    height: 50px;
+    padding-right: 10px;
+}
+
+.detallesNombre a{
+    position: absolute;
+    right: 0;
+}
+
+.imgenesDetalleProducto{
+    width: 100px;
+}
+
 
 /* ------------------ Footer ----------------------*/
 

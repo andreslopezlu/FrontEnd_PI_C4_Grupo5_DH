@@ -20,6 +20,9 @@ function Header() {
                 <li>
                   <Link to='/favs'>OFERTAS</Link>
                 </li>
+                <li> 
+                  <Link to='/producto'>PRODUCTOS</Link>
+                </li>
                 <li>
                   <Link to='/contacto'>CONTACTO</Link>
                 </li>
