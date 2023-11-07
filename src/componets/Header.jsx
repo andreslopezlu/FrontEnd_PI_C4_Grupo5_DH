@@ -77,8 +77,8 @@ function Header() {
           <img className='headerLogoLupa' src="../imagenes/logo_lupa.png" alt="logo_lupa" />
         </div>
         <div className='header_iniciarSesion'>
-          <button className='botonCuenta' onClick={openLoginPopup}>Iniciar Sesión</button>
-          <button className='botonCuenta' onClick={openSignupPopup}>Crear Cuenta</button>
+          <button className='boton' onClick={openLoginPopup}>Iniciar Sesión</button>
+          <button className='boton' onClick={openSignupPopup}>Crear Cuenta</button>
         </div>
       </div>
       
@@ -86,7 +86,7 @@ function Header() {
         <div className="popup-bg">
           <div className="popup">
             <button className="close-button" onClick={closeLoginPopup}>
-            <img class="close-button-img" src="../imagenes/salir.png" alt="Cerrar"/>
+            <img className="close-button-img" src="../imagenes/salir.png" alt="Cerrar"/>
             </button>
             <h2 className="popup-title">Iniciar Sesión</h2>
             <form onSubmit={handleLogin}>
@@ -119,7 +119,7 @@ function Header() {
         <div className="popup-bg">
           <div className="popup">
             <button className="close-button" onClick={closeSignupPopup}>
-              <img class="close-button-img" src="../imagenes/salir.png" alt="Cerrar"/>
+              <img className="close-button-img" src="../imagenes/salir.png" alt="Cerrar"/>
             </button>
             <h2 className="popup-title">Crear Cuenta</h2>
             <form onSubmit={handleSignup}>
@@ -162,12 +162,16 @@ function Header() {
                 placeholder="Confirmar contraseña"
               />
               </div>
-
               <button className="botoningreso" type="submit">Crear Cuenta</button>
             </form>
           </div>
         </div>
       )}
+      <div className='imgFondo'>
+        <img src="../imagenes/fondo.png" alt="img_fondo" />
+        <h1>ALQUILER DE HERRAMIENTAS</h1>
+        <p>Construyendo Futuro Juntos</p>
+      </div>
     </div>
   );
 }

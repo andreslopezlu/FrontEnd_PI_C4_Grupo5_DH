@@ -37,7 +37,6 @@ function Producto() {
         {
             id: 1,
             img: [
-                'andamio_inicio.png',
                 'andamio_1.png',
                 'andamio_2.png',
                 'andamio_3.png',
@@ -49,7 +48,6 @@ function Producto() {
         {
             id: 2,
             img: [
-                'carretilla_elevadora_inicio.png',
                 'carretilla_elevadora_1.png',
                 'carretilla_elevadora_2.png',
                 'carretilla_elevadora_3.png',
@@ -61,7 +59,6 @@ function Producto() {
         {
             id: 3,
             img: [
-                'cortadora_concreto_inicio.png',
                 'cortadora_concreto_1.png',
                 'cortadora_concreto_2.png',
                 'cortadora_concreto_3.png',
@@ -73,7 +70,6 @@ function Producto() {
         {
             id: 4,
             img: [
-                'generador_electrico_inicio.png',
                 'generador_electrico_1.png',
                 'generador_electrico_2.png',
                 'generador_electrico_3.png',
@@ -85,7 +81,6 @@ function Producto() {
         {
             id: 5,
             img: [
-                'lijadora_plana_inicio.png',
                 'lijadora_plana_1.png',
                 'lijadora_plana_2.png',
                 'lijadora_plana_3.png',
@@ -97,7 +92,6 @@ function Producto() {
         {
             id: 6,
             img: [
-                'martillo_demoledor_inicio.png',
                 'martillo_demoledor_1.png',
                 'martillo_demoledor_2.png',
                 'martillo_demoledor_3.png',
@@ -109,7 +103,6 @@ function Producto() {
         {
             id: 7,
             img: [
-                'sierra_circular_inicio.png',
                 'sierra_circular_1.png',
                 'sierra_circular_2.png',
                 'sierra_circular_3.png',
@@ -121,7 +114,6 @@ function Producto() {
         {
             id: 8,
             img: [
-                'taladro_atornillador_inicio.png',
                 'taladro_atornillador_1.png',
                 'taladro_atornillador_2.png',
                 'taladro_atornillador_3.png',
@@ -133,7 +125,6 @@ function Producto() {
         {
             id: 9,
             img: [
-                'taladro_percutor_inicio.png',
                 'taladro_percutor_1.png',
                 'taladro_percutor_2.png',
                 'taladro_percutor_3.png',
@@ -145,7 +136,6 @@ function Producto() {
         {
             id: 10,
             img: [
-                'mezcladora_inicio.png',
                 'mezcladora_1.png',
                 'mezcladora_2.png',
                 'mezcladora_3.png',
@@ -157,7 +147,6 @@ function Producto() {
         {
             id: 11,
             img: [
-                'aplanadora_inicio.png',
                 'aplanadora_1.png',
                 'aplanadora_2.png',
                 'aplanadora_3.png',
@@ -169,7 +158,6 @@ function Producto() {
         {
             id: 12,
             img: [
-                'bobcat_inicio.png',
                 'bobcat_1.png',
                 'bobcat_2.png',
                 'bobcat_3.png',
@@ -181,7 +169,6 @@ function Producto() {
         {
             id: 13,
             img: [
-                'bulldozer_inicio.png',
                 'bulldozer_1.png',
                 'bulldozer_2.png',
                 'bulldozer_3.png',
@@ -193,7 +180,6 @@ function Producto() {
         {
             id: 14,
             img: [
-                'camion_inicio.png',
                 'camion_1.png',
                 'camion_2.png',
                 'camion_3.png',
@@ -205,7 +191,6 @@ function Producto() {
         {
             id: 15,
             img: [
-                'compresor_inicio.png',
                 'compresor_1.png',
                 'compresor_2.png',
                 'compresor_3.png',
@@ -217,7 +202,6 @@ function Producto() {
         {
             id: 16,
             img: [
-                'equipo_soldadura_inicio.png',
                 'equipo_soldadura_1.png',
                 'equipo_soldadura_2.png',
                 'equipo_soldadura_3.png',
@@ -229,7 +213,6 @@ function Producto() {
         {
             id: 17,
             img: [
-                'excavadora_inicio.png',
                 'excavadora_1.png',
                 'excavadora_2.png',
                 'excavadora_3.png',
@@ -241,7 +224,6 @@ function Producto() {
         {
             id: 18,
             img: [
-                'grua_inicio.png',
                 'grua_1.png',
                 'grua_2.png',
                 'grua_3.png',
@@ -253,7 +235,6 @@ function Producto() {
         {
             id: 19,
             img: [
-                'guantes_seguridad_inicio.png',
                 'guantes_seguridad_1.png',
                 'guantes_seguridad_2.png',
                 'guantes_seguridad_3.png',
@@ -265,7 +246,6 @@ function Producto() {
         {
             id: 20,
             img: [
-                'volqueta_inicio.png',
                 'volqueta_1.png',
                 'volqueta_2.png',
                 'volqueta_3.png',
@@ -277,7 +257,6 @@ function Producto() {
         {
             id: 21,
             img: [
-                'piloteadora_inicio.png',
                 'piloteadora_1.png',
                 'piloteadora_2.png',
                 'piloteadora_3.png',

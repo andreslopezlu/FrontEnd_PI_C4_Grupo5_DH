@@ -31,7 +31,7 @@
     background-color: #e99100;
 }
 
-.botonCuenta{
+/* .botonCuenta{
     border:2px solid #DF922F;
     color:white;
     background-color: #000000;
@@ -44,7 +44,7 @@
 .botonCuenta:hover{
     cursor: pointer;
     background-color: #e99100;
-}
+} */
 
 .menuImg {
     display: none;
@@ -164,7 +164,7 @@ a {
     .header {
         height: 60px;
         display: grid;
-        grid-template-columns: 25% 50% 35%;
+        grid-template-columns: 25% 50% 25%;
         grid-template-rows: 100%;
     }
 
@@ -210,14 +210,10 @@ a {
         margin-left: 5px;
     }
 
-    /* .header_iniciarSesion {
-        width: 70px;
-    } */
-
     .header_iniciarSesion {
         grid-column: 3/4;
         grid-row: 1/2;
-        width: 110px;
+        width: 90px;
         height: 50px;
         display: flex;
         flex-direction: column;
@@ -818,12 +814,14 @@ h4 {
 
 .contact-heading {
     font-size: 24px;
-    color: #ffb61a; /* Color del encabezado */
+    color: #ffb61a;
+    padding-bottom: 20px;
 }
 
-.contact-info {
+.contact-container p {
     font-size: 16px;
-    color: #333; /* Color del texto principal */
+    color: #333;
+    padding-bottom: 5px;
 }
 
 
@@ -894,6 +892,8 @@ h4 {
 
 }
 
+/* ---------------- Administracion -------------------*/
+
 .productList {
     width: 70%;
     border-collapse: collapse;
@@ -918,7 +918,22 @@ h4 {
     background-color: #ddd;
 }
 
-/*ofertas */
+.tdBoton{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.botonEliminarProducto{
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+/* ---------------- Ofertas -------------------*/
+
 .image-container {
     display: flex;
     justify-content: center;

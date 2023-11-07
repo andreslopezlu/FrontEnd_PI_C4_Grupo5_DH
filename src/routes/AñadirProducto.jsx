@@ -10,7 +10,7 @@ function AñadirProducto() {
         <form action="">
         <div>
           <select className='estilosForm' name="" id="">
-            <option value="" disabled selected>Selecciona una categoría:</option>
+            <option value="">Selecciona una categoría</option>
             <option value="Electricas">Electricas</option>
             <option value="Manuales">Manuales</option>
             <option value="Pesadas">Pesadas</option>
