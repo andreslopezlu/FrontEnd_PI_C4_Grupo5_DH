@@ -8,21 +8,22 @@ function AñadirProducto() {
       <div className='formAñadirProducto'>
         <Link to='/administrador'><img className='formImgSalir' src="../imagenes/salir.png" alt="" /></Link>
         <form action="">
-          <div>
-            <select className='estilosForm' name="" id="">
-              <option value=""></option>
-              <option value="">Electricas</option>
-              <option value="">Manuales</option>
-              <option value="">Pesadas</option>
-              <option value="">Seguridad</option>
-              <option value="">Especializadas</option>
-            </select>
+        <div>
+          <select className='estilosForm' name="" id="">
+            <option value="" disabled selected>Selecciona una categoría:</option>
+            <option value="Electricas">Electricas</option>
+            <option value="Manuales">Manuales</option>
+            <option value="Pesadas">Pesadas</option>
+            <option value="Seguridad">Seguridad</option>
+            <option value="Especializadas">Especializadas</option>
+          </select>
           </div>
           <div>
             <img className='añadirProductosImg' src="" alt="" />
             <input
               className='estilosForm'
               type="file"
+              multiple
             />
           </div>
           <div>
@@ -30,7 +31,7 @@ function AñadirProducto() {
             <input
               className='estilosForm'
               type="nombre"
-              placeholder='Nombre'
+              placeholder='Ingrese el nombre'
             />
           </div>
           <div className='formPrecio'>
@@ -38,7 +39,7 @@ function AñadirProducto() {
             <input
               className='estilosForm inputPrecio'
               type="number"
-              placeholder='Precio'
+              placeholder='Ingrese el precio'
             />
             <p>COP/día</p>
           </div>
@@ -48,7 +49,8 @@ function AñadirProducto() {
               name=""
               id=""
               cols="22"
-              rows="5">
+              rows="5"
+              placeholder='Descripcion..'>
             </textarea>
           </div>
           <div>
