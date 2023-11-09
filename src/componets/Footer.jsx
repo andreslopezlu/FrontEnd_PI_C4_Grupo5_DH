@@ -28,9 +28,9 @@ function Footer() {
         </div>
         <div className='noticiasFooter'>
           <h4>NOTICIAS</h4>
-          <form 
-          className='fomFooter'
-          action=""
+          <form
+            className='fomFooter'
+            action=""
           >
             <input
               className='inputFooter'

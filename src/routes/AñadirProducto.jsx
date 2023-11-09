@@ -8,15 +8,15 @@ function AñadirProducto() {
       <div className='formAñadirProducto'>
         <Link to='/administrador'><img className='formImgSalir' src="../imagenes/salir.png" alt="" /></Link>
         <form action="">
-        <div>
-          <select className='estilosForm' name="" id="">
-            <option value="">Selecciona una categoría</option>
-            <option value="Electricas">Electricas</option>
-            <option value="Manuales">Manuales</option>
-            <option value="Pesadas">Pesadas</option>
-            <option value="Seguridad">Seguridad</option>
-            <option value="Especializadas">Especializadas</option>
-          </select>
+          <div>
+            <select className='estilosForm' name="" id="">
+              <option value="">Selecciona una categoría</option>
+              <option value="Electricas">Electricas</option>
+              <option value="Manuales">Manuales</option>
+              <option value="Pesadas">Pesadas</option>
+              <option value="Seguridad">Seguridad</option>
+              <option value="Especializadas">Especializadas</option>
+            </select>
           </div>
           <div>
             <img className='añadirProductosImg' src="" alt="" />

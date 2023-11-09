@@ -244,11 +244,11 @@ function Administrador() {
     ]
 
 
-    const toggleProductos  = () => {
+    const toggleProductos = () => {
         setMostrarProductos(!mostrarProductos);
     }
 
-    
+
 
     return (
         <div>
@@ -256,9 +256,9 @@ function Administrador() {
                 <h2>ADMINISTRACIÓN</h2>
                 <Link to='/añadir_producto'><button className='boton'>AGREGAR</button></Link>
                 <button
-                className='boton'
-                onClick={toggleProductos}>
-                LISTAR
+                    className='boton'
+                    onClick={toggleProductos}>
+                    LISTAR
                 </button>
             </div>
 

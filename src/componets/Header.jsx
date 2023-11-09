@@ -59,13 +59,13 @@ function Header() {
                 <li>
                   <Link to='/favs'>OFERTAS</Link>
                 </li>
-                <li> 
+                <li>
                   <Link to='/producto'>PRODUCTOS</Link>
                 </li>
                 <li>
                   <Link to='/contacto'>CONTACTO</Link>
                 </li>
-                <li> 
+                <li>
                   <Link to='/administrador'>ADMINISTRACIÓN</Link>
                 </li>
               </ul>
@@ -81,33 +81,33 @@ function Header() {
           <button className='boton' onClick={openSignupPopup}>Crear Cuenta</button>
         </div>
       </div>
-      
+
       {isLoginPopupOpen && (
         <div className="popup-bg">
           <div className="popup">
             <button className="close-button" onClick={closeLoginPopup}>
-            <img className="close-button-img" src="../imagenes/salir.png" alt="Cerrar"/>
+              <img className="close-button-img" src="../imagenes/salir.png" alt="Cerrar" />
             </button>
             <h2 className="popup-title">Iniciar Sesión</h2>
             <form onSubmit={handleLogin}>
-            <div className="input-container">
-            <img src="../imagenes/iconousuario.svg" className="custom-icon" />
-              <input
-                type="text"
-                value={signupName}
-                onChange={(e) => setSignupName(e.target.value)}
-                placeholder="Tu usuario"
-              />
-            </div>
+              <div className="input-container">
+                <img src="../imagenes/iconousuario.svg" className="custom-icon" />
+                <input
+                  type="text"
+                  value={signupName}
+                  onChange={(e) => setSignupName(e.target.value)}
+                  placeholder="Tu usuario"
+                />
+              </div>
 
               <div className="input-container">
-            <img src="../imagenes/iconocontrasena.svg" className="custom-icon" />
-              <input
-                type="password"
-                value={signupPassword}
-                onChange={(e) => setSignupPassword(e.target.value)}
-                placeholder="Contraseña"
-              />
+                <img src="../imagenes/iconocontrasena.svg" className="custom-icon" />
+                <input
+                  type="password"
+                  value={signupPassword}
+                  onChange={(e) => setSignupPassword(e.target.value)}
+                  placeholder="Contraseña"
+                />
               </div>
               <button className="botoningreso" type="submit">Iniciar Sesión</button>
             </form>
@@ -119,48 +119,48 @@ function Header() {
         <div className="popup-bg">
           <div className="popup">
             <button className="close-button" onClick={closeSignupPopup}>
-              <img className="close-button-img" src="../imagenes/salir.png" alt="Cerrar"/>
+              <img className="close-button-img" src="../imagenes/salir.png" alt="Cerrar" />
             </button>
             <h2 className="popup-title">Crear Cuenta</h2>
             <form onSubmit={handleSignup}>
 
-            <div className="input-container">
-            <img src="../imagenes/iconousuario.svg" className="custom-icon" />
-              <input
-                type="text"
-                value={signupName}
-                onChange={(e) => setSignupName(e.target.value)}
-                placeholder="Tu usuario"
-              />
-            </div>
+              <div className="input-container">
+                <img src="../imagenes/iconousuario.svg" className="custom-icon" />
+                <input
+                  type="text"
+                  value={signupName}
+                  onChange={(e) => setSignupName(e.target.value)}
+                  placeholder="Tu usuario"
+                />
+              </div>
 
-            <div className="input-container">
-            <img src="../imagenes/iconocorreo.svg" className="custom-icon" />
-              <input
-                type="email"
-                value={signupEmail}
-                onChange={(e) => setSignupEmail(e.target.value)}
-                placeholder="correo@example.com"
-              />
-            </div>
-            
-            <div className="input-container">
-            <img src="../imagenes/iconocontrasena.svg" className="custom-icon" />
-              <input
-                type="password"
-                value={signupPassword}
-                onChange={(e) => setSignupPassword(e.target.value)}
-                placeholder="Contraseña"
-              />
+              <div className="input-container">
+                <img src="../imagenes/iconocorreo.svg" className="custom-icon" />
+                <input
+                  type="email"
+                  value={signupEmail}
+                  onChange={(e) => setSignupEmail(e.target.value)}
+                  placeholder="correo@example.com"
+                />
+              </div>
+
+              <div className="input-container">
+                <img src="../imagenes/iconocontrasena.svg" className="custom-icon" />
+                <input
+                  type="password"
+                  value={signupPassword}
+                  onChange={(e) => setSignupPassword(e.target.value)}
+                  placeholder="Contraseña"
+                />
               </div>
               <div className="input-container">
-              <img src="../imagenes/iconocontrasena.svg" className="custom-icon" />
-              <input
-                type="password"
-                value={signupConfirmPassword}
-                onChange={(e) => setSignupConfirmPassword(e.target.value)}
-                placeholder="Confirmar contraseña"
-              />
+                <img src="../imagenes/iconocontrasena.svg" className="custom-icon" />
+                <input
+                  type="password"
+                  value={signupConfirmPassword}
+                  onChange={(e) => setSignupConfirmPassword(e.target.value)}
+                  placeholder="Confirmar contraseña"
+                />
               </div>
               <button className="botoningreso" type="submit">Crear Cuenta</button>
             </form>
