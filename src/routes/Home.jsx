@@ -30,7 +30,7 @@ function Home() {
             id: 5,
             img: 'herramientas_especializadas.png',
             name: 'Especializadas'
-        }
+        },
     ]
     const recomendados = [
         {
@@ -292,6 +292,7 @@ function Home() {
                     <div className='homeCardCategorias'>
                         {categorias.map(props => (
                             <CardCategorias
+                                key={props.id}
                                 CardCategorias={props.id}
                                 img={props.img}
                                 name={props.name}
