@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import Categorias from '../componets/Categorias';
+import CardCategorias from '../componets/CardCategorias';
 import CardProducto from '../componets/CardProducto';
 import ReactPaginate from 'react-paginate';
 
@@ -300,7 +300,7 @@ function Producto() {
                 <h2 className='homeH2'>Productos Por Categoria</h2>
                 <div className='homeCardCategorias'>
                     {categorias.map(props => (
-                        <Categorias
+                        <CardCategorias
                             key={props.id}
                             img={props.img}
                             name={props.name}

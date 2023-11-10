@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import Categorias from '../componets/Categorias';
+import CardCategorias from '../componets/CardCategorias';
 import CardProducto from '../componets/CardProducto';
 
 function Home() {
@@ -291,8 +291,8 @@ function Home() {
                     <p className='homeP'>Explora la conveniencia y la eficiencia de nuestro servicio de alquiler de herramientas de construcción. ¡Pon en marcha tus proyectos con las herramientas adecuadas, adaptadas a tus necesidades en la construcción!</p>
                     <div className='homeCardCategorias'>
                         {categorias.map(props => (
-                            <Categorias
-                                key={props.id}
+                            <CardCategorias
+                                CardCategorias={props.id}
                                 img={props.img}
                                 name={props.name}
                             />

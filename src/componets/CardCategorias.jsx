@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Categorias(props) {
+function CardCategorias(props) {
     return (
         <div className='CardCategorias'>
             <div className='CardCategoriasImg'>
@@ -13,4 +13,4 @@ function Categorias(props) {
     )
 }
 
-export default Categorias
+export default CardCategorias
