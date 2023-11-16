@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom';  // Importa Link desde react-router-dom
+
 
 function Footer() {
   return (
@@ -8,6 +10,7 @@ function Footer() {
           <img className='logoFooter' src="../imagenes/logo.png" alt="logo" />
           <p className='copyright'>Copyright © 1999-2023 </p>
           <p className='copyright'>AlquiConstruye S.R.L.</p>
+          <Link to='/Politicas' className='copyright-politicas'>Ver Políticas de la Empresa</Link> 
         </div>
         <div className='footerContacto'>
           <h4>CONTACTO</h4>
@@ -43,6 +46,7 @@ function Footer() {
               value="SUSCRIBETE"
             />
           </form>
+            
         </div>
         <div className='siguenosFooter'>
           <h4>SIGUENOS</h4>
@@ -53,6 +57,7 @@ function Footer() {
             <img className='logoRedSocial' src="../imagenes/whatsapp.png" alt="logo_whatsapp" />
             <img className='logoRedSocial' src="../imagenes/twitter.png" alt="logo_twitter" />
           </div>
+          
         </div>
       </div>
     </footer>

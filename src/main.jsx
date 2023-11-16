@@ -9,6 +9,7 @@ import Administrador from './routes/Administrador.jsx'
 import AñadirProducto from './routes/AñadirProducto.jsx'
 import Producto from './routes/Producto.jsx'
 import Detalles from './routes/Detalles.jsx'
+import Politicas from './routes/Politicas';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path='/añadir_producto' element={<AñadirProducto />} />
           <Route path='/administrador' element={<Administrador />} />
           <Route path='/favs' element={<Favs/>} />
+          <Route path='/politicas' element={<Politicas/>} />
         </Route>
       </Routes>
     </BrowserRouter>

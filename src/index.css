@@ -751,6 +751,11 @@ textarea  */
     font-size: 10px;
     text-align: center;
 }
+.copyright-politicas {
+    font-size: 10px;
+    text-align: center;
+    color: #ffb61a;
+}
 
 .footerContacto {
     display: grid;
@@ -939,6 +944,41 @@ h4 {
     }
 
 }
+
+/* ---------------- Politicas  -------------------*/
+.politicas-container {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .politicas-title {
+    text-align: center;
+    color: #ffb61a;
+    text-decoration: underline;
+
+  }
+  
+  .politicas-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .politica {
+    max-width: 400px;
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .politica h3 {
+    color: #000000;
+  }
+  
+
+
 
 /* ---------------- Administracion -------------------*/
 .alert-message {
