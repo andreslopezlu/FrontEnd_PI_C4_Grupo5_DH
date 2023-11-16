@@ -287,13 +287,14 @@ return (
                 </tr>
             </thead>
             <tbody>
-                {/* Contenido de la tabla */}
+
                 {recomendados.map((producto) => (
                 <tr key={producto.id}>
                     <td>{producto.id}</td>
                     <td>{producto.name}</td>
                     <td>{producto.precio}</td>
                     <td className='tdBoton'>
+                    <button className='boton botonEditarProducto'>Editar</button>
                     <button className='boton botonEliminarProducto'>Eliminar</button>
                     </td>
                 </tr>

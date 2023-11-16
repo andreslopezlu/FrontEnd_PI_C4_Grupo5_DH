@@ -969,8 +969,9 @@ h4 {
     max-width: 400px;
     margin: 10px;
     padding: 20px;
-    border: 1px solid #ccc;
+
     border-radius: 8px;
+    background-color: #E6E7E8;
   }
   
   .politica h3 {
@@ -1027,6 +1028,14 @@ h4 {
     border: none;
     border-radius: 10px;
     padding: 5px;
+    margin: 5px;
+}
+
+.botonEditarProducto {
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px;
 }
 
 /* ---------------- Ofertas -------------------*/
