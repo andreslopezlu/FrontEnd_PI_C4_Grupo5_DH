@@ -941,6 +941,14 @@ h4 {
 }
 
 /* ---------------- Administracion -------------------*/
+.alert-message {
+    background-color: #f8d7da; /* Color de fondo rojo claro */
+    color: #721c24; /* Color de texto rojo oscuro */
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-align: center;
+}
 
 .productList {
     width: 70%;
