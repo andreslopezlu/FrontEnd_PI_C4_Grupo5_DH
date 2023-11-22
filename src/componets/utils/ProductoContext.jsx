@@ -42,8 +42,6 @@ export const ProductContextProvider = ({ children }) => {
             });
     }, []);
 
-    console.log(productos);
-
     return (
         <ProductContext.Provider value={productos}>
             {children}

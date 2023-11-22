@@ -305,7 +305,7 @@ function Producto() {
                             key={props.id}
                             id={props.id}
                             carpeta={props.carpeta}
-                            // img={props.img[1]}
+                            img={props.img.length > 0 ? props.img[0].url : "../imagenes/no_encontrado.png"}
                             name={props.name}
                             precio={props.precio}
                             mostrarBotonAlquilar={true}
