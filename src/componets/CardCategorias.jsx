@@ -4,7 +4,7 @@ function CardCategorias(props) {
     return (
         <div className='CardCategorias'>
             <div className='CardCategoriasImg'>
-                <img src={`../imagenes/${props.img}`} alt="" />
+                <img src={`../imagenes/herramientas/${props.img}`} alt="" />
             </div>
             <div className='CardCategoriasP boton'>
                 <p>{props.name}</p>

@@ -13,11 +13,14 @@ function CardProducto(props) {
   return (
     <div className='CardProducto'>
       <div className='CardFavoritoIcon' onClick={toggleFavorito}>
-      <FontAwesomeIcon icon={faStar} color={favorito ? 'gold' : 'white'} size="1.5x" />
+        <FontAwesomeIcon
+          icon={faStar}
+          color={favorito ? 'gold' : 'white'}
+          size="lg" />
       </div>
       {/* Imagen del producto */}
       <div className='CardCProductoImg'>
-        <img src={`../imagenes/herramientas/${props.img}`} alt={props.name} />
+        <img src={`${props.img}`} alt={props.name} />
       </div>
       {/* Información del producto */}
       <div className='CardProductoInfo'>

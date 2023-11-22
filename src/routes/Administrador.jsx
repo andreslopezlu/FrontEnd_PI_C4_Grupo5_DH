@@ -259,21 +259,20 @@ useEffect(() => {
 return (
     <div>
 
+
     {isMobile ? (
         <div className='alert-message'>
         <h2>El panel de administración no está disponible desde dispositivos móviles.</h2>
         </div>
-    ) : (
-        
-        mostrarProductos && (
+    ) : (mostrarProductos && (
         
         <div>
             <div className='productos'>
-        <h2>ADMINISTRACIÓN</h2>
+            <h2>ADMINISTRACIÓN</h2>
             <Link to='/añadir_producto'>
             <button className='boton'>AGREGAR</button>
             </Link>
-            <button className='boton' onClick={toggleProductos}>
+            <button className='boton' onClick={''}>
             LISTAR
             </button>
             </div>
@@ -283,16 +282,15 @@ return (
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Precio</th>
-                <th>Acción</th>
+                <th className='columnaAccion'>Acción</th>
                 </tr>
             </thead>
             <tbody>
-
                 {recomendados.map((producto) => (
                 <tr key={producto.id}>
                     <td>{producto.id}</td>
                     <td>{producto.name}</td>
-                    <td>{producto.precio}</td>
+                    <td>${producto.precio} cop/dia</td>
                     <td className='tdBoton'>
                     <button className='boton botonEditarProducto'>Editar</button>
                     <button className='boton botonEliminarProducto'>Eliminar</button>

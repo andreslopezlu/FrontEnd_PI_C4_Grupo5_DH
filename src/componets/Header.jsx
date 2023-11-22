@@ -4,6 +4,7 @@ import axios from 'axios'
 import ErrorInisioSesion from './ErrorInisioSesion';
 
 function Header() {
+
   const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
   const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
   const [loginUsername, setLoginUsername] = useState('');
@@ -11,6 +12,22 @@ function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState("")
   const [ciudades, setCiudades] = useState([])
+  const [rol, setRole] = useState('')
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [jwt, setJwt] = useState('');
+
+  //------------------Logica Ver Pagina Admin------------
+
+  const tipoUsuario = () => {
+    const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+    setJwt(infoLocalStorage.jwt);
+    const role = infoLocalStorage.role;
+    setRole(role);
+    if (role === 'ADMIN') {
+      setIsAdmin(true);
+    }
+  }
+  //--------------------------------------------------------
 
   const openLoginPopup = () => {
     setLoginPopupOpen(true);
@@ -43,6 +60,8 @@ function Header() {
 
   const cerrarSesion = () => {
     setIsLoggedIn(false);
+    setIsAdmin(false);
+    setJwt('');
     localStorage.clear();
   }
 
@@ -57,7 +76,8 @@ function Header() {
     axios.post("http://localhost:8080/api/auth/login", iniciarSesion)
       .then(res => {
         setError("")
-        localStorage.setItem('jwtToken', res.data);
+        localStorage.setItem('jwtToken', JSON.stringify(res.data));
+        tipoUsuario();
         closeLoginPopup();
         setIsLoggedIn(true);
       })
@@ -93,7 +113,7 @@ function Header() {
       name: selectedCity ? selectedCity.name : 'Selecciona tu ciudad',
     });
   };
-  
+
   const handleRolChange = (event) => {
     const selectedRolId = parseInt(event.target.value, 10); // Convertir a entero usando parseInt
     // Actualizar el estado con el id y nombre del rol seleccionado
@@ -111,7 +131,7 @@ function Header() {
       lastName: signupLastName,
       email: signupEmail,
       phoneNumber: signupPhoneNumber,
-      password : signupPassword,
+      password: signupPassword,
       enabled: 1,
       city: ciudadSeleccionada,
       role: rolSeleccionado,
@@ -131,6 +151,9 @@ function Header() {
   };
 
 
+
+
+
   //--------------------------------------------------------------
 
   return (
@@ -147,18 +170,18 @@ function Header() {
                 <li>
                   <Link to='/home'>HOME</Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to='/favs'>OFERTAS</Link>
-                </li>
+                </li> */}
                 <li>
                   <Link to='/producto'>PRODUCTOS</Link>
                 </li>
                 <li>
                   <Link to='/contacto'>CONTACTO</Link>
                 </li>
-                <li>
+                {isAdmin && (<li>
                   <Link to='/administrador'>ADMINISTRACIÓN</Link>
-                </li>
+                </li>)}
               </ul>
             </div>
           </nav>

@@ -4,15 +4,17 @@ import './App.css'
 import Header from './componets/Header'
 import { Outlet } from 'react-router-dom'
 import Footer from './componets/Footer'
+import { ProductContextProvider } from './componets/utils/ProductoContext'
+
 
 function App() {
 
   return (
-    <div className='app'>
+    <ProductContextProvider>
       <Header />
       <Outlet />
       <Footer />
-    </div>
+    </ProductContextProvider>
   )
 }
 
