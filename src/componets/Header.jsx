@@ -186,10 +186,10 @@ function Header() {
             </div>
           </nav>
         </div>
-        <div className='headerBusqueda'>
+        {/* <div className='headerBusqueda'>
           <input type="busqueda" placeholder='¿Qué estás buscando?' />
           <img className='headerLogoLupa' src="../imagenes/logo_lupa.png" alt="logo_lupa" />
-        </div>
+        </div> */}
         {!isLoggedIn && (
           <div className='header_iniciarSesion'>
             <button className='boton' onClick={openLoginPopup}>

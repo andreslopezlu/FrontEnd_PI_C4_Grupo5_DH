@@ -359,6 +359,7 @@ a {
     justify-content: center;
     align-items: center;
     border-radius: 10px;
+    background-color: #ffffff;
 }
 
 .CardCProductoImg img {
@@ -409,7 +410,7 @@ a {
     display: none;
 }
 
-.icoFavProducto{
+.icoFavProducto {
     border: 1px solid #000000;
 }
 
@@ -526,8 +527,11 @@ a {
     flex-wrap: wrap;
 }
 
-.productos h2 {
+.h2Administracion {
     color: #DF922F;
+    text-align: center;
+    margin-top: 30px;
+    font-size: 30px;
 }
 
 .productos button {
@@ -1011,14 +1015,27 @@ h4 {
 
 /* ---------------- Administracion -------------------*/
 .alert-message {
-    background-color: #f8d7da;
-    /* Color de fondo rojo claro */
-    color: #721c24;
-    /* Color de texto rojo oscuro */
-    padding: 15px;
-    border-radius: 5px;
-    margin-top: 20px;
+    position: relative;
+    height: 300px;
+    width: 300px;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    background-color: #F7F7F7;
+    color: #FF0000;
+    border: 1px solid #c9c9c9;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imgNoDisponibleAdmin{
+    position: absolute;
+}
+.alert-message h3 {
+    width: 250px;
 }
 
 .productList {
@@ -1071,6 +1088,19 @@ h4 {
     border-radius: 10px;
     padding: 5px;
     margin: 5px;
+}
+
+.cargandoProducto{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gifCargandoProducto{
+    width: 50px;
+    border-radius: 100%;
+    box-shadow: 4px 4px 8px rgb(236, 172, 88, 0.5)
+    
 }
 
 /* ---------------- Ofertas -------------------*/

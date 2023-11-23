@@ -83,7 +83,7 @@ function Home() {
                                 carpeta={props.carpeta}
                                 img={props.img.length > 0 ? props.img[0].url : "../imagenes/no_encontrado.png"}
                                 name={props.name}
-                                precio={props.costPerDay}
+                                precio={props.costPerDay.toLocaleString('es-CO')}
                                 mostrarBotonAlquilar={true}
                                 mostrarBotonEliminar={false}
                             />
