@@ -4,6 +4,7 @@ import CardCategorias from '../componets/CardCategorias';
 import CardProducto from '../componets/CardProducto';
 import { ProductContext } from '../componets/utils/ProductoContext';
 import axios from 'axios';
+import Search from '../componets/Search';
 
 
 function Home() {
@@ -58,6 +59,9 @@ function Home() {
     return (
         <div>
             <div className='home'>
+                <div className='buscador'>
+                    <Search/>
+                </div>
                 <div className='categorias'>
                     <h2 className='homeH2'>CATEGORIAS</h2>
                     <p className='homeP'>Explora la conveniencia y la eficiencia de nuestro servicio de alquiler de herramientas de construcción. ¡Pon en marcha tus proyectos con las herramientas adecuadas, adaptadas a tus necesidades en la construcción!</p>
