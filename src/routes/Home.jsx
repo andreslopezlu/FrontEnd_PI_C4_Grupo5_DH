@@ -5,6 +5,7 @@ import CardProducto from '../componets/CardProducto';
 import { ProductContext } from '../componets/utils/ProductoContext';
 import axios from 'axios';
 import Search from '../componets/Search';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 
 function Home() {
@@ -37,11 +38,14 @@ function Home() {
         },
     ]
 
-    const productos = useContext(ProductContext);
+    const { productos } = useContext(ProductContext);
+    const [loading, setLoading] = useState(false);
+
     const [productosMezclados, setProductosMezclados] = useState([]);
     const productosPorPagina = 10;
 
     useEffect(() => {
+        setLoading(true);
         const mezclarArray = (array) => {
             const arrayMezclado = [...array];
             for (let i = arrayMezclado.length - 1; i > 0; i--) {
@@ -53,6 +57,7 @@ function Home() {
 
         if (productos.length > 0) {
             mezclarArray(productos);
+            setLoading(false);
         }
     }, [productos]);
 
@@ -60,7 +65,7 @@ function Home() {
         <div>
             <div className='home'>
                 <div className='buscador'>
-                    <Search/>
+                    <Search />
                 </div>
                 <div className='categorias'>
                     <h2 className='homeH2'>CATEGORIAS</h2>
@@ -79,6 +84,10 @@ function Home() {
                 <div className='categorias recomendados'>
                     <h2 className='homeH2'>RECOMENDADOS</h2>
                     <p className='homeP'>Descubre nuestra selección de herramientas altamente recomendadas</p>
+                    {loading &&
+                                <div className='cargandoProducto'>
+                                    <img className='gifCargandoProducto' src="../imagenes/cargando1.gif" alt="" />
+                                </div>}
                     <div className='homeCardCategorias homeCardProductos'>
                         {productosMezclados.slice(0, productosPorPagina).map(props => (
                             <CardProducto

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import './App.css'
 import Header from './componets/Header'
@@ -8,6 +8,10 @@ import { ProductContextProvider } from './componets/utils/ProductoContext'
 
 
 function App() {
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   return (
     <ProductContextProvider>

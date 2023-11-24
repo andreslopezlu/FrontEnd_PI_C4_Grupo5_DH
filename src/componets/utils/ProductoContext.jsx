@@ -1,12 +1,16 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 // Crear el contexto
 export const ProductContext = createContext();
 
 // Crear el proveedor del contexto
 export const ProductContextProvider = ({ children }) => {
+    
     const [productos, setProductos] = useState([]);
+    const [reloadProducts, setReloadProducts] = useState(false);
+
 
     const obtenerImagenes = (productId) => {
         return axios.get(`http://localhost:8080/images/product/${productId}`)
@@ -40,10 +44,14 @@ export const ProductContextProvider = ({ children }) => {
             .catch((error) => {
                 console.error("Error al obtener datos de la API: ", error);
             });
-    }, []);
+    }, [reloadProducts]);
+
+    const recargarProductos = () => {
+        setReloadProducts((prev) => !prev);
+    };
 
     return (
-        <ProductContext.Provider value={productos}>
+        <ProductContext.Provider value={{ productos, recargarProductos }}>
             {children}
         </ProductContext.Provider>
     );

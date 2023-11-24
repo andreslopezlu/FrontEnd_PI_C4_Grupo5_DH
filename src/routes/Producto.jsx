@@ -36,7 +36,7 @@ function Producto() {
         }
     ]
 
-    const productos = useContext(ProductContext);
+    const {productos} = useContext(ProductContext);
 
     const [currentPage, setCurrentPage] = useState(0);
     const [productosPorPagina, setProductosPorPagina] = useState(10);

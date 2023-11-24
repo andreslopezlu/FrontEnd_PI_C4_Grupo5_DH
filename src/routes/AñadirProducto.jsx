@@ -1,8 +1,20 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom'
+import React, { useContext, useState, useEffect, useRef } from 'react';
+import { NavLink, Link, Navigate } from 'react-router-dom'
 import axios from 'axios';
+import { ProductContext } from '../componets/utils/ProductoContext';
+
 
 function AñadirProducto() {
+
+  const { recargarProductos } = useContext(ProductContext);
+  const form = useRef();
+
+  const verificarAcceso = () => {
+    const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+    if (!infoLocalStorage || infoLocalStorage.role !== 'ADMIN') {
+      return <Navigate to="/home" />;
+    }
+  }
 
   const [categorias, setCategorias] = useState([]);
   const [ciudades, setCiudades] = useState([]);
@@ -34,18 +46,7 @@ function AñadirProducto() {
   const [productoCosto, setProductoCosto] = useState(0);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(0);
   const [cuidadSeleccionada, setCuidadSeleccionada] = useState(0);
-
-
-  //   {
-  //     "id": 1,
-  //     "name": "Pulidora industrial",
-  //     "description": "Las pulidoras son herramientas eléctricas cuya versatilidad es importante para pulir salientes o bordes, así como soltar remaches, redondear ángulos, cortar metales, etc.",
-  //     "specifications": "Potencia absorbida: 900w, Velocidad de giro en vacío: 11.500 rpm, Potencia útil: 530w, Rosca del husillo: M14, Diámetro del disco: 115 mm, Diámetro plato lijador: 115 mm, Diámetro cepillo de vaso: 75 mm, Peso: 2.0 kg",
-  //     "active": true,
-  //     "available": true,
-  //     "average_score": 4.7,
-  //     "costPerDay": 80000.0
-  // }
+  const [selectedFiles, setSelectedFiles] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -55,55 +56,79 @@ function AñadirProducto() {
     const añadirProducto = {
       name: productoNombre,
       description: productoDescripcion,
-      specifications: '',
+      specifications: productoEspecificacion,
       active: true,
       available: true,
       // average_score: productoScore,
-      // costPerDay: productoCosto,
-      average_score: 4.7,
-      costPerDay: 10000,
+      average_score: 5.0,
+      costPerDay: productoCosto,
       category_id: parseInt(categoriaSeleccionada, 10),
-      city_id: parseInt(cuidadSeleccionada, 10)  
+      city_id: parseInt(cuidadSeleccionada, 10),
+      cancellation_polices : "Agregue las fechas de su reservación para obtener los detalles de cancelación de este producto."
     }
 
     console.log(añadirProducto);
 
-    // axios.post("http://localhost:8080/products/create", añadirProducto, {
-    //   headers: {
-    //     'Authorization': `Bearer ${infoLocalStorage.jwt}`
-    //   }
-    // })
-    //   .then(response => {
-    //     alert("Usuario creado");
-    //     console.log(response.data);
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //     alert("Usuario no fue creado");
-    //   });
+    axios.post("http://localhost:8080/products/create", añadirProducto, {
+      headers: {
+        'Authorization': `Bearer ${infoLocalStorage.jwt}`
+      }
+    })
+      .then(response => {
+        console.log("Producto creado");
+        console.log(response.data);
+        handleUpload(response.data.id);
+        form.current.reset();
+      })
+      .catch(error => {
+        console.error(error);
+        alert("Usuario no fue creado");
+      });
 
   }
 
-  // if ([nombre, modelo, precio, fecha].includes("")) {
-  //   console.log("esto está mal")
-  // } else {
-  //   console.log("Todo ok");
-  // }
+  const handleUpload = (id) => {
+    const formData = new FormData();
 
+    // Agregar cada archivo al formData con el nombre 'file'
+    for (const file of selectedFiles) {
+      formData.append('file', file); // Asegúrate de que el nombre sea 'file' ya que asi esta en el back
+    }
+
+    const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+
+    axios.post(`http://localhost:8080/images/create/${id}`, formData, {
+      headers: {
+        'Authorization': `Bearer ${infoLocalStorage.jwt}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+      .then(response => {
+        console.log("Imágenes adjuntadas");
+        console.log(response.data);
+        recargarProductos(); // se llama la funcion en este endpoint por que ya estan las imagenes añadidas al producto
+      })
+      .catch(error => {
+        console.error(error);
+        alert("Imágenes no adjuntadas");
+      });
+  }
 
   return (
     <div className='añadirProductos'>
+      {verificarAcceso()}
       <h2>AGREGAR PRODUCTO</h2>
       <div className='formAñadirProducto'>
         <Link to='/administrador'><img className='formImgSalir' src="../imagenes/salir.png" alt="" /></Link>
         <form
+          ref={form}
           onSubmit={handleSubmit}
         >
           <div>
             <select
-            className='estilosForm'
-            value={categoriaSeleccionada}
-            onChange={(e) => setCategoriaSeleccionada(e.target.value)}
+              className='estilosForm'
+              value={categoriaSeleccionada}
+              onChange={(e) => setCategoriaSeleccionada(e.target.value)}
             >
               <option value={''}>Seleccione una categoria</option>
               {categorias.map(categoria => (
@@ -120,9 +145,9 @@ function AñadirProducto() {
             <select
               className='estilosForm'
               value={cuidadSeleccionada}
-              onChange={ (e) => setCuidadSeleccionada(e.target.value)}
+              onChange={(e) => setCuidadSeleccionada(e.target.value)}
             >
-              <option value={''}>Selecciona tu cuidad</option>
+              <option value={''}>Selecciona una cuidad</option>
               {ciudades.map(ciudad => (
                 <option key={ciudad.id} value={ciudad.id}>
                   {ciudad.name}
@@ -134,17 +159,16 @@ function AñadirProducto() {
             <img className='añadirProductosImg' src="" alt="" />
             <input
               className='estilosForm'
-              type="file"
-              multiple
+              type="file" multiple
+              onChange={(e) => setSelectedFiles(e.target.files)}
             />
           </div>
           <div>
             <img className='añadirProductosImg' src="" alt="" />
             <input
               className='estilosForm'
-              type="nombre"
+              type="text"
               placeholder='Ingrese el nombre'
-              value={productoNombre}
               onChange={(e) => setProductoNombre(e.target.value)}
             />
           </div>
@@ -154,6 +178,7 @@ function AñadirProducto() {
               className='estilosForm inputPrecio'
               type="number"
               placeholder='Ingrese el precio'
+              onChange={(e) => setProductoCosto(e.target.value)}
             />
             <p>COP/día</p>
           </div>
@@ -164,11 +189,27 @@ function AñadirProducto() {
               id=""
               cols="22"
               rows="5"
-              placeholder='Descripcion..'>
+              placeholder='Ingresa la descripcion del producto'
+              onChange={(e) => setProductoDescripcion(e.target.value)}
+            >
             </textarea>
           </div>
           <div>
-            <button className='boton'>Agregar</button>
+            <textarea
+              className='estilosForm'
+              name=""
+              id=""
+              cols="22"
+              rows="5"
+              placeholder='ingresa la especificación del producto'
+              onChange={(e) => setProductoEspecificacion(e.target.value)}
+            >
+            </textarea>
+          </div>
+          <div>
+            <button
+              className='boton'
+            >Agregar</button>
           </div>
         </form>
       </div>

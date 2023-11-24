@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom'
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
+import { ProductContext } from '../componets/utils/ProductoContext';
+
 
 function Administrador() {
 
@@ -8,6 +10,13 @@ function Administrador() {
     const [productos, setProductos] = useState([]);
     const [verTablaProductos, setVerTablaProductos] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    const verificarAcceso = () => {
+        const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+        if (!infoLocalStorage || infoLocalStorage.role !== 'ADMIN') {
+            return <Navigate to="/home" />;
+        }
+    }
 
     useEffect(() => {
         const handleResize = () => {
@@ -22,6 +31,8 @@ function Administrador() {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+
+
 
     const listarProductos = () => {
         setProductos([]);
@@ -58,9 +69,9 @@ function Administrador() {
 
     }
 
-
     return (
         <div>
+            {verificarAcceso()}
             <h2 className='h2Administracion'>ADMINISTRACIÓN</h2>
             {isMobile ? (
                 <div className='alert-message'>
@@ -71,7 +82,7 @@ function Administrador() {
             ) : (
                 <div>
                     <div className='productos'>
-                        <Link to='/añadir_producto'>
+                        <Link to='/administrador/añadir_producto'>
                             <button className='boton'>AGREGAR</button>
                         </Link>
                         <button className='boton' onClick={listarProductos}>

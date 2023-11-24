@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios'
 import ErrorInisioSesion from './ErrorInisioSesion';
+
 
 function Header() {
 
@@ -15,6 +16,9 @@ function Header() {
   const [rol, setRole] = useState('')
   const [isAdmin, setIsAdmin] = useState(false);
   const [jwt, setJwt] = useState('');
+  const [nombreUsuario , setNombreUsuario] = useState('');
+  const [apellidoUsuario , setApellidoUsuario] = useState('');
+
 
   //------------------Logica Ver Pagina Admin------------
 
@@ -25,6 +29,9 @@ function Header() {
     setRole(role);
     if (role === 'ADMIN') {
       setIsAdmin(true);
+    }
+    else {
+      setIsAdmin(false);
     }
   }
   //--------------------------------------------------------
@@ -57,6 +64,7 @@ function Header() {
   };
 
   //------------------ Cerrar Sesion -----------------------------
+
 
   const cerrarSesion = () => {
     setIsLoggedIn(false);
@@ -150,10 +158,6 @@ function Header() {
 
   };
 
-
-
-
-
   //--------------------------------------------------------------
 
   return (
@@ -202,10 +206,15 @@ function Header() {
         )}
         {isLoggedIn && (
           <div className='header_iniciarSesion'>
-            <img src="../imagenes/logo_iniciar_sesion.png" alt="logo_iniciar_sesion" />
-            <button className='boton' onClick={cerrarSesion}>
-              Cerrar Sesión
-            </button>
+            {/* <img src="../imagenes/logo_iniciar_sesion.png" alt="logo_iniciar_sesion" /> */}
+            <p className='inicialesUser'>
+              <span>A</span><span>A</span>
+            </p>
+            <Link to='/home'>
+              <button className='boton' onClick={cerrarSesion}>
+                Cerrar Sesión
+              </button>
+            </Link>
           </div>
         )}
       </div>

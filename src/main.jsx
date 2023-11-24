@@ -22,7 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path='/contacto' element={<Contacto />} />
             <Route path='/producto' element={<Producto />} />
             <Route path='/producto/:id' element={<Detalles />} />
-            <Route path='/añadir_producto' element={<AñadirProducto />} />
+            <Route path='/administrador/añadir_producto' element={<AñadirProducto />} />
             <Route path='/administrador' element={<Administrador />} />
             <Route path='/favs' element={<Favs />} />
             <Route path='/politicas' element={<Politicas />} />
