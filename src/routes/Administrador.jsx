@@ -7,7 +7,7 @@ import { ProductContext } from '../componets/utils/ProductoContext';
 
 function Administrador(producto) {
 
-    const {recargarProductos} = useContext(ProductContext);
+    const { recargarProductos } = useContext(ProductContext);
     const [isMobile, setIsMobile] = useState(false);
     const [productos, setProductos] = useState([]);
     const [verTablaProductos, setVerTablaProductos] = useState(false);
@@ -121,11 +121,14 @@ function Administrador(producto) {
                                             <td>{producto.name}</td>
                                             <td>${producto.costPerDay.toLocaleString('es-CO')} cop/dia</td>
                                             <td className='tdBoton'>
-                                                <Link to={`/administrador/editar_producto/${producto.id}`}><button className='boton botonEditarProducto'>Editar</button></Link>
-                                                <button
-                                                    className='boton botonEliminarProducto'
-                                                    onClick={() => confirmEliminarProducto(producto.id, producto.name)}
-                                                >Eliminar</button>
+                                                <div>
+                                                    <Link to={`/administrador/editar_producto/${producto.id}`}><button className='boton botonEditarEliminarProducto'>Editar</button></Link>
+                                                    <button
+                                                        className='boton botonEditarEliminarProducto'
+                                                        onClick={() => confirmEliminarProducto(producto.id, producto.name)}
+                                                    >Eliminar</button>
+                                                </div>
+
                                             </td>
                                         </tr>
                                     ))}

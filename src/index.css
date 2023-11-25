@@ -361,7 +361,7 @@ a {
     grid-template-columns: 100%;
     grid-template-rows: 60% 40%;
     margin: 15px;
-    border: 2px solid #000000;
+    border: 2px solid rgba(0, 0, 0, 0.5);
     border-radius: 10px;
 }
 
@@ -387,7 +387,7 @@ a {
     grid-column: 1/2;
     grid-row: 2/3;
     background-color: #E6E7E8;
-    border-top: 2px solid #000000;
+    border-top: 2px solid rgba(0, 0, 0, 0.5);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     display: flex;
@@ -671,7 +671,14 @@ textarea  */
     margin: 50px;
 }
 
+.imgVolverProductos{
+    position: absolute;
+    top: -100px;
+    right: -40px;
+}
+
 .detailsContainer {
+    position: relative;
     max-width: 800px;
     height: auto;
     margin: 20px;
@@ -1117,20 +1124,14 @@ h4 {
     width: 150px;
 }
 
-.tdBoton {
+.tdBoton div{
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 }
 
-.botonEliminarProducto {
-    border: none;
-    border-radius: 10px;
-    padding: 5px;
-    margin: 5px;
-}
+
 
 .cardMessageConfirm {
     display: flex;
@@ -1152,11 +1153,13 @@ h4 {
 }
 
 
-.botonEditarProducto {
+.botonEditarEliminarProducto {
     border: none;
     border-radius: 10px;
     padding: 5px;
     margin: 5px;
+    width: 60px;
+    height: 30px;
 }
 
 .cargandoProducto {

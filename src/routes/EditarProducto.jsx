@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import { NavLink, Link, Navigate, useParams } from 'react-router-dom'
+import { NavLink, Link, Navigate, useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { ProductContext } from '../componets/utils/ProductoContext';
 
@@ -96,6 +96,7 @@ function EditarProducto() {
     const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
 
     const editarProducto = {
+      id: idProducto,
       name: productoNombre,
       description: productoDescripcion,
       specifications: productoEspecificacion,
@@ -108,7 +109,7 @@ function EditarProducto() {
       city_id: parseInt(cuidadSeleccionada, 10)
     }
 
-    console.log(editarProducto);
+    // console.log(editarProducto);
 
     axios.put("http://localhost:8080/products/update", editarProducto, {
       headers: {
@@ -116,14 +117,16 @@ function EditarProducto() {
       }
     })
       .then(response => {
-        console.log("Producto creado");
-        console.log(response.data);
+        console.log("Producto editado");
+        alert("Producto editado");
+        volver();
+        // console.log(response.data);
         // handleUpload(response.data.id);
-        form.current.reset();
+        // form.current.reset();
       })
       .catch(error => {
         console.error(error);
-        alert("Usuario no fue creado");
+        alert("Usuario no editado");
       });
 
   }
@@ -163,6 +166,14 @@ function EditarProducto() {
     setCategoriaSeleccionada(producto.category.id);
     setCuidadSeleccionada(producto.city.id);
   }
+
+  const navigate = useNavigate();
+
+  const volver = () =>{
+    navigate('/administrador');
+  }
+
+
   return (
     <div className='añadirProductos'>
       {verificarAcceso()}

@@ -42,8 +42,8 @@ function Detalles() {
             });
     }, [idProducto]);
     
-    console.table(producto);
-    console.log(producto);
+    // console.table(producto);
+    // console.log(producto);
 
     const [currentImage, setCurrentImage] = useState(0);
     const thumbnailContainerRef = useRef(null);
@@ -68,7 +68,7 @@ function Detalles() {
                     <h2>{producto && producto.name}</h2>
                     <Link to="/producto">
                         <img
-                            className="imgVolver"
+                            className="imgVolverProductos"
                             src="../imagenes/salir.png"
                             alt=""
                         />
