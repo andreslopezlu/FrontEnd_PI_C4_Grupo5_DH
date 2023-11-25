@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
+import CardMessageConfirm from '../componets/CardMessageConfirm';
 import { ProductContext } from '../componets/utils/ProductoContext';
 
 
-function Administrador() {
+function Administrador(producto) {
 
+    const {recargarProductos} = useContext(ProductContext);
     const [isMobile, setIsMobile] = useState(false);
     const [productos, setProductos] = useState([]);
     const [verTablaProductos, setVerTablaProductos] = useState(false);
@@ -42,13 +44,14 @@ function Administrador() {
             .then((res) => {
                 setProductos(res.data)
                 setLoading(false)
+                recargarProductos();
             })
             .catch((error) => {
                 console.error("Error al obtener datos de la API: ", error);
             });
     }
 
-    const eliminarProductos = (id) => {
+    const eliminarProducto = (id) => {
         const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
         console.log(infoLocalStorage.jwt);
         axios.delete(`http://localhost:8080/products/delete/${id}`, {
@@ -66,7 +69,17 @@ function Administrador() {
                     console.error("Error al realizar la solicitud: ", error.message);
                 }
             });
+    }
 
+    const confirmEliminarProducto = (id, name) => {
+        const resultado = confirm(`Deseas eliminar el producto ${name}`)
+        if (resultado) {
+            eliminarProducto(id)
+            alert(`Producto ${name} eliminado`);
+        }
+        else {
+            console.log("producto no eliminado")
+        }
     }
 
     return (
@@ -80,6 +93,7 @@ function Administrador() {
                     <h3>El panel de administración no está disponible desde dispositivos móviles.</h3>
                 </div>
             ) : (
+                //opciones pandel administracion
                 <div>
                     <div className='productos'>
                         <Link to='/administrador/añadir_producto'>
@@ -107,10 +121,10 @@ function Administrador() {
                                             <td>{producto.name}</td>
                                             <td>${producto.costPerDay.toLocaleString('es-CO')} cop/dia</td>
                                             <td className='tdBoton'>
-                                                <button className='boton botonEditarProducto'>Editar</button>
+                                                <Link to={`/administrador/editar_producto/${producto.id}`}><button className='boton botonEditarProducto'>Editar</button></Link>
                                                 <button
                                                     className='boton botonEliminarProducto'
-                                                    onClick={() => eliminarProductos(producto.id)}
+                                                    onClick={() => confirmEliminarProducto(producto.id, producto.name)}
                                                 >Eliminar</button>
                                             </td>
                                         </tr>

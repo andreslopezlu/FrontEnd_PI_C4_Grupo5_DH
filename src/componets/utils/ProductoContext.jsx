@@ -8,8 +8,8 @@ export const ProductContext = createContext();
 // Crear el proveedor del contexto
 export const ProductContextProvider = ({ children }) => {
     
-    const [productos, setProductos] = useState([]);
     const [reloadProducts, setReloadProducts] = useState(false);
+    const [productos, setProductos] = useState([]);
 
 
     const obtenerImagenes = (productId) => {
@@ -51,7 +51,7 @@ export const ProductContextProvider = ({ children }) => {
     };
 
     return (
-        <ProductContext.Provider value={{ productos, recargarProductos }}>
+        <ProductContext.Provider value={{ productos, recargarProductos}}>
             {children}
         </ProductContext.Provider>
     );

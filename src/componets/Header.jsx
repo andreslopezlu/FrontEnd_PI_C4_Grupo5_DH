@@ -88,6 +88,8 @@ function Header() {
         tipoUsuario();
         closeLoginPopup();
         setIsLoggedIn(true);
+        setNombreUsuario((res.data.name).charAt(0).toUpperCase());
+        setApellidoUsuario((res.data.lastname).charAt(0).toUpperCase());
       })
       .catch(error => {
         setError("Usuario no registrado o contraseña incorrecta")
@@ -208,7 +210,7 @@ function Header() {
           <div className='header_iniciarSesion'>
             {/* <img src="../imagenes/logo_iniciar_sesion.png" alt="logo_iniciar_sesion" /> */}
             <p className='inicialesUser'>
-              <span>A</span><span>A</span>
+              <span>{nombreUsuario}</span><span>{apellidoUsuario}</span>
             </p>
             <Link to='/home'>
               <button className='boton' onClick={cerrarSesion}>

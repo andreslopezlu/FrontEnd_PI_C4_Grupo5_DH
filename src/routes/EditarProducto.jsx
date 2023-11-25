@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import { NavLink, Link, Navigate } from 'react-router-dom'
+import { NavLink, Link, Navigate, useParams } from 'react-router-dom'
 import axios from 'axios';
 import { ProductContext } from '../componets/utils/ProductoContext';
 
-
-function AñadirProducto() {
-
-  const {recargarProductos} = useContext(ProductContext);
+function EditarProducto() {
+  const params = useParams();
+  const idProducto = parseInt(params.id);
+  const { recargarProductos } = useContext(ProductContext);
   const form = useRef();
 
   const verificarAcceso = () => {
@@ -39,6 +39,16 @@ function AñadirProducto() {
       });
   }, []);
 
+  const [producto, setProducto] = useState({
+    name: '',
+    description: '',
+    specifications: '',
+    costPerDay: 0,
+    img: [],
+    category: [],
+    city: [],
+  });
+
   const [productoNombre, setProductoNombre] = useState('');
   const [productoDescripcion, setProductoDescripcion] = useState('');
   const [productoEspecificacion, setProductoEspecificacion] = useState('');
@@ -48,12 +58,44 @@ function AñadirProducto() {
   const [cuidadSeleccionada, setCuidadSeleccionada] = useState(0);
   const [selectedFiles, setSelectedFiles] = useState(null);
 
+  const obtenerImagenes = (productId) => {
+    return axios.get(`http://localhost:8080/images/product/${productId}`)
+      .then((imgres) => imgres.data)
+      .catch((error) => {
+        console.error("Error al obtener datos de imágenes de la API: ", error);
+        return [];
+      });
+  };
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/products/${idProducto}`)
+      .then((res) => {
+        const product = res.data;
+
+        obtenerImagenes(product.id)
+          .then((imagenes) => {
+            setProducto({
+              ...product,
+              img: imagenes,
+            });
+            setValoresIniciales(product)
+          })
+          .catch((error) => {
+            console.error("Error al obtener datos de la API: ", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error al obtener datos de la API: ", error);
+      });
+  }, [idProducto]);
+
+
   const handleSubmit = (e) => {
     e.preventDefault()
 
     const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
 
-    const añadirProducto = {
+    const editarProducto = {
       name: productoNombre,
       description: productoDescripcion,
       specifications: productoEspecificacion,
@@ -63,13 +105,12 @@ function AñadirProducto() {
       average_score: 5.0,
       costPerDay: productoCosto,
       category_id: parseInt(categoriaSeleccionada, 10),
-      city_id: parseInt(cuidadSeleccionada, 10),
-      cancellation_polices : "Agregue las fechas de su reservación para obtener los detalles de cancelación de este producto."
+      city_id: parseInt(cuidadSeleccionada, 10)
     }
 
-    console.log(añadirProducto);
+    console.log(editarProducto);
 
-    axios.post("http://localhost:8080/products/create", añadirProducto, {
+    axios.put("http://localhost:8080/products/update", editarProducto, {
       headers: {
         'Authorization': `Bearer ${infoLocalStorage.jwt}`
       }
@@ -77,7 +118,7 @@ function AñadirProducto() {
       .then(response => {
         console.log("Producto creado");
         console.log(response.data);
-        handleUpload(response.data.id);
+        // handleUpload(response.data.id);
         form.current.reset();
       })
       .catch(error => {
@@ -97,7 +138,7 @@ function AñadirProducto() {
 
     const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
 
-    axios.post(`http://localhost:8080/images/create/${id}`, formData, {
+    axios.put(`http://localhost:8080/images/create/${id}`, formData, {
       headers: {
         'Authorization': `Bearer ${infoLocalStorage.jwt}`,
         'Content-Type': 'multipart/form-data'
@@ -114,14 +155,23 @@ function AñadirProducto() {
       });
   }
 
+  const setValoresIniciales = (producto) => {
+    setProductoNombre(producto.name);
+    setProductoDescripcion(producto.description);
+    setProductoEspecificacion(producto.specifications);
+    setProductoCosto(producto.costPerDay);
+    setCategoriaSeleccionada(producto.category.id);
+    setCuidadSeleccionada(producto.city.id);
+  }
   return (
     <div className='añadirProductos'>
       {verificarAcceso()}
-      <h2>AGREGAR PRODUCTO</h2>
+      <h2>EDITAR PRODUCTO ID: {producto.id}</h2>
       <div className='formAñadirProducto'>
-        <Link to='/administrador'><img className='formImgSalir' src="../imagenes/salir.png" alt="" /></Link>
+        {/* <Link to='/administrador'><img className='formImgSalir' src="../imagenes/salir.png" alt="" /></Link> */}
+        <Link to='/administrador'><p className='boton botonSalirEditarProductos formImgSalir'>X</p></Link>
         <form
-          ref={form}
+          // ref={form}
           onSubmit={handleSubmit}
         >
           <div>
@@ -155,20 +205,21 @@ function AñadirProducto() {
               ))}
             </select>
           </div>
-          <div>
+          {/* <div>
             <img className='añadirProductosImg' src="" alt="" />
             <input
               className='estilosForm'
               type="file" multiple
               onChange={(e) => setSelectedFiles(e.target.files)}
             />
-          </div>
+          </div> */}
           <div>
             <img className='añadirProductosImg' src="" alt="" />
             <input
               className='estilosForm'
               type="text"
               placeholder='Ingrese el nombre'
+              value={productoNombre}
               onChange={(e) => setProductoNombre(e.target.value)}
             />
           </div>
@@ -178,6 +229,7 @@ function AñadirProducto() {
               className='estilosForm inputPrecio'
               type="number"
               placeholder='Ingrese el precio'
+              value={productoCosto}
               onChange={(e) => setProductoCosto(e.target.value)}
             />
             <p>COP/día</p>
@@ -189,6 +241,7 @@ function AñadirProducto() {
               id=""
               cols="22"
               rows="5"
+              value={productoDescripcion}
               placeholder='Ingresa la descripcion del producto'
               onChange={(e) => setProductoDescripcion(e.target.value)}
             >
@@ -201,6 +254,7 @@ function AñadirProducto() {
               id=""
               cols="22"
               rows="5"
+              value={productoEspecificacion}
               placeholder='ingresa la especificación del producto'
               onChange={(e) => setProductoEspecificacion(e.target.value)}
             >
@@ -209,7 +263,7 @@ function AñadirProducto() {
           <div>
             <button
               className='boton'
-            >Agregar</button>
+            >Editar Producto</button>
           </div>
         </form>
       </div>
@@ -217,4 +271,4 @@ function AñadirProducto() {
   )
 }
 
-export default AñadirProducto
+export default EditarProducto
