@@ -8,6 +8,7 @@ import Search from '../componets/Search';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 
 
+
 function Home() {
 
     const categorias = [
@@ -103,6 +104,7 @@ function Home() {
                         ))}
                     </div>
                 </div>
+               
             </div>
         </div>
     )

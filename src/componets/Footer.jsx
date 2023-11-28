@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';  // Importa Link desde react-router-dom
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 
 function Footer() {
@@ -49,15 +51,18 @@ function Footer() {
             
         </div>
         <div className='siguenosFooter'>
+        
           <h4>SIGUENOS</h4>
           <div className='footer_logos'>
+          
             <img className='logoRedSocial' src="../imagenes/facebook.png" alt="logo_facebook" />
             <img className='logoRedSocial' src="../imagenes/messenger.png" alt="logo_messenger" />
             <img className='logoRedSocial' src="../imagenes/instagram.png" alt="logo_instagram" />
-            <img className='logoRedSocial' src="../imagenes/whatsapp.png" alt="logo_whatsapp" />
             <img className='logoRedSocial' src="../imagenes/twitter.png" alt="logo_twitter" />
           </div>
-          
+          <a href="https://wa.me/+573057778896" target="_blank" rel="noopener noreferrer">
+          <FontAwesomeIcon icon={faWhatsapp} size="2x" className='logoRedSocial whatsapp-icon'/>
+          </a>
         </div>
       </div>
     </footer>

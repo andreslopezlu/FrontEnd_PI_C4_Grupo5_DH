@@ -45,7 +45,17 @@ const Politicas = () => {
             Devuelva las herramientas en el mismo estado en que las recibió. Se aplicarán tarifas por limpieza y mantenimiento si es necesario.
           </p>
         </div>
-        
+
+        {/* Política 6 */}
+        <div className="politica">
+          <h3>Privacidad y Seguridad</h3>
+          <p>
+          alquiConstruye respeta su privacidad. Recopilamos información personal sobre usted cuando utiliza nuestros servicios, como su nombre, dirección de correo electrónico, número de teléfono e información de pago. Usamos esta información para proporcionarle nuestros servicios, para fines de marketing y para cumplir con las obligaciones legales.
+          </p>
+          <p>
+          Si tiene alguna pregunta sobre esta política de privacidad, puede ponerse en contacto con nosotros en nuestra dirección de correo electrónico.
+          </p>
+        </div>
       </div>
     </div>
   );

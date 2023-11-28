@@ -945,10 +945,9 @@ h4 {
 }
 
 /* para la pagina de contacto */
-/* Contact.css */
 .contact-container {
     text-align: center;
-    padding: 20px;
+    padding: 150px;
 }
 
 .contact-heading {
@@ -1334,9 +1333,62 @@ h4 {
     text-align: center;
 }
 
+
+
 @media (max-width:700px) {
 
     .popup {
         width: 300px;
     }
 }
+
+
+/* Whatsapp */
+.whatsapp-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25d366; 
+    padding: 20px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.whatsapp-icon:hover {
+    background-color: #128c7e; /* Color de fondo al pasar el mouse */
+}
+
+/* Estilos para el overlay del modal favoritos */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  /* Estilos para el modal en sí */
+  .modal {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  /* Estilos para el botón de cerrar */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px; 
+    height: 30px;
+    cursor: pointer;
+  }
