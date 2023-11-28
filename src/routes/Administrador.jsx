@@ -34,8 +34,6 @@ function Administrador(producto) {
         };
     }, []);
 
-
-
     const listarProductos = () => {
         setProductos([]);
         setVerTablaProductos(true)
