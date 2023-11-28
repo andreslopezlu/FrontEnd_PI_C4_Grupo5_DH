@@ -15,7 +15,7 @@ function Administrador(producto) {
 
     const verificarAcceso = () => {
         const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-        if (!infoLocalStorage || infoLocalStorage.role !== 'ADMIN') {
+        if (!infoLocalStorage || infoLocalStorage.role !== 'ADMIN, USER') {
             return <Navigate to="/home" />;
         }
     }
