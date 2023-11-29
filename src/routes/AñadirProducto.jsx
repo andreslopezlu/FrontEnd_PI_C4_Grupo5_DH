@@ -11,10 +11,10 @@ function AñadirProducto() {
 
   const verificarAcceso = () => {
     const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-    if (!infoLocalStorage || infoLocalStorage.role !== 'ADMIN') {
-      return <Navigate to="/home" />;
+    if (infoLocalStorage.role !== 'ADMIN') {
+        return <Navigate to="/home" />;
     }
-  }
+}
 
   const [categorias, setCategorias] = useState([]);
   const [ciudades, setCiudades] = useState([]);
@@ -82,7 +82,7 @@ function AñadirProducto() {
       })
       .catch(error => {
         console.error(error);
-        alert("Usuario no fue creado");
+        alert("Producto no fue creado");
       });
 
   }
@@ -92,7 +92,7 @@ function AñadirProducto() {
 
     // Agregar cada archivo al formData con el nombre 'file'
     for (const file of selectedFiles) {
-      formData.append('file', file); // Asegúrate de que el nombre sea 'file' ya que asi esta en el back
+      formData.append('file', file); // El nombre es 'file' ya que asi esta en el back
     }
 
     const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));

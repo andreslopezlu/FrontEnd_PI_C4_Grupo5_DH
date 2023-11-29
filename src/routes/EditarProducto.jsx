@@ -11,10 +11,10 @@ function EditarProducto() {
 
   const verificarAcceso = () => {
     const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-    if (!infoLocalStorage || infoLocalStorage.role !== 'ADMIN') {
-      return <Navigate to="/home" />;
+    if (infoLocalStorage.role !== 'ADMIN') {
+        return <Navigate to="/home" />;
     }
-  }
+}
 
   const [categorias, setCategorias] = useState([]);
   const [ciudades, setCiudades] = useState([]);

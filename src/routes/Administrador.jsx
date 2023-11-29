@@ -11,11 +11,13 @@ function Administrador(producto) {
     const [isMobile, setIsMobile] = useState(false);
     const [productos, setProductos] = useState([]);
     const [verTablaProductos, setVerTablaProductos] = useState(false);
+    const [categorias, setCategorias] = useState([]);
+    const [verTablaCategorias, setVerTablaCategorias] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const verificarAcceso = () => {
         const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-        if (!infoLocalStorage || infoLocalStorage.role !== 'ADMIN, USER') {
+        if (infoLocalStorage.role !== 'ADMIN') {
             return <Navigate to="/home" />;
         }
     }
@@ -34,9 +36,12 @@ function Administrador(producto) {
         };
     }, []);
 
+    //------------------------ Listar Producto--------------------------
+
     const listarProductos = () => {
         setProductos([]);
         setVerTablaProductos(true)
+        setVerTablaCategorias(false)
         setLoading(true)
         axios.get("http://localhost:8080/products")
             .then((res) => {
@@ -49,9 +54,10 @@ function Administrador(producto) {
             });
     }
 
+    //------------------- Eliminar Producto -------------------------
+
     const eliminarProducto = (id) => {
         const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-        console.log(infoLocalStorage.jwt);
         axios.delete(`http://localhost:8080/products/delete/${id}`, {
             headers: {
                 'Authorization': `Bearer ${infoLocalStorage.jwt}`
@@ -80,36 +86,111 @@ function Administrador(producto) {
         }
     }
 
+    //--------------------- Listar Categoria ----------------------------
+
+
+    const listarCategorias = () => {
+        setCategorias([]);
+        setVerTablaProductos(false)
+        setVerTablaCategorias(true)
+        setLoading(true)
+        axios.get("http://localhost:8080/categories")
+            .then((res) => {
+                setCategorias(res.data)
+                setLoading(false)
+                // recargarProductos();
+            })
+            .catch((error) => {
+                console.error("Error al obtener datos de la API: ", error);
+            });
+    }
+
+    //------------------- Eliminar Categoria -------------------------
+
+    const eliminarCategoria = (id) => {
+        const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+        axios.delete(`http://localhost:8080/categories/delete/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${infoLocalStorage.jwt}`
+            }
+        }
+        ).then((res) => {
+            listarCategorias();
+        })
+            .catch((error) => {
+                if (error.response) {
+                    console.error("Error en la respuesta del servidor: ", error.response.data);
+                } else {
+                    console.error("Error al realizar la solicitud: ", error.message);
+                }
+            });
+    }
+
+    const confirmEliminarCategoria = (id, name) => {
+        const resultado = confirm(`Deseas eliminar la categoria ${name}`)
+        if (resultado) {
+            eliminarCategoria(id)
+            alert(`Categoria ${name} eliminada`);
+        }
+        else {
+            console.log("Categoria no eliminada")
+        }
+    }
+
+
+    // ------------------------------------------------------------------
+
     return (
         <div>
             {verificarAcceso()}
             <h2 className='h2Administracion'>ADMINISTRACIÓN</h2>
             {isMobile ? (
                 <div className='alert-message'>
-                    <Link to='/home'><img className='formImgSalir' src="../imagenes/salir.png" alt="" /></Link>
+                    <Link to='/home'><img className='formImgSalir salirAdmin' src="../imagenes/salir.png" alt="" /></Link>
                     <img className='imgNoDisponibleAdmin' src="../imagenes/admin_no_disponible.png" alt="" />
                     <h3>El panel de administración no está disponible desde dispositivos móviles.</h3>
                 </div>
             ) : (
-                //opciones pandel administracion
+                //opciones panel administracion
                 <div>
-                    <div className='productos'>
-                        <Link to='/administrador/añadir_producto'>
-                            <button className='boton'>AGREGAR</button>
-                        </Link>
-                        <button className='boton' onClick={listarProductos}>
-                            LISTAR
-                        </button>
+                    <div className='opcionesAdmin'>
+                        <div className='panelProductos'>
+                            <h3>Productos</h3>
+                            <Link to='/administrador/añadir_producto'>
+                                <button className='boton'>Agregar</button>
+                            </Link>
+                            <button className='boton' onClick={listarProductos}>
+                                Listar
+                            </button>
+                        </div>
+                        <div className='panelProductos'>
+                            <h3>Categorias</h3>
+                            <Link to='/administrador/añadir_categoria'>
+                                <button className='boton'>Agregar</button>
+                            </Link>
+                            <button className='boton' onClick={listarCategorias}>
+                                Listar
+                            </button>
+                        </div>
                     </div>
+
                     {verTablaProductos && (
                         <div>
                             <table className='productList'>
                                 <thead>
                                     <tr>
+                                        <th
+                                            colSpan="4"
+                                            className='tituloTabla'
+                                        >
+                                            Productos
+                                        </th>
+                                    </tr>
+                                    <tr>
                                         <th>ID</th>
                                         <th>Nombre</th>
                                         <th>Precio</th>
-                                        <th className='columnaAccion'>Acción</th>
+                                        <th className='columnaAccionProduco'>Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -124,6 +205,50 @@ function Administrador(producto) {
                                                     <button
                                                         className='boton botonEditarEliminarProducto'
                                                         onClick={() => confirmEliminarProducto(producto.id, producto.name)}
+                                                    >Eliminar</button>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            {loading &&
+                                <div className='cargandoProducto'>
+                                    <img className='gifCargandoProducto' src="../imagenes/cargando1.gif" alt="" />
+                                </div>}
+                        </div>
+                    )}
+
+                    {verTablaCategorias && (
+                        <div>
+                            <table className='productList'>
+                                <thead>
+                                    <tr>
+                                        <th
+                                            colSpan="3"
+                                            className='tituloTabla'
+                                        >
+                                            Categorias
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th className='columnaNombreCategoria'>Nombre</th>
+                                        <th className='columnaAccionCategoria'>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {categorias.map((categoria) => (
+                                        <tr key={categoria.id}>
+                                            <td>{categoria.id}</td>
+                                            <td>{categoria.name}</td>
+                                            <td className='tdBoton'>
+                                                <div>
+                                                    <Link to={`/administrador/editar_producto/${producto.id}`}><button className='boton botonEditarEliminarProducto'>Editar</button></Link>
+                                                    <button
+                                                        className='boton botonEditarEliminarProducto'
+                                                        onClick={() => confirmEliminarCategoria(categoria.id, categoria.name)}
                                                     >Eliminar</button>
                                                 </div>
 

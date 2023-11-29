@@ -529,15 +529,159 @@ a {
     }
 }
 
-/* ------------------ Productos ----------------------*/
+/* ---------------- Administracion -------------------*/
 
-.productos {
+.salirAdmin {
+    z-index: 1;
+}
+
+.alert-message {
+    position: relative;
+    height: 300px;
+    width: 300px;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    background-color: #F7F7F7;
+    color: #FF0000;
+    border: 1px solid #c9c9c9;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgNoDisponibleAdmin {
+    position: absolute;
+}
+
+.alert-message h3 {
+    width: 250px;
+}
+
+.productList {
+    width: 70%;
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+.productList th,
+.productList td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    text-align: center;
+}
+
+.productList th {
+    background-color: #f2f2f2;
+}
+
+.productList tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.productList tr:hover {
+    background-color: #ddd;
+}
+
+.columnaAccionProduco {
+    width: 150px;
+}
+
+.columnaAccionCategoria {
+    width: 200px;
+}
+
+.columnaNombreCategoria{
+    width: 600px;
+}
+
+.tdBoton div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardMessageConfirm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.cardMessageConfirmcontent {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+
+.botonEditarEliminarProducto {
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px;
+    width: 60px;
+    height: 30px;
+}
+
+.cargandoProducto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gifCargandoProducto {
+    width: 50px;
+    border-radius: 100%;
+    box-shadow: 4px 4px 8px rgb(236, 172, 88, 0.5)
+}
+
+/* Editar Producto */
+
+.botonSalirEditarProductos {
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 25px;
+    /* text-align: center; */
+}
+
+/* ------------------ Opciones Administacion ----------------------*/
+
+.opcionesAdmin{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.panelProductos {
     height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
+}
+
+.panelProductos h3{
+    color: #DF922F;
+    font-size: 25px;
 }
 
 .h2Administracion {
@@ -547,8 +691,8 @@ a {
     font-size: 30px;
 }
 
-.productos button {
-    width: 400px;
+.panelProductos button {
+    width: 200px;
     height: 65px;
     border: none;
     border-radius: 10px;
@@ -557,21 +701,18 @@ a {
     color: #000000;
 }
 
-.productos button a {
+.panelProductos button a {
     color: #000000;
+}
+
+.tituloTabla{
+    text-align: center;
+    font-size: 25px;
+    height: 60px;
 }
 
 @media (max-width:860px) {
 
-    .productos {
-        height: 260px;
-    }
-
-    .productos button {
-        width: 250px;
-        height: 50px;
-        font-size: 18px;
-    }
 
 }
 
@@ -671,7 +812,7 @@ textarea  */
     margin: 50px;
 }
 
-.imgVolverProductos{
+.imgVolverProductos {
     position: absolute;
     top: -100px;
     right: -40px;
@@ -793,7 +934,7 @@ textarea  */
     align-self: center;
 }
 
-.botonesSlider{
+.botonesSlider {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -802,7 +943,7 @@ textarea  */
     width: 170px;
 }
 
-.botonDesplazarImg{
+.botonDesplazarImg {
     border: none;
     border-radius: 8px;
     padding: 8px;
@@ -1064,129 +1205,6 @@ h4 {
 }
 
 
-
-
-/* ---------------- Administracion -------------------*/
-.alert-message {
-    position: relative;
-    height: 300px;
-    width: 300px;
-    margin: auto;
-    margin-top: 40px;
-    margin-bottom: 20px;
-    background-color: #F7F7F7;
-    color: #FF0000;
-    border: 1px solid #c9c9c9;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 20px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.imgNoDisponibleAdmin {
-    position: absolute;
-}
-
-.alert-message h3 {
-    width: 250px;
-}
-
-.productList {
-    width: 70%;
-    border-collapse: collapse;
-    margin: 20px auto;
-}
-
-.productList th,
-.productList td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-    text-align: center;
-}
-
-.productList th {
-    background-color: #f2f2f2;
-}
-
-.productList tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.productList tr:hover {
-    background-color: #ddd;
-}
-
-.columnaAccion {
-    width: 150px;
-}
-
-.tdBoton div{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-
-
-.cardMessageConfirm {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.cardMessageConfirmcontent {
-    background: white;
-    padding: 20px;
-    border-radius: 5px;
-    text-align: center;
-}
-
-
-.botonEditarEliminarProducto {
-    border: none;
-    border-radius: 10px;
-    padding: 5px;
-    margin: 5px;
-    width: 60px;
-    height: 30px;
-}
-
-.cargandoProducto {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.gifCargandoProducto {
-    width: 50px;
-    border-radius: 100%;
-    box-shadow: 4px 4px 8px rgb(236, 172, 88, 0.5)
-}
-
-/* Editar Producto */
-
-.botonSalirEditarProductos{
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 25px;
-    /* text-align: center; */
-}
-
 /* ---------------- Ofertas -------------------*/
 
 .image-container {
@@ -1348,7 +1366,7 @@ h4 {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #25d366; 
+    background-color: #25d366;
     padding: 20px;
     border-radius: 50%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -1356,7 +1374,8 @@ h4 {
 }
 
 .whatsapp-icon:hover {
-    background-color: #128c7e; /* Color de fondo al pasar el mouse */
+    background-color: #128c7e;
+    /* Color de fondo al pasar el mouse */
 }
 
 /* Estilos para el overlay del modal favoritos */
@@ -1371,24 +1390,24 @@ h4 {
     justify-content: center;
     align-items: center;
     z-index: 1000;
-  }
-  
-  /* Estilos para el modal en sí */
-  .modal {
+}
+
+/* Estilos para el modal en sí */
+.modal {
     background: #fff;
     padding: 20px;
     border-radius: 8px;
     position: relative;
     max-width: 400px;
     width: 100%;
-  }
-  
-  /* Estilos para el botón de cerrar */
-  .close-button {
+}
+
+/* Estilos para el botón de cerrar */
+.close-button {
     position: absolute;
     top: 10px;
     right: 10px;
-    width: 30px; 
+    width: 30px;
     height: 30px;
     cursor: pointer;
-  }
+}
