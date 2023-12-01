@@ -31,7 +31,13 @@ function AñadirCategoria() {
             description: categoriaDescripcion
         }
 
-        formData.append('category', JSON.stringify(dataCategoria));
+        const dataCategoriaJson = JSON.stringify(dataCategoria);
+
+        const dataCategoriaBlob = new Blob([dataCategoriaJson], {type: "application/json"})
+
+        formData.append('file', selectedFile[0]);
+
+        formData.append('category', dataCategoriaBlob);
 
         const config = {
             headers: {
@@ -66,7 +72,7 @@ function AñadirCategoria() {
 
     return (
         <div className='añadirProductos'>
-            {/* {verificarAcceso()} */}
+            {verificarAcceso()}
             <h2>AGREGAR CATEGORIA</h2>
             <div className='formAñadirProducto'>
                 <Link to='/administrador'><img className='formImgSalir' src="../imagenes/salir.png" alt="" /></Link>
