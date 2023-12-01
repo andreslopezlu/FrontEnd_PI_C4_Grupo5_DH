@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ProductContext } from '../componets/utils/ProductoContext';
 import axios from 'axios';
+import ShareModal from '../componets/ShareModal';
 
 function Detalles() {
     const params = useParams();
@@ -41,7 +42,17 @@ function Detalles() {
                 console.error("Error al obtener datos de la API: ", error);
             });
     }, [idProducto]);
-    
+
+    const [showModal, setShowModal] = useState(false);
+
+    const openModal = () => {
+        setShowModal(true);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+    };
+
     // console.table(producto);
     // console.log(producto);
 
@@ -117,7 +128,11 @@ function Detalles() {
                     <p>{producto && producto.specifications}</p>
                     <p><b>Categoria:</b> {producto && producto.category.name}</p>
                     <p><b>Precio:</b> ${producto && producto.costPerDay}/día</p>
+                    <div className='botonesSlider'>
+                    <button className='boton botonAlquilarProducto' onClick={openModal}>COMPARTIR</button>
+                        {showModal && <ShareModal producto={producto} onClose={closeModal} />}
                     <button className='boton botonAlquilarProducto'>ALQUILAR</button>
+                    </div>
                 </div>
             </div>
         </div>
