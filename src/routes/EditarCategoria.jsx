@@ -95,7 +95,7 @@ function EditarCategoria() {
 
     return (
         <div className='añadirProductos'>
-            {/* {verificarAcceso()} */}
+            {verificarAcceso()}
             <h2>EDITAR CATEGORIA ID: {categoria.id}</h2>
             <div className='formAñadirProducto'>
             <Link to='/administrador'><img className='formImgSalir' src="../../public/imagenes/salir.png" alt="" /></Link>
