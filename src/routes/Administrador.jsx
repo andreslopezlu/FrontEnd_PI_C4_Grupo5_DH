@@ -186,7 +186,7 @@ function Administrador() {
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th>ID</th>
+                                        <th className='columnaId'>ID</th>
                                         <th>Nombre</th>
                                         <th>Precio</th>
                                         <th className='columnaAccionProduco'>Acción</th>
@@ -232,8 +232,9 @@ function Administrador() {
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th>ID</th>
-                                        <th className='columnaNombreCategoria'>Nombre</th>
+                                        <th
+                                        className='columnaId'>ID</th>
+                                        <th className=''>Nombre</th>
                                         <th className='columnaAccionCategoria'>Acción</th>
                                     </tr>
                                 </thead>

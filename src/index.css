@@ -618,6 +618,10 @@ a {
     width: 600px;
 }
 
+.columnaId{
+    width: 80px;
+}
+
 .tdBoton div {
     display: flex;
     flex-direction: row;
