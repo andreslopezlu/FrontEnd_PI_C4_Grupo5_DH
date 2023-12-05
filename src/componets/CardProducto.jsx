@@ -1,25 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 import Modal from './Modal';
-
 
 function CardProducto(props) {
   const [favorito, setFavorito] = useState(false);
   const [mostrarModal, setMostrarModal] = useState(false);
 
-  const toggleFavorito = () => {
-    const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+  const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+  const userId = infoLocalStorage ? infoLocalStorage.userId : null;
 
-    // Verificar si el usuario tiene el rol de USER
-    if (!infoLocalStorage || infoLocalStorage.role !== 'ADMIN') {
-      // Mostrar el modal en lugar de cambiar el estado de favorito
-      setMostrarModal(true);
-    } else {
-      // Cambiar el estado de favorito normalmente
+  const toggleFavorito = async () => {
+    const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+  
+    if (infoLocalStorage && (infoLocalStorage.role === 'ADMIN' || infoLocalStorage.role === 'USER')) {
       setFavorito(!favorito);
+  
+      /* const userId = infoLocalStorage.id;  // Asegúrate de que userId esté definido */
+      /* alert(userId); */
+      if (userId) {
+        const registrarFavorito = {
+          product: {
+            id: props.id,
+          },
+          user: {
+            id: userId,
+          },
+        };
+        
+        axios.post("http://localhost:8080/favorites/create", registrarFavorito)
+          .then(response => {
+            alert("Favorito creado");
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.error(error);
+            alert("Favorito no fue creado");
+          });
+      } else {
+        // Manejo apropiado cuando userId no está definido
+        console.error("Error: No se pudo obtener el ID del usuario desde localStorage.");
+      }
+    } else {
+      // Mostrar el modal de autenticación en lugar de cambiar el estado de favorito
+      setMostrarModal(true);
     }
   };
 
@@ -27,7 +54,9 @@ function CardProducto(props) {
     setMostrarModal(false);
   };
 
+
   return (
+    
     <div className='CardProducto'>
       <div className='CardFavoritoIcon' onClick={toggleFavorito}>
         <FontAwesomeIcon
