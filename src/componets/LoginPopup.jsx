@@ -12,7 +12,7 @@ function LoginPopup({ onClose }) {
   return (
     <div className="popup">
       <button className="close-button" onClick={onClose}>
-        <img src="../imagenes/close.png" alt="Cerrar" />
+        <img src="../../public/imagenes/close.png" alt="Cerrar" />
       </button>
       <h2>Iniciar Sesión</h2>
       <form onSubmit={handleLogin}>

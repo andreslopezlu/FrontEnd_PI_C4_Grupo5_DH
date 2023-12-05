@@ -24,7 +24,7 @@ function AñadirCategoria() {
         const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
 
         const formData = new FormData();
-        formData.append('file', selectedFile);
+        // formData.append('file', selectedFile);
 
         const dataCategoria = {
             name: categoriaNombre,
@@ -33,7 +33,7 @@ function AñadirCategoria() {
 
         const dataCategoriaJson = JSON.stringify(dataCategoria);
 
-        const dataCategoriaBlob = new Blob([dataCategoriaJson], {type: "application/json"})
+        const dataCategoriaBlob = new Blob([dataCategoriaJson], { type: "application/json" })
 
         formData.append('file', selectedFile[0]);
 
@@ -59,12 +59,12 @@ function AñadirCategoria() {
 
         // Esto es para ver por consola el contenido de formData
 
-        const logFormData = (formData) => {
-            for (const pair of formData.entries()) {
-                console.log(`${pair[0]}, ${pair[1]}`);
-            }
-        };
-        logFormData(formData);
+        // const logFormData = (formData) => {
+        //     for (const pair of formData.entries()) {
+        //         console.log(`${pair[0]}, ${pair[1]}`);
+        //     }
+        // };
+        // logFormData(formData);
 
         //-----------------------------------------------------
 
@@ -75,7 +75,7 @@ function AñadirCategoria() {
             {verificarAcceso()}
             <h2>AGREGAR CATEGORIA</h2>
             <div className='formAñadirProducto'>
-                <Link to='/administrador'><img className='formImgSalir' src="../imagenes/salir.png" alt="" /></Link>
+                <Link to='/administrador'><img className='formImgSalir' src="../../public/imagenes/salir.png" alt="" /></Link>
                 <form
                     ref={form}
                     onSubmit={handleSubmit}

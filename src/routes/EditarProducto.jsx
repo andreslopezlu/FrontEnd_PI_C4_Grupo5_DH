@@ -179,8 +179,8 @@ function EditarProducto() {
       {verificarAcceso()}
       <h2>EDITAR PRODUCTO ID: {producto.id}</h2>
       <div className='formAñadirProducto'>
-        {/* <Link to='/administrador'><img className='formImgSalir' src="../imagenes/salir.png" alt="" /></Link> */}
-        <Link to='/administrador'><p className='boton botonSalirEditarProductos formImgSalir'>X</p></Link>
+        <Link to='/administrador'><img className='formImgSalir' src="../../public/imagenes/salir.png" alt="" /></Link>
+        {/* <Link to='/administrador'><p className='boton botonSalirEditarProductos formImgSalir'>X</p></Link> */}
         <form
           // ref={form}
           onSubmit={handleSubmit}

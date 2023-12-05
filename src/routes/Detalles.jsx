@@ -25,7 +25,6 @@ function Detalles() {
         axios.get(`http://localhost:8080/products/${idProducto}`)
             .then((res) => {
                 const product = res.data;
-
                 obtenerImagenes(product.id)
                     .then((imagenes) => {
                         setProducto({
@@ -69,7 +68,7 @@ function Detalles() {
                     <Link to="/producto">
                         <img
                             className="imgVolverProductos"
-                            src="../imagenes/salir.png"
+                            src="../../public/imagenes/salir.png"
                             alt=""
                         />
                     </Link>

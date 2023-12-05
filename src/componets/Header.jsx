@@ -166,8 +166,8 @@ function Header() {
     <div>
       <div className='header'>
         <div className='logo_menu'>
-          <Link to='/home'><img className='logoPage' src="../imagenes/logo.png" alt="logo" /></Link>
-          <img className='menuImg' src="../imagenes/menu.png" alt="logo" />
+          <Link to='/home'><img className='logoPage' src="../../public/imagenes/logo.png" alt="logo" /></Link>
+          <img className='menuImg' src="../../public/imagenes/menu.png" alt="logo" />
         </div>
         <div>
           <nav className=''>
@@ -194,7 +194,7 @@ function Header() {
         </div>
         {/* <div className='headerBusqueda'>
           <input type="busqueda" placeholder='¿Qué estás buscando?' />
-          <img className='headerLogoLupa' src="../imagenes/logo_lupa.png" alt="logo_lupa" />
+          <img className='headerLogoLupa' src="../../public/imagenes/logo_lupa.png" alt="logo_lupa" />
         </div> */}
         {!isLoggedIn && (
           <div className='header_iniciarSesion'>
@@ -208,7 +208,7 @@ function Header() {
         )}
         {isLoggedIn && (
           <div className='header_iniciarSesion'>
-            {/* <img src="../imagenes/logo_iniciar_sesion.png" alt="logo_iniciar_sesion" /> */}
+            {/* <img src="../../public/imagenes/logo_iniciar_sesion.png" alt="logo_iniciar_sesion" /> */}
             <p className='inicialesUser'>
               <span>{nombreUsuario}</span><span>{apellidoUsuario}</span>
             </p>
@@ -225,12 +225,12 @@ function Header() {
         <div className="popup-bg">
           <div className="popup">
             <button className="close-button" onClick={closeLoginPopup}>
-              <img className="close-button-img" src="../imagenes/salir.png" alt="Cerrar" />
+              <img className="close-button-img" src="../../public/imagenes/salir.png" alt="Cerrar" />
             </button>
             <h2 className="popup-title">Iniciar Sesión</h2>
             <form onSubmit={handleLogin}>
               <div className="input-container">
-                <img src="../imagenes/iconousuario.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
                 <input
                   type="text"
                   value={loginUsername}
@@ -240,7 +240,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/iconocontrasena.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconocontrasena.svg" className="custom-icon" />
                 <input
                   type="password"
                   value={loginPassword}
@@ -261,13 +261,13 @@ function Header() {
         <div className="popup-bg">
           <div className="popup">
             <button className="close-button" onClick={closeSignupPopup}>
-              <img className="close-button-img" src="../imagenes/salir.png" alt="Cerrar" />
+              <img className="close-button-img" src="../../public/imagenes/salir.png" alt="Cerrar" />
             </button>
             <h2 className="popup-title">Crear Cuenta</h2>
             <form onSubmit={handleSignup}>
 
               <div className="input-container">
-                <img src="../imagenes/iconousuario.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
                 <input
                   type="text"
                   value={signupUser}
@@ -277,7 +277,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/iconocorreo.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconocorreo.svg" className="custom-icon" />
                 <input
                   type="email"
                   value={signupEmail}
@@ -287,7 +287,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/iconocontrasena.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconocontrasena.svg" className="custom-icon" />
                 <input
                   type="password"
                   value={signupPassword}
@@ -296,7 +296,7 @@ function Header() {
                 />
               </div>
               <div className="input-container">
-                <img src="../imagenes/iconocontrasena.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconocontrasena.svg" className="custom-icon" />
                 <input
                   type="password"
                   value={signupConfirmPassword}
@@ -308,7 +308,7 @@ function Header() {
               {/* ------------------------------------------------------------ */}
 
               <div className="input-container">
-                <img src="../imagenes/iconousuario.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
                 <input
                   type="text"
                   value={signupName}
@@ -318,7 +318,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/iconousuario.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
                 <input
                   type="text"
                   value={signupLastName}
@@ -328,7 +328,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/telefono_ico.png" className="custom-icon" />
+                <img src="../../public/imagenes/telefono_ico.png" className="custom-icon" />
                 <input
                   type="number"
                   value={signupPhoneNumber}
@@ -338,7 +338,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/ubicacion_ico.png" className="custom-icon" />
+                <img src="../../public/imagenes/ubicacion_ico.png" className="custom-icon" />
                 <select
                   className='estilosForm'
                   name='ciudad'
@@ -356,7 +356,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/ubicacion_ico.png" className="custom-icon" />
+                <img src="../../public/imagenes/ubicacion_ico.png" className="custom-icon" />
                 <select
                   className='estilosForm'
                   name='role'
@@ -378,7 +378,7 @@ function Header() {
         </div>
       )}
       <div className='imgFondo'>
-        <img src="../imagenes/fondo.png" alt="img_fondo" />
+        <img src="../../public/imagenes/fondo.png" alt="img_fondo" />
         <h1>ALQUILER DE HERRAMIENTAS</h1>
         <p>Construyendo Futuro Juntos</p>
       </div>

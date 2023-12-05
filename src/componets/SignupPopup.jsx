@@ -14,7 +14,7 @@ function SignupPopup({ onClose }) {
   return (
     <div className="popup">
       <button className="close-button" onClick={onClose}>
-        <img src="../imagenes/close.png" alt="Cerrar" />
+        <img src="../../public/imagenes/close.png" alt="Cerrar" />
       </button>
       <h2>Crear Cuenta</h2>
       <form onSubmit={handleSignup}>

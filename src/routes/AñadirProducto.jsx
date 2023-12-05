@@ -119,7 +119,7 @@ function AñadirProducto() {
       {verificarAcceso()}
       <h2>AGREGAR PRODUCTO</h2>
       <div className='formAñadirProducto'>
-        <Link to='/administrador'><img className='formImgSalir' src="../imagenes/salir.png" alt="" /></Link>
+        <Link to='/administrador'><img className='formImgSalir' src="../../public/imagenes/salir.png" alt="" /></Link>
         <form
           ref={form}
           onSubmit={handleSubmit}
