@@ -5,15 +5,8 @@ import { ProductContext } from '../componets/utils/ProductoContext';
 
 function AñadirCategoria() {
 
-    const { recargarProductos } = useContext(ProductContext);
+    const { recargarProductos, verificarAcceso } = useContext(ProductContext);
     const form = useRef();
-
-    const verificarAcceso = () => {
-        const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-        if (infoLocalStorage.role !== 'ADMIN') {
-            return <Navigate to="/home" />;
-        }
-    }
 
     const [categoriaNombre, setCategoriaNombre] = useState('');
     const [categoriaDescripcion, setCategoriaDescripcion] = useState('');
@@ -51,6 +44,7 @@ function AñadirCategoria() {
                 console.log("Categoria creada");
                 console.log(response.data);
                 form.current.reset();
+                recargarProductos();
             })
             .catch(error => {
                 console.error(error);

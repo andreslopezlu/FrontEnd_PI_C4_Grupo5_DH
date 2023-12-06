@@ -6,15 +6,8 @@ import { ProductContext } from '../componets/utils/ProductoContext';
 function EditarProducto() {
   const params = useParams();
   const idProducto = parseInt(params.id);
-  const { recargarProductos } = useContext(ProductContext);
+  const { recargarProductos, verificarAcceso } = useContext(ProductContext);
   const form = useRef();
-
-  const verificarAcceso = () => {
-    const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-    if (infoLocalStorage.role !== 'ADMIN') {
-        return <Navigate to="/home" />;
-    }
-}
 
   const [categorias, setCategorias] = useState([]);
   const [ciudades, setCiudades] = useState([]);
@@ -169,7 +162,7 @@ function EditarProducto() {
 
   const navigate = useNavigate();
 
-  const volver = () =>{
+  const volver = () => {
     navigate('/administrador');
   }
 

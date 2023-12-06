@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios'
 import ErrorInisioSesion from './ErrorInisioSesion';
+import MenuMobile from './MenuMobile';
 
 
 function Header() {
@@ -16,8 +17,8 @@ function Header() {
   const [rol, setRole] = useState('')
   const [isAdmin, setIsAdmin] = useState(false);
   const [jwt, setJwt] = useState('');
-  const [nombreUsuario , setNombreUsuario] = useState('');
-  const [apellidoUsuario , setApellidoUsuario] = useState('');
+  const [nombreUsuario, setNombreUsuario] = useState('');
+  const [apellidoUsuario, setApellidoUsuario] = useState('');
 
 
   //------------------Logica Ver Pagina Admin------------
@@ -69,6 +70,7 @@ function Header() {
   const cerrarSesion = () => {
     setIsLoggedIn(false);
     setIsAdmin(false);
+    setCerrarSesionMenu(false);
     setJwt('');
     localStorage.clear();
   }
@@ -160,14 +162,21 @@ function Header() {
 
   };
 
-  //--------------------------------------------------------------
+  //-----------------------Menu mobile-------------------------
+
+  const [cerrarSesionMenu, setCerrarSesionMenu] = useState(false)
+
+  const menuCerrarSeionToggle = () => {
+    setCerrarSesionMenu(!cerrarSesionMenu);
+  }
+
 
   return (
     <div>
       <div className='header'>
-        <div className='logo_menu'>
-          <Link to='/home'><img className='logoPage' src="../../public/imagenes/logo.png" alt="logo" /></Link>
-          <img className='menuImg' src="../../public/imagenes/menu.png" alt="logo" />
+        <div className='logoPageDiv'>
+          <MenuMobile />
+          <Link to='/home'><img className='logoPageImg' src="../../public/imagenes/logo.png" alt="logo" /></Link>
         </div>
         <div>
           <nav className=''>
@@ -177,7 +186,7 @@ function Header() {
                   <Link to='/home'>HOME</Link>
                 </li>
                 {/* <li>
-                  <Link to='/favs'>OFERTAS</Link>
+                  <Link to='/favs'>Favoritos</Link>
                 </li> */}
                 <li>
                   <Link to='/producto'>PRODUCTOS</Link>
@@ -192,10 +201,6 @@ function Header() {
             </div>
           </nav>
         </div>
-        {/* <div className='headerBusqueda'>
-          <input type="busqueda" placeholder='¿Qué estás buscando?' />
-          <img className='headerLogoLupa' src="../../public/imagenes/logo_lupa.png" alt="logo_lupa" />
-        </div> */}
         {!isLoggedIn && (
           <div className='header_iniciarSesion'>
             <button className='boton' onClick={openLoginPopup}>
@@ -207,16 +212,20 @@ function Header() {
           </div>
         )}
         {isLoggedIn && (
-          <div className='header_iniciarSesion'>
-            {/* <img src="../../public/imagenes/logo_iniciar_sesion.png" alt="logo_iniciar_sesion" /> */}
-            <p className='inicialesUser'>
+          <div className='header_iniciarSesionMobile'>
+            <p
+              className='inicialesUser'
+              onClick={menuCerrarSeionToggle}
+            >
               <span>{nombreUsuario}</span><span>{apellidoUsuario}</span>
             </p>
-            <Link to='/home'>
-              <button className='boton' onClick={cerrarSesion}>
-                Cerrar Sesión
-              </button>
-            </Link>
+            {cerrarSesionMenu && (
+              <Link to='/home'>
+                <button className='boton' onClick={cerrarSesion}>
+                  Cerrar Sesión
+                </button>
+              </Link>
+            )}
           </div>
         )}
       </div>

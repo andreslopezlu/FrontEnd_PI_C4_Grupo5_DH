@@ -6,16 +6,9 @@ import { ProductContext } from '../componets/utils/ProductoContext';
 
 function AñadirProducto() {
 
-  const {recargarProductos} = useContext(ProductContext);
+  const {recargarProductos , verificarAcceso} = useContext(ProductContext);
   const form = useRef();
-
-  const verificarAcceso = () => {
-    const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-    if (infoLocalStorage.role !== 'ADMIN') {
-        return <Navigate to="/home" />;
-    }
-}
-
+  
   const [categorias, setCategorias] = useState([]);
   const [ciudades, setCiudades] = useState([]);
 

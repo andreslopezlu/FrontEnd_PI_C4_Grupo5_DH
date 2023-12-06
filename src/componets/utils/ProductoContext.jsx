@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -60,8 +61,15 @@ export const ProductContextProvider = ({ children }) => {
         setReloadProducts((prev) => !prev);
     };
 
+    const verificarAcceso = () => {
+        const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+        if (!infoLocalStorage || infoLocalStorage.role !== 'ADMIN') {
+            return <Navigate to="/home" />;
+        }
+    }
+
     return (
-        <ProductContext.Provider value={{ productos, categorias, recargarProductos }}>
+        <ProductContext.Provider value={{ productos, categorias, recargarProductos, verificarAcceso }}>
             {children}
         </ProductContext.Provider>
     );

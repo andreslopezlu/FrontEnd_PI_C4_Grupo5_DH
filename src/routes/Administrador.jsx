@@ -7,20 +7,13 @@ import { ProductContext } from '../componets/utils/ProductoContext';
 
 function Administrador() {
 
-    const { recargarProductos } = useContext(ProductContext);
+    const { recargarProductos, verificarAcceso } = useContext(ProductContext);
     const [isMobile, setIsMobile] = useState(false);
     const [productos, setProductos] = useState([]);
     const [verTablaProductos, setVerTablaProductos] = useState(false);
     const [categorias, setCategorias] = useState([]);
     const [verTablaCategorias, setVerTablaCategorias] = useState(false);
     const [loading, setLoading] = useState(false);
-
-    const verificarAcceso = () => {
-        const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-        if (infoLocalStorage.role !== 'ADMIN') {
-            return <Navigate to="/home" />;
-        }
-    }
 
     useEffect(() => {
         const handleResize = () => {

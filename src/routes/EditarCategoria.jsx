@@ -1,17 +1,11 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import { NavLink, Link, Navigate, useParams, useNavigate } from 'react-router-dom'
+import { NavLink, Link, useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
 function EditarCategoria() {
     const params = useParams();
     const idCategoria = parseInt(params.id);
-    // const { recargarProductos } = useContext(ProductContext);
-    const verificarAcceso = () => {
-        const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-        if (infoLocalStorage.role !== 'ADMIN') {
-            return <Navigate to="/home" />;
-        }
-    }
+    const { recargarProductos, verificarAcceso } = useContext(ProductContext);
 
     const [categoria, setCategoria] = useState({
         name: '',
@@ -73,6 +67,7 @@ function EditarCategoria() {
             .then(response => {
                 console.log("Categoria editada");
                 alert("Categoria editada");
+                recargarProductos();
                 volver();
             })
             .catch(error => {
