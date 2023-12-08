@@ -16,6 +16,9 @@ import Detalles from './routes/Detalles.jsx'
 import Politicas from './routes/Politicas';
 import EditarCategoria from './routes/EditarCategoria.jsx'
 import ProductosPorCategoria from './routes/ProductosPorCategoria.jsx'
+import ReservaProducto from './routes/ReservaProducto.jsx'
+import Login from './routes/Login.jsx'
+import Registro from './routes/Registro.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -23,10 +26,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Routes>
           <Route path='/' element={<App />}>
             <Route path='/' element={<Navigate to={"/home"} />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/registro' element={<Registro />} />
             <Route path='/home' element={<Home />} />
             <Route path='/contacto' element={<Contacto />} />
             <Route path='/producto' element={<Producto />} />
             <Route path='/producto/:id' element={<Detalles />} />
+            <Route path='/producto/:productId/reserva' element={<ReservaProducto />} />
             <Route path='/administrador/añadir_producto' element={<AñadirProducto />} />
             <Route path='/administrador/editar_producto/:id' element={<EditarProducto />} />
             <Route path='/producto/by-category/:categoria' element={<ProductosPorCategoria />} />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import axios from 'axios'
 import ErrorInisioSesion from './ErrorInisioSesion';
 import MenuMobile from './MenuMobile';
@@ -19,6 +19,34 @@ function Header() {
   const [jwt, setJwt] = useState('');
   const [nombreUsuario, setNombreUsuario] = useState('');
   const [apellidoUsuario, setApellidoUsuario] = useState('');
+  const location = useLocation();
+
+  useEffect(() => {
+    verificarEstadoSesion();
+  }, [location.pathname]);
+
+
+  const verificarEstadoSesion = () => {
+    const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+
+    if (infoLocalStorage) {
+      const role = infoLocalStorage.role;
+      setRole(role);
+      if (role === 'ADMIN') {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
+
+      setJwt(infoLocalStorage.jwt);
+      setIsLoggedIn(true);
+      setNombreUsuario((infoLocalStorage.name).charAt(0).toUpperCase());
+      setApellidoUsuario((infoLocalStorage.lastname).charAt(0).toUpperCase());
+    } else {
+      setIsLoggedIn(false);
+      setIsAdmin(false);
+    }
+  };
 
 
   //------------------Logica Ver Pagina Admin------------

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ProductContext } from '../componets/utils/ProductoContext';
 import axios from 'axios';
 import ShareModal from '../componets/ShareModal';
@@ -8,6 +8,7 @@ import 'react-calendar/dist/Calendar.css';
 import '../Calendar.css'
 
 function Detalles() {
+    const navigate = useNavigate();
     const params = useParams();
     const idProducto = parseInt(params.id);
 
@@ -24,19 +25,31 @@ function Detalles() {
 
     const obtenerFechasReservadas = () => {
         axios.get(`http://localhost:8080/reservations/by-product/${idProducto}`)
-        .then((res) => {
-            const reservas = res.data;
-            const fechasOcupadas = reservas.map((reserva) => ({
-                start: new Date(reserva.check_in_date),
-                end: new Date(reserva.checkout_date),
-            })).filter((reserva) => reserva.end >= fechaActual);
-            setFechasReservadas(fechasOcupadas);
+            .then((res) => {
+                const reservas = res.data;
+    
+                const fechasOcupadas = reservas.map((reserva) => ({
+                    start: ajustarDiferenciaHoraria(new Date(reserva.check_in_date)),
+                    end: ajustarDiferenciaHoraria(new Date(reserva.checkout_date)),
+                })).filter((reserva) => reserva.end >= fechaActual);
+    
+                setFechasReservadas(fechasOcupadas);
+                setError(null);
+            })
+            .catch((error) => {
+                if (error.response && error.response.status === 404) {
+                    setFechasReservadas([]);
+                } else {
+                    console.error("Error al obtener fechas reservadas: ", error);
+                    setError("Error al obtener fechas reservadas. Intente nuevamente más tarde.");
+                }
+            });
+    };
 
-        })
-        .catch((error) => {
-            console.error("Error al obtener fechas reservadas: ", error);
-            setError("Error al obtener fechas reservadas. Intente nuevamente más tarde.");
-        });
+    const ajustarDiferenciaHoraria = (fecha) => {
+        const fechaAjustada = new Date(fecha);
+        fechaAjustada.setHours(fechaAjustada.getHours() + 5);
+        return fechaAjustada;
     };
 
     const obtenerImagenes = (productId) => {
@@ -161,18 +174,13 @@ function Detalles() {
     };
 
     const handleReservaClick = () => {
-        
-        const usuarioLoggeado = () => {
-            const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-            if (!infoLocalStorage) {
-                return true;
-            }
-        }
+        const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
     
-        if (usuarioLoggeado) {
-            history.push(`/producto/${idProducto}/reserva`);
+        if (infoLocalStorage && fechaInicioSeleccionada && fechaFinSeleccionada) {
+            navigate(`/producto/${idProducto}/reserva?fechaInicio=${fechaInicioSeleccionada.toISOString().split('T')[0]}&fechaFin=${fechaFinSeleccionada.toISOString().split('T')[0]}`);
         } else {
-            history.push('/login');
+            const currentUrl = window.location.pathname + window.location.search;
+            navigate(`/login?redirect=${encodeURIComponent(currentUrl)}`);
         }
     };
 
