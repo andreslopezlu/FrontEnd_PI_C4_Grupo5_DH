@@ -5,15 +5,8 @@ import { ProductContext } from '../componets/utils/ProductoContext';
 
 function AñadirCategoria() {
 
-    const { recargarProductos } = useContext(ProductContext);
+    const { recargarProductos, verificarAcceso } = useContext(ProductContext);
     const form = useRef();
-
-    const verificarAcceso = () => {
-        const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-        if (infoLocalStorage.role !== 'ADMIN') {
-            return <Navigate to="/home" />;
-        }
-    }
 
     const [categoriaNombre, setCategoriaNombre] = useState('');
     const [categoriaDescripcion, setCategoriaDescripcion] = useState('');
@@ -24,7 +17,7 @@ function AñadirCategoria() {
         const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
 
         const formData = new FormData();
-        formData.append('file', selectedFile);
+        // formData.append('file', selectedFile);
 
         const dataCategoria = {
             name: categoriaNombre,
@@ -33,7 +26,7 @@ function AñadirCategoria() {
 
         const dataCategoriaJson = JSON.stringify(dataCategoria);
 
-        const dataCategoriaBlob = new Blob([dataCategoriaJson], {type: "application/json"})
+        const dataCategoriaBlob = new Blob([dataCategoriaJson], { type: "application/json" })
 
         formData.append('file', selectedFile[0]);
 
@@ -51,6 +44,7 @@ function AñadirCategoria() {
                 console.log("Categoria creada");
                 console.log(response.data);
                 form.current.reset();
+                recargarProductos();
             })
             .catch(error => {
                 console.error(error);
@@ -59,12 +53,12 @@ function AñadirCategoria() {
 
         // Esto es para ver por consola el contenido de formData
 
-        const logFormData = (formData) => {
-            for (const pair of formData.entries()) {
-                console.log(`${pair[0]}, ${pair[1]}`);
-            }
-        };
-        logFormData(formData);
+        // const logFormData = (formData) => {
+        //     for (const pair of formData.entries()) {
+        //         console.log(`${pair[0]}, ${pair[1]}`);
+        //     }
+        // };
+        // logFormData(formData);
 
         //-----------------------------------------------------
 
@@ -75,7 +69,7 @@ function AñadirCategoria() {
             {verificarAcceso()}
             <h2>AGREGAR CATEGORIA</h2>
             <div className='formAñadirProducto'>
-                <Link to='/administrador'><img className='formImgSalir' src="../imagenes/salir.png" alt="" /></Link>
+                <Link to='/administrador'><img className='formImgSalir' src="../../public/imagenes/salir.png" alt="" /></Link>
                 <form
                     ref={form}
                     onSubmit={handleSubmit}

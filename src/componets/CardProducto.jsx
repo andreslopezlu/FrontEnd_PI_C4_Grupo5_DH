@@ -72,16 +72,14 @@ function CardProducto(props) {
       <div className='CardProductoInfo'>
         <h5>{props.name}</h5>
         <p>{props.precio} <span>COP / Día</span></p>
-        {/* Botón de Alquilar */}
         {props.mostrarBotonAlquilar && <Link to={`/producto/${props.id}`}><button className='boton'>ALQUILAR</button></Link>}
-        {/* Botón de Eliminar */}
         {props.mostrarBotonEliminar && <button className='boton'>Eliminar</button>}
 
         {mostrarModal && (
-        <Modal onClose={cerrarModal}>
-          <p>Debes iniciar sesión para marcar como favorito.</p>
-        </Modal>
-      )}
+          <Modal onClose={cerrarModal}>
+            <p>Debes iniciar sesión para marcar como favorito.</p>
+          </Modal>
+        )}
       </div>
     </div>
   );

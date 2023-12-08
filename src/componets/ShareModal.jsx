@@ -32,7 +32,7 @@ const ShareModal = ({ producto, onClose }) => {
         <div className="modal">
             <img
             className="close-button"
-            src="../imagenes/salir.png"
+            src="../../public/imagenes/salir.png"
             alt="Cerrar"
             onClick={onClose}
             />

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios'
 import ErrorInisioSesion from './ErrorInisioSesion';
+import MenuMobile from './MenuMobile';
 
 
 function Header() {
@@ -16,8 +17,8 @@ function Header() {
   const [rol, setRole] = useState('')
   const [isAdmin, setIsAdmin] = useState(false);
   const [jwt, setJwt] = useState('');
-  const [nombreUsuario , setNombreUsuario] = useState('');
-  const [apellidoUsuario , setApellidoUsuario] = useState('');
+  const [nombreUsuario, setNombreUsuario] = useState('');
+  const [apellidoUsuario, setApellidoUsuario] = useState('');
 
 
   //------------------Logica Ver Pagina Admin------------
@@ -69,6 +70,7 @@ function Header() {
   const cerrarSesion = () => {
     setIsLoggedIn(false);
     setIsAdmin(false);
+    setCerrarSesionMenu(false);
     setJwt('');
     localStorage.clear();
   }
@@ -160,14 +162,21 @@ function Header() {
 
   };
 
-  //--------------------------------------------------------------
+  //-----------------------Menu mobile-------------------------
+
+  const [cerrarSesionMenu, setCerrarSesionMenu] = useState(false)
+
+  const menuCerrarSeionToggle = () => {
+    setCerrarSesionMenu(!cerrarSesionMenu);
+  }
+
 
   return (
     <div>
       <div className='header'>
-        <div className='logo_menu'>
-          <Link to='/home'><img className='logoPage' src="../imagenes/logo.png" alt="logo" /></Link>
-          <img className='menuImg' src="../imagenes/menu.png" alt="logo" />
+        <div className='logoPageDiv'>
+          <MenuMobile />
+          <Link to='/home'><img className='logoPageImg' src="../../public/imagenes/logo.png" alt="logo" /></Link>
         </div>
         <div>
           <nav className=''>
@@ -177,7 +186,7 @@ function Header() {
                   <Link to='/home'>HOME</Link>
                 </li>
                 {/* <li>
-                  <Link to='/favs'>OFERTAS</Link>
+                  <Link to='/favs'>Favoritos</Link>
                 </li> */}
                 <li>
                   <Link to='/producto'>PRODUCTOS</Link>
@@ -192,10 +201,6 @@ function Header() {
             </div>
           </nav>
         </div>
-        {/* <div className='headerBusqueda'>
-          <input type="busqueda" placeholder='¿Qué estás buscando?' />
-          <img className='headerLogoLupa' src="../imagenes/logo_lupa.png" alt="logo_lupa" />
-        </div> */}
         {!isLoggedIn && (
           <div className='header_iniciarSesion'>
             <button className='boton' onClick={openLoginPopup}>
@@ -207,16 +212,20 @@ function Header() {
           </div>
         )}
         {isLoggedIn && (
-          <div className='header_iniciarSesion'>
-            {/* <img src="../imagenes/logo_iniciar_sesion.png" alt="logo_iniciar_sesion" /> */}
-            <p className='inicialesUser'>
+          <div className='header_iniciarSesionMobile'>
+            <p
+              className='inicialesUser'
+              onClick={menuCerrarSeionToggle}
+            >
               <span>{nombreUsuario}</span><span>{apellidoUsuario}</span>
             </p>
-            <Link to='/home'>
-              <button className='boton' onClick={cerrarSesion}>
-                Cerrar Sesión
-              </button>
-            </Link>
+            {cerrarSesionMenu && (
+              <Link to='/home'>
+                <button className='boton' onClick={cerrarSesion}>
+                  Cerrar Sesión
+                </button>
+              </Link>
+            )}
           </div>
         )}
       </div>
@@ -225,12 +234,12 @@ function Header() {
         <div className="popup-bg">
           <div className="popup">
             <button className="close-button" onClick={closeLoginPopup}>
-              <img className="close-button-img" src="../imagenes/salir.png" alt="Cerrar" />
+              <img className="close-button-img" src="../../public/imagenes/salir.png" alt="Cerrar" />
             </button>
             <h2 className="popup-title">Iniciar Sesión</h2>
             <form onSubmit={handleLogin}>
               <div className="input-container">
-                <img src="../imagenes/iconousuario.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
                 <input
                   type="text"
                   value={loginUsername}
@@ -240,7 +249,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/iconocontrasena.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconocontrasena.svg" className="custom-icon" />
                 <input
                   type="password"
                   value={loginPassword}
@@ -261,13 +270,13 @@ function Header() {
         <div className="popup-bg">
           <div className="popup">
             <button className="close-button" onClick={closeSignupPopup}>
-              <img className="close-button-img" src="../imagenes/salir.png" alt="Cerrar" />
+              <img className="close-button-img" src="../../public/imagenes/salir.png" alt="Cerrar" />
             </button>
             <h2 className="popup-title">Crear Cuenta</h2>
             <form onSubmit={handleSignup}>
 
               <div className="input-container">
-                <img src="../imagenes/iconousuario.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
                 <input
                   type="text"
                   value={signupUser}
@@ -277,7 +286,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/iconocorreo.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconocorreo.svg" className="custom-icon" />
                 <input
                   type="email"
                   value={signupEmail}
@@ -287,7 +296,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/iconocontrasena.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconocontrasena.svg" className="custom-icon" />
                 <input
                   type="password"
                   value={signupPassword}
@@ -296,7 +305,7 @@ function Header() {
                 />
               </div>
               <div className="input-container">
-                <img src="../imagenes/iconocontrasena.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconocontrasena.svg" className="custom-icon" />
                 <input
                   type="password"
                   value={signupConfirmPassword}
@@ -308,7 +317,7 @@ function Header() {
               {/* ------------------------------------------------------------ */}
 
               <div className="input-container">
-                <img src="../imagenes/iconousuario.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
                 <input
                   type="text"
                   value={signupName}
@@ -318,7 +327,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/iconousuario.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
                 <input
                   type="text"
                   value={signupLastName}
@@ -328,7 +337,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/telefono_ico.png" className="custom-icon" />
+                <img src="../../public/imagenes/telefono_ico.png" className="custom-icon" />
                 <input
                   type="number"
                   value={signupPhoneNumber}
@@ -338,7 +347,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/ubicacion_ico.png" className="custom-icon" />
+                <img src="../../public/imagenes/ubicacion_ico.png" className="custom-icon" />
                 <select
                   className='estilosForm'
                   name='ciudad'
@@ -356,7 +365,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/ubicacion_ico.png" className="custom-icon" />
+                <img src="../../public/imagenes/ubicacion_ico.png" className="custom-icon" />
                 <select
                   className='estilosForm'
                   name='role'
@@ -378,7 +387,7 @@ function Header() {
         </div>
       )}
       <div className='imgFondo'>
-        <img src="../imagenes/fondo.png" alt="img_fondo" />
+        <img src="../../public/imagenes/fondo.png" alt="img_fondo" />
         <h1>ALQUILER DE HERRAMIENTAS</h1>
         <p>Construyendo Futuro Juntos</p>
       </div>

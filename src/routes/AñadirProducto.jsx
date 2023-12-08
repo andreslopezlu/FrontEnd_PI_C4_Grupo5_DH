@@ -6,16 +6,9 @@ import { ProductContext } from '../componets/utils/ProductoContext';
 
 function AñadirProducto() {
 
-  const {recargarProductos} = useContext(ProductContext);
+  const {recargarProductos , verificarAcceso} = useContext(ProductContext);
   const form = useRef();
-
-  const verificarAcceso = () => {
-    const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-    if (infoLocalStorage.role !== 'ADMIN') {
-        return <Navigate to="/home" />;
-    }
-}
-
+  
   const [categorias, setCategorias] = useState([]);
   const [ciudades, setCiudades] = useState([]);
 
@@ -119,7 +112,7 @@ function AñadirProducto() {
       {verificarAcceso()}
       <h2>AGREGAR PRODUCTO</h2>
       <div className='formAñadirProducto'>
-        <Link to='/administrador'><img className='formImgSalir' src="../imagenes/salir.png" alt="" /></Link>
+        <Link to='/administrador'><img className='formImgSalir' src="../../public/imagenes/salir.png" alt="" /></Link>
         <form
           ref={form}
           onSubmit={handleSubmit}

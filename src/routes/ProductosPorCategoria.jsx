@@ -1,14 +1,52 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { ProductContext } from '../componets/utils/ProductoContext';
 import CardCategorias from '../componets/CardCategorias';
 import CardProducto from '../componets/CardProducto';
 import ReactPaginate from 'react-paginate';
-import { ProductContext } from '../componets/utils/ProductoContext';
+import axios from 'axios';
 
 
-function Producto() {
+function ProductosPorCategoria() {
 
-    const { productos, categorias } = useContext(ProductContext);
+    const params = useParams();
+    const nombreCategoria = params.categoria;
+    const { categorias } = useContext(ProductContext);
+    const [productos, setProductos] = useState([]);
+
+    const obtenerImagenes = (productId) => {
+        return axios.get(`http://localhost:8080/images/product/${productId}`)
+            .then((imgres) => imgres.data)
+            .catch((error) => {
+                console.error("Error al obtener datos de imágenes de la API: ", error);
+                return [];
+            });
+    };
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/products/by-category/${nombreCategoria}`)
+            .then((res) => {
+                const promesasImagenes = res.data.map((producto) => {
+                    return obtenerImagenes(producto.id)
+                        .then((imagenes) => ({
+                            ...producto,
+                            img: imagenes,
+                        }));
+                });
+
+                Promise.all(promesasImagenes)
+                    .then((productosConImagenes) => {
+                        setProductos(productosConImagenes);
+                    })
+                    .catch((error) => {
+                        console.error("Error al obtener datos de la API: ", error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error al obtener datos de la API: ", error);
+            });
+    }, [nombreCategoria])
 
     const [currentPage, setCurrentPage] = useState(0);
     const [productosPorPagina, setProductosPorPagina] = useState(10);
@@ -21,8 +59,6 @@ function Producto() {
     const handlePageClick = ({ selected }) => {
         setCurrentPage(selected);
     };
-
-    
 
     return (
         <div>
@@ -38,7 +74,7 @@ function Producto() {
                     ))}
                 </div>
             </div>
-            <h2 className='homeH2'>Productos</h2>
+            <h2 className='homeH2'>Productos de categoria: {nombreCategoria}</h2>
             <div className='categorias recomendados'>
                 <div className='homeCardCategorias homeCardProductos'>
                     {currentProducts.map(props => (
@@ -56,7 +92,6 @@ function Producto() {
                 </div>
                 {totalPages > 1 && (
                     <div className="pagination">
-                        {/* <button className='botonFirst' onClick={() => handlePageClick({ selected: 0 })}>&lt;&lt;</button> */}
                         <ReactPaginate
                             previousLabel={'<'}
                             nextLabel={'>'}
@@ -77,4 +112,4 @@ function Producto() {
     )
 }
 
-export default Producto
+export default ProductosPorCategoria

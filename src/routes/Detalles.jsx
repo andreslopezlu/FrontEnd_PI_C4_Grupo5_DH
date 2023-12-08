@@ -184,7 +184,7 @@ function Detalles() {
                     <Link to="/producto">
                         <img
                             className="imgVolverProductos"
-                            src="../imagenes/salir.png"
+                            src="../../public/imagenes/salir.png"
                             alt=""
                         />
                     </Link>
