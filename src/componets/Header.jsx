@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import axios from 'axios'
 import ErrorInisioSesion from './ErrorInisioSesion';
+import MenuMobile from './MenuMobile';
 
 
 function Header({ setReloadProductos }) {
@@ -17,10 +18,38 @@ function Header({ setReloadProductos }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isUser, setIsUser] = useState(false);
   const [jwt, setJwt] = useState('');
-  const [nombreUsuario , setNombreUsuario] = useState('');
-  const [apellidoUsuario , setApellidoUsuario] = useState('');
   const [userId, setUserId] = useState(null);
-  const navigate = useNavigate();
+  const [nombreUsuario, setNombreUsuario] = useState('');
+  const [apellidoUsuario, setApellidoUsuario] = useState('');
+  const location = useLocation();
+
+  useEffect(() => {
+    verificarEstadoSesion();
+  }, [location.pathname]);
+
+
+  const verificarEstadoSesion = () => {
+    const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+
+    if (infoLocalStorage) {
+      const role = infoLocalStorage.role;
+      setRole(role);
+      if (role === 'ADMIN') {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
+
+      setJwt(infoLocalStorage.jwt);
+      setIsLoggedIn(true);
+      setNombreUsuario((infoLocalStorage.name).charAt(0).toUpperCase());
+      setApellidoUsuario((infoLocalStorage.lastname).charAt(0).toUpperCase());
+    } else {
+      setIsLoggedIn(false);
+      setIsAdmin(false);
+    }
+  };
+
 
   //------------------Logica Ver Pagina Admin------------
 
@@ -85,6 +114,7 @@ function Header({ setReloadProductos }) {
     setIsLoggedIn(false);
     setIsAdmin(false);
     setIsUser(false);
+    setCerrarSesionMenu(false);
     setJwt('');
     localStorage.clear();
   }
@@ -108,8 +138,6 @@ function Header({ setReloadProductos }) {
       setIsLoggedIn(true);
       setNombreUsuario((res.data.name).charAt(0).toUpperCase());
       setApellidoUsuario((res.data.lastname).charAt(0).toUpperCase());
-      // Redirigir al usuario a la página de inicio
-      navigate('/producto');
 
       // Realizar la solicitud para obtener el ID del usuario
       const correoUsuario = loginUsername;
@@ -143,9 +171,6 @@ const obtenerIdUsuario = async (correoUsuario) => {
   }
 };
 
-
-
-    
 
   //------------------- Registrar Usuario -----------------------
 
@@ -210,15 +235,22 @@ const obtenerIdUsuario = async (correoUsuario) => {
 
   };
 
-  //--------------------------------------------------------------
+  //-----------------------Menu mobile-------------------------
+
+  const [cerrarSesionMenu, setCerrarSesionMenu] = useState(false)
+
+  const menuCerrarSeionToggle = () => {
+    setCerrarSesionMenu(!cerrarSesionMenu);
+  }
+
 
   return (
     
     <div>
       <div className='header'>
-        <div className='logo_menu'>
-          <Link to='/home'><img className='logoPage' src="../imagenes/logo.png" alt="logo" /></Link>
-          <img className='menuImg' src="../imagenes/menu.png" alt="logo" />
+        <div className='logoPageDiv'>
+          <MenuMobile />
+          <Link to='/home'><img className='logoPageImg' src="../../public/imagenes/logo.png" alt="logo" /></Link>
         </div>
         <div>
           <nav className=''>
@@ -228,7 +260,7 @@ const obtenerIdUsuario = async (correoUsuario) => {
                   <Link to='/home'>HOME</Link>
                 </li>
                 {/* <li>
-                  <Link to='/favs'>OFERTAS</Link>
+                  <Link to='/favs'>Favoritos</Link>
                 </li> */}
                 <li>
                   <Link to='/producto'>PRODUCTOS</Link>
@@ -258,10 +290,6 @@ const obtenerIdUsuario = async (correoUsuario) => {
             </div>
           </nav>
         </div>
-        {/* <div className='headerBusqueda'>
-          <input type="busqueda" placeholder='¿Qué estás buscando?' />
-          <img className='headerLogoLupa' src="../imagenes/logo_lupa.png" alt="logo_lupa" />
-        </div> */}
         {!isLoggedIn && (
           <div className='header_iniciarSesion'>
             <button className='boton' onClick={openLoginPopup}>
@@ -273,16 +301,20 @@ const obtenerIdUsuario = async (correoUsuario) => {
           </div>
         )}
         {isLoggedIn && (
-          <div className='header_iniciarSesion'>
-            {/* <img src="../imagenes/logo_iniciar_sesion.png" alt="logo_iniciar_sesion" /> */}
-            <p className='inicialesUser'>
+          <div className='header_iniciarSesionMobile'>
+            <p
+              className='inicialesUser'
+              onClick={menuCerrarSeionToggle}
+            >
               <span>{nombreUsuario}</span><span>{apellidoUsuario}</span>
             </p>
-            <Link to='/home'>
-              <button className='boton' onClick={cerrarSesion}>
-                Cerrar Sesión
-              </button>
-            </Link>
+            {cerrarSesionMenu && (
+              <Link to='/home'>
+                <button className='boton' onClick={cerrarSesion}>
+                  Cerrar Sesión
+                </button>
+              </Link>
+            )}
           </div>
         )}
       </div>
@@ -291,12 +323,12 @@ const obtenerIdUsuario = async (correoUsuario) => {
         <div className="popup-bg">
           <div className="popup">
             <button className="close-button" onClick={closeLoginPopup}>
-              <img className="close-button-img" src="../imagenes/salir.png" alt="Cerrar" />
+              <img className="close-button-img" src="../../public/imagenes/salir.png" alt="Cerrar" />
             </button>
             <h2 className="popup-title">Iniciar Sesión</h2>
             <form onSubmit={handleLogin}>
               <div className="input-container">
-                <img src="../imagenes/iconousuario.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
                 <input
                   type="text"
                   value={loginUsername}
@@ -306,7 +338,7 @@ const obtenerIdUsuario = async (correoUsuario) => {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/iconocontrasena.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconocontrasena.svg" className="custom-icon" />
                 <input
                   type="password"
                   value={loginPassword}
@@ -327,13 +359,13 @@ const obtenerIdUsuario = async (correoUsuario) => {
         <div className="popup-bg">
           <div className="popup">
             <button className="close-button" onClick={closeSignupPopup}>
-              <img className="close-button-img" src="../imagenes/salir.png" alt="Cerrar" />
+              <img className="close-button-img" src="../../public/imagenes/salir.png" alt="Cerrar" />
             </button>
             <h2 className="popup-title">Crear Cuenta</h2>
             <form onSubmit={handleSignup}>
 
               <div className="input-container">
-                <img src="../imagenes/iconousuario.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
                 <input
                   type="text"
                   value={signupUser}
@@ -343,7 +375,7 @@ const obtenerIdUsuario = async (correoUsuario) => {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/iconocorreo.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconocorreo.svg" className="custom-icon" />
                 <input
                   type="email"
                   value={signupEmail}
@@ -353,7 +385,7 @@ const obtenerIdUsuario = async (correoUsuario) => {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/iconocontrasena.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconocontrasena.svg" className="custom-icon" />
                 <input
                   type="password"
                   value={signupPassword}
@@ -362,7 +394,7 @@ const obtenerIdUsuario = async (correoUsuario) => {
                 />
               </div>
               <div className="input-container">
-                <img src="../imagenes/iconocontrasena.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconocontrasena.svg" className="custom-icon" />
                 <input
                   type="password"
                   value={signupConfirmPassword}
@@ -374,7 +406,7 @@ const obtenerIdUsuario = async (correoUsuario) => {
               {/* ------------------------------------------------------------ */}
 
               <div className="input-container">
-                <img src="../imagenes/iconousuario.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
                 <input
                   type="text"
                   value={signupName}
@@ -384,7 +416,7 @@ const obtenerIdUsuario = async (correoUsuario) => {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/iconousuario.svg" className="custom-icon" />
+                <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
                 <input
                   type="text"
                   value={signupLastName}
@@ -394,7 +426,7 @@ const obtenerIdUsuario = async (correoUsuario) => {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/telefono_ico.png" className="custom-icon" />
+                <img src="../../public/imagenes/telefono_ico.png" className="custom-icon" />
                 <input
                   type="number"
                   value={signupPhoneNumber}
@@ -404,7 +436,7 @@ const obtenerIdUsuario = async (correoUsuario) => {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/ubicacion_ico.png" className="custom-icon" />
+                <img src="../../public/imagenes/ubicacion_ico.png" className="custom-icon" />
                 <select
                   className='estilosForm'
                   name='ciudad'
@@ -422,7 +454,7 @@ const obtenerIdUsuario = async (correoUsuario) => {
               </div>
 
               <div className="input-container">
-                <img src="../imagenes/ubicacion_ico.png" className="custom-icon" />
+                <img src="../../public/imagenes/ubicacion_ico.png" className="custom-icon" />
                 <select
                   className='estilosForm'
                   name='role'
@@ -444,7 +476,7 @@ const obtenerIdUsuario = async (correoUsuario) => {
         </div>
       )}
       <div className='imgFondo'>
-        <img src="../imagenes/fondo.png" alt="img_fondo" />
+        <img src="../../public/imagenes/fondo.png" alt="img_fondo" />
         <h1>ALQUILER DE HERRAMIENTAS</h1>
         <p>Construyendo Futuro Juntos</p>
       </div>

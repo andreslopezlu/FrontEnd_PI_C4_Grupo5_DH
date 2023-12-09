@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 
 // Crear el contexto
@@ -6,18 +7,21 @@ export const ProductContext = createContext();
 
 // Crear el proveedor del contexto
 export const ProductContextProvider = ({ children }) => {
-const [reloadProducts, setReloadProducts] = useState(false);
-const [productos, setProductos] = useState([]);
 
-const obtenerImagenes = (productId) => {
-    return axios
-    .get(`http://localhost:8080/images/product/${productId}`)
-    .then((imgres) => imgres.data)
-    .catch((error) => {
-        console.error("Error al obtener datos de imágenes de la API: ", error);
-        return [];
-    });
-};
+    const [reloadProducts, setReloadProducts] = useState(false);
+    const [productos, setProductos] = useState([]);
+    const [categorias, setCategorias] = useState([]);
+
+
+    const obtenerImagenes = (productId) => {
+        return axios.get(`http://localhost:8080/images/product/${productId}`)
+            .then((imgres) => imgres.data)
+            .catch((error) => {
+                console.error("Error al obtener datos de imágenes de la API: ", error);
+                return [];
+                //En caso de error, la función devuelve un array vacío ([]). Esto se hace para que, en caso de error, la función siempre devuelva algo y no cause problemas cuando se use más adelante.
+            });
+    };
 
 useEffect(() => {
     axios
@@ -31,32 +35,43 @@ useEffect(() => {
             }));
         });
 
-        Promise.all(promesasImagenes)
-        .then((productosConImagenes) => {
-            setProductos(productosConImagenes);
-        })
-        .catch((error) => {
-            console.error("Error al obtener datos de la API: ", error);
-        });
-    })
-    .catch((error) => {
-        console.error("Error al obtener datos de la API: ", error);
-    });
+                Promise.all(promesasImagenes)
+                    .then((productosConImagenes) => {
+                        setProductos(productosConImagenes);
+                    })
+                    .catch((error) => {
+                        console.error("Error al obtener datos de la API: ", error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error al obtener datos de la API: ", error);
+            });
+    }, [reloadProducts]);
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/categories')
+            .then((res) => {
+                setCategorias(res.data)
+            }).catch((error) => {
+                console.error("Error al obtener datos de la API: ", error);
+            });
+    }, [reloadProducts])
 
 
-}, [reloadProducts]);
+    const recargarProductos = () => {
+        setReloadProducts((prev) => !prev);
+    };
 
-const recargarProductos = () => {
-    setReloadProducts((prev) => !prev);
-};
-
-
-
-return (
-    <ProductContext.Provider
-    value={{ productos, recargarProductos}}
-    >
-    {children}
-    </ProductContext.Provider>
-);
+    const verificarAcceso = () => {
+        const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+        if (!infoLocalStorage || infoLocalStorage.role !== 'ADMIN') {
+            return <Navigate to="/home" />;
+        }
+    }
+    
+    return (
+        <ProductContext.Provider value={{ productos, categorias, recargarProductos, verificarAcceso }}>
+            {children}
+        </ProductContext.Provider>
+    );
 };

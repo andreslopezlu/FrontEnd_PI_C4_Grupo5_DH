@@ -9,7 +9,7 @@ function Footer() {
     <footer>
       <div className='footer'>
         <div className='divLogoFooter'>
-          <img className='logoFooter' src="../imagenes/logo.png" alt="logo" />
+          <img className='logoFooter' src="../../public/imagenes/logo.png" alt="logo" />
           <p className='copyright'>Copyright © 1999-2023 </p>
           <p className='copyright'>AlquiConstruye S.R.L.</p>
           <Link to='/Politicas' className='copyright-politicas'>Ver Políticas de la Empresa</Link> 
@@ -55,10 +55,10 @@ function Footer() {
           <h4>SIGUENOS</h4>
           <div className='footer_logos'>
           
-            <img className='logoRedSocial' src="../imagenes/facebook.png" alt="logo_facebook" />
-            <img className='logoRedSocial' src="../imagenes/messenger.png" alt="logo_messenger" />
-            <img className='logoRedSocial' src="../imagenes/instagram.png" alt="logo_instagram" />
-            <img className='logoRedSocial' src="../imagenes/twitter.png" alt="logo_twitter" />
+            <img className='logoRedSocial' src="../../public/imagenes/facebook.png" alt="logo_facebook" />
+            <img className='logoRedSocial' src="../../public/imagenes/messenger.png" alt="logo_messenger" />
+            <img className='logoRedSocial' src="../../public/imagenes/instagram.png" alt="logo_instagram" />
+            <img className='logoRedSocial' src="../../public/imagenes/twitter.png" alt="logo_twitter" />
           </div>
           <a href="https://wa.me/+573057778896" target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon icon={faWhatsapp} size="2x" className='logoRedSocial whatsapp-icon'/>

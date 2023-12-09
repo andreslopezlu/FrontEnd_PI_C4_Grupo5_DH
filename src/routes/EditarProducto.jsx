@@ -6,15 +6,8 @@ import { ProductContext } from '../componets/utils/ProductoContext';
 function EditarProducto() {
   const params = useParams();
   const idProducto = parseInt(params.id);
-  const { recargarProductos } = useContext(ProductContext);
+  const { recargarProductos, verificarAcceso } = useContext(ProductContext);
   const form = useRef();
-
-  const verificarAcceso = () => {
-    const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-    if (infoLocalStorage.role !== 'ADMIN') {
-        return <Navigate to="/home" />;
-    }
-}
 
   const [categorias, setCategorias] = useState([]);
   const [ciudades, setCiudades] = useState([]);
@@ -169,7 +162,7 @@ function EditarProducto() {
 
   const navigate = useNavigate();
 
-  const volver = () =>{
+  const volver = () => {
     navigate('/administrador');
   }
 
@@ -179,8 +172,8 @@ function EditarProducto() {
       {verificarAcceso()}
       <h2>EDITAR PRODUCTO ID: {producto.id}</h2>
       <div className='formAñadirProducto'>
-        {/* <Link to='/administrador'><img className='formImgSalir' src="../imagenes/salir.png" alt="" /></Link> */}
-        <Link to='/administrador'><p className='boton botonSalirEditarProductos formImgSalir'>X</p></Link>
+        <Link to='/administrador'><img className='formImgSalir' src="../../public/imagenes/salir.png" alt="" /></Link>
+        {/* <Link to='/administrador'><p className='boton botonSalirEditarProductos formImgSalir'>X</p></Link> */}
         <form
           // ref={form}
           onSubmit={handleSubmit}

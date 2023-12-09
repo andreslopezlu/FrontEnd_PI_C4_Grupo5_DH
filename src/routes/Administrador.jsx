@@ -5,22 +5,15 @@ import CardMessageConfirm from '../componets/CardMessageConfirm';
 import { ProductContext } from '../componets/utils/ProductoContext';
 
 
-function Administrador(producto) {
+function Administrador() {
 
-    const { recargarProductos } = useContext(ProductContext);
+    const { recargarProductos, verificarAcceso } = useContext(ProductContext);
     const [isMobile, setIsMobile] = useState(false);
     const [productos, setProductos] = useState([]);
     const [verTablaProductos, setVerTablaProductos] = useState(false);
     const [categorias, setCategorias] = useState([]);
     const [verTablaCategorias, setVerTablaCategorias] = useState(false);
     const [loading, setLoading] = useState(false);
-
-    const verificarAcceso = () => {
-        const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-        if (infoLocalStorage.role !== 'ADMIN') {
-            return <Navigate to="/home" />;
-        }
-    }
 
     useEffect(() => {
         const handleResize = () => {
@@ -76,10 +69,10 @@ function Administrador(producto) {
     }
 
     const confirmEliminarProducto = (id, name) => {
-        const resultado = confirm(`Deseas eliminar el producto ${name}`)
+        const resultado = confirm(`Deseas eliminar el producto "${name}"`)
         if (resultado) {
             eliminarProducto(id)
-            alert(`Producto ${name} eliminado`);
+            alert(`Producto "${name}" eliminado`);
         }
         else {
             console.log("producto no eliminado")
@@ -98,7 +91,7 @@ function Administrador(producto) {
             .then((res) => {
                 setCategorias(res.data)
                 setLoading(false)
-                // recargarProductos();
+                recargarProductos();
             })
             .catch((error) => {
                 console.error("Error al obtener datos de la API: ", error);
@@ -127,10 +120,10 @@ function Administrador(producto) {
     }
 
     const confirmEliminarCategoria = (id, name) => {
-        const resultado = confirm(`Deseas eliminar la categoria ${name}`)
+        const resultado = confirm(`Deseas eliminar la categoria "${name}"`)
         if (resultado) {
             eliminarCategoria(id)
-            alert(`Categoria ${name} eliminada`);
+            alert(`Categoria "${name}" eliminada`);
         }
         else {
             console.log("Categoria no eliminada")
@@ -146,8 +139,8 @@ function Administrador(producto) {
             <h2 className='h2Administracion'>ADMINISTRACIÓN</h2>
             {isMobile ? (
                 <div className='alert-message'>
-                    <Link to='/home'><img className='formImgSalir salirAdmin' src="../imagenes/salir.png" alt="" /></Link>
-                    <img className='imgNoDisponibleAdmin' src="../imagenes/admin_no_disponible.png" alt="" />
+                    <Link to='/home'><img className='formImgSalir salirAdmin' src="../../public/imagenes/salir.png" alt="" /></Link>
+                    <img className='imgNoDisponibleAdmin' src="../../public/imagenes/admin_no_disponible.png" alt="" />
                     <h3>El panel de administración no está disponible desde dispositivos móviles.</h3>
                 </div>
             ) : (
@@ -173,7 +166,6 @@ function Administrador(producto) {
                             </button>
                         </div>
                     </div>
-
                     {verTablaProductos && (
                         <div>
                             <table className='productList'>
@@ -187,7 +179,7 @@ function Administrador(producto) {
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th>ID</th>
+                                        <th className='columnaId'>ID</th>
                                         <th>Nombre</th>
                                         <th>Precio</th>
                                         <th className='columnaAccionProduco'>Acción</th>
@@ -215,7 +207,7 @@ function Administrador(producto) {
                             </table>
                             {loading &&
                                 <div className='cargandoProducto'>
-                                    <img className='gifCargandoProducto' src="../imagenes/cargando1.gif" alt="" />
+                                    <img className='gifCargandoProducto' src="../../public/imagenes/cargando1.gif" alt="" />
                                 </div>}
                         </div>
                     )}
@@ -233,8 +225,9 @@ function Administrador(producto) {
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th>ID</th>
-                                        <th className='columnaNombreCategoria'>Nombre</th>
+                                        <th
+                                        className='columnaId'>ID</th>
+                                        <th className=''>Nombre</th>
                                         <th className='columnaAccionCategoria'>Acción</th>
                                     </tr>
                                 </thead>
@@ -245,7 +238,7 @@ function Administrador(producto) {
                                             <td>{categoria.name}</td>
                                             <td className='tdBoton'>
                                                 <div>
-                                                    <Link to={`/administrador/editar_producto/${producto.id}`}><button className='boton botonEditarEliminarProducto'>Editar</button></Link>
+                                                    <Link to={`/administrador/editar_categoria/${categoria.id}`}><button className='boton botonEditarEliminarProducto'>Editar</button></Link>
                                                     <button
                                                         className='boton botonEditarEliminarProducto'
                                                         onClick={() => confirmEliminarCategoria(categoria.id, categoria.name)}
@@ -259,7 +252,7 @@ function Administrador(producto) {
                             </table>
                             {loading &&
                                 <div className='cargandoProducto'>
-                                    <img className='gifCargandoProducto' src="../imagenes/cargando1.gif" alt="" />
+                                    <img className='gifCargandoProducto' src="../../public/imagenes/cargando1.gif" alt="" />
                                 </div>}
                         </div>
                     )}

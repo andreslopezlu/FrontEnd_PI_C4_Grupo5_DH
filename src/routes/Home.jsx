@@ -8,42 +8,11 @@ import Search from '../componets/Search';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 
 
-
 function Home() {
 
-    const categorias = [
-        {
-            id: 1,
-            img: 'herramientas_electricas.png',
-            name: 'Eléctricas'
-        },
-        {
-            id: 2,
-            img: 'herramientas_manuales.png',
-            name: 'Manuales'
-        },
-        {
-            id: 3,
-            img: 'herramientas_pesadas.png',
-            name: 'Pesadas'
-        },
-        {
-            id: 4,
-            img: 'herramientas_seguridad.png',
-            name: 'Seguridad'
-        },
-        {
-            id: 5,
-            img: 'herramientas_especializadas.png',
-            name: 'Especializadas'
-        },
-    ]
-
-    const { productos } = useContext(ProductContext);
-    
+    const { productos, categorias } = useContext(ProductContext);
     const [loading, setLoading] = useState(false);
 
-    const [reloadProductos, setReloadProductos] = useState(false);
     const [productosMezclados, setProductosMezclados] = useState([]);
     const productosPorPagina = 10;
 
@@ -78,7 +47,7 @@ function Home() {
                             <CardCategorias
                                 key={props.id}
                                 CardCategorias={props.id}
-                                img={props.img}
+                                img={props.urlImage}
                                 name={props.name}
                             />
                         ))}
@@ -88,26 +57,25 @@ function Home() {
                     <h2 className='homeH2'>RECOMENDADOS</h2>
                     <p className='homeP'>Descubre nuestra selección de herramientas altamente recomendadas</p>
                     {loading &&
-                                <div className='cargandoProducto'>
-                                    <img className='gifCargandoProducto' src="../imagenes/cargando1.gif" alt="" />
-                                </div>}
+                        <div className='cargandoProducto'>
+                            <img className='gifCargandoProducto' src="../../public/imagenes/cargando1.gif" alt="" />
+                        </div>}
                     <div className='homeCardCategorias homeCardProductos'>
                         {productosMezclados.slice(0, productosPorPagina).map(props => (
-                                <CardProducto
+                            <CardProducto
                                 key={props.id}
                                 id={props.id}
                                 carpeta={props.carpeta}
-                                img={props.img.length > 0 ? props.img[0].url : "../imagenes/no_encontrado.png"}
+                                img={props.img.length > 0 ? props.img[0].url : "../../public/imagenes/no_encontrado.png"}
                                 name={props.name}
                                 precio={props.costPerDay.toLocaleString('es-CO')}
                                 mostrarBotonAlquilar={true}
                                 mostrarBotonEliminar={false}
-                                reloadProductos={reloadProductos}
                             />
                         ))}
                     </div>
                 </div>
-               
+
             </div>
         </div>
     )

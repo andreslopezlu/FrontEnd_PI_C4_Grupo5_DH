@@ -1,17 +1,56 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ProductContext } from '../componets/utils/ProductoContext';
 import axios from 'axios';
 import ShareModal from '../componets/ShareModal';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import '../Calendar.css'
 
 function Detalles() {
+    const navigate = useNavigate();
     const params = useParams();
     const idProducto = parseInt(params.id);
 
     const [producto, setProducto] = useState({
         img: [],
         category: [],
-      });
+    });
+
+    const [fechasReservadas, setFechasReservadas] = useState([]);
+    const [error, setError] = useState(null);
+    const [fechaActual] = useState(new Date());
+    const [fechaInicioSeleccionada, setFechaInicioSeleccionada] = useState(null);
+    const [fechaFinSeleccionada, setFechaFinSeleccionada] = useState(null);
+
+    const obtenerFechasReservadas = () => {
+        axios.get(`http://localhost:8080/reservations/by-product/${idProducto}`)
+            .then((res) => {
+                const reservas = res.data;
+    
+                const fechasOcupadas = reservas.map((reserva) => ({
+                    start: ajustarDiferenciaHoraria(new Date(reserva.check_in_date)),
+                    end: ajustarDiferenciaHoraria(new Date(reserva.checkout_date)),
+                })).filter((reserva) => reserva.end >= fechaActual);
+    
+                setFechasReservadas(fechasOcupadas);
+                setError(null);
+            })
+            .catch((error) => {
+                if (error.response && error.response.status === 404) {
+                    setFechasReservadas([]);
+                } else {
+                    console.error("Error al obtener fechas reservadas: ", error);
+                    setError("Error al obtener fechas reservadas. Intente nuevamente más tarde.");
+                }
+            });
+    };
+
+    const ajustarDiferenciaHoraria = (fecha) => {
+        const fechaAjustada = new Date(fecha);
+        fechaAjustada.setHours(fechaAjustada.getHours() + 5);
+        return fechaAjustada;
+    };
 
     const obtenerImagenes = (productId) => {
         return axios.get(`http://localhost:8080/images/product/${productId}`)
@@ -26,6 +65,8 @@ function Detalles() {
         axios.get(`http://localhost:8080/products/${idProducto}`)
             .then((res) => {
                 const product = res.data;
+
+                obtenerFechasReservadas();
 
                 obtenerImagenes(product.id)
                     .then((imagenes) => {
@@ -42,6 +83,66 @@ function Detalles() {
                 console.error("Error al obtener datos de la API: ", error);
             });
     }, [idProducto]);
+
+    const deshabilitarFechas = ({ activeStartDate, date, view }) => {
+        // Deshabilitar fechas pasadas
+        if (date < fechaActual) {
+            return true;
+        }
+    
+        // Deshabilitar fechas ocupadas
+        const adjustedDate = new Date(date);
+        adjustedDate.setHours(0, 0, 0, 0);
+        const isFechaOcupada = fechasReservadas.some(
+            (fecha) =>
+                adjustedDate.getTime() >= new Date(fecha.start).getTime() &&
+                adjustedDate.getTime() <= new Date(fecha.end).getTime()
+            );
+    
+        return isFechaOcupada;
+    };
+
+    const handleFechaSeleccionada = (date) => {
+        if (!fechaInicioSeleccionada || (fechaInicioSeleccionada && fechaFinSeleccionada)) {
+            setFechaInicioSeleccionada(date);
+            setFechaFinSeleccionada(null);
+        } else {
+            if (!fechaFinSeleccionada && date > fechaInicioSeleccionada) {
+                const rangoPropuesto = getDiasEntreFechas(fechaInicioSeleccionada, date);
+                const todasFechasDisponibles = rangoPropuesto.every(fecha =>
+                !fechasReservadas.some(
+                    ocupada =>
+                    fecha.getTime() >= new Date(ocupada.start).getTime() &&
+                    fecha.getTime() <= new Date(ocupada.end).getTime()
+                )
+                );
+        
+                if (todasFechasDisponibles) {
+                setFechaFinSeleccionada(date);
+                } else {
+                    alert("Las fechas seleccionadas incluyen fechas ocupadas. Por favor, inténtelo de nuevo con otro rango.");
+                    setFechaInicioSeleccionada(null);
+                    setFechaFinSeleccionada(null);
+                }
+            } else {
+                // Reiniciar la selección si se hace clic en una fecha antes de la fecha de inicio o en la fecha de inicio nuevamente
+                setFechaInicioSeleccionada(date);
+                setFechaFinSeleccionada(null);
+            }
+        }
+    };
+    
+    const getDiasEntreFechas = (fechaInicio, fechaFin) => {
+        const dias = [];
+        const diaActual = new Date(fechaInicio);
+    
+        while (diaActual <= fechaFin) {
+            dias.push(new Date(diaActual));
+            diaActual.setDate(diaActual.getDate() + 1);
+        }
+    
+        return dias;
+    };
 
     const [showModal, setShowModal] = useState(false);
 
@@ -72,6 +173,17 @@ function Detalles() {
         );
     };
 
+    const handleReservaClick = () => {
+        const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+    
+        if (infoLocalStorage && fechaInicioSeleccionada && fechaFinSeleccionada) {
+            navigate(`/producto/${idProducto}/reserva?fechaInicio=${fechaInicioSeleccionada.toISOString().split('T')[0]}&fechaFin=${fechaFinSeleccionada.toISOString().split('T')[0]}`);
+        } else {
+            const currentUrl = window.location.pathname + window.location.search;
+            navigate(`/login?redirect=${encodeURIComponent(currentUrl)}`);
+        }
+    };
+
     return (
         <div className="cardContainer">
             <div className="detailsContainer">
@@ -80,7 +192,7 @@ function Detalles() {
                     <Link to="/producto">
                         <img
                             className="imgVolverProductos"
-                            src="../imagenes/salir.png"
+                            src="../../public/imagenes/salir.png"
                             alt=""
                         />
                     </Link>
@@ -128,10 +240,37 @@ function Detalles() {
                     <p>{producto && producto.specifications}</p>
                     <p><b>Categoria:</b> {producto && producto.category.name}</p>
                     <p><b>Precio:</b> ${producto && producto.costPerDay}/día</p>
+                    <div className='calendarContainer'>
+                        <p><b>Disponibilidad del producto:</b></p>
+                        <Calendar
+                            tileContent={({ date }) => {
+                                const adjustedDate = new Date(date);
+                                adjustedDate.setHours(0, 0, 0, 0);
+
+                                const isFechaOcupada = fechasReservadas.some(
+                                (fecha) =>
+                                    adjustedDate.getTime()  >= new Date(fecha.start).getTime() &&
+                                    adjustedDate.getTime()  <= new Date(fecha.end).getTime()
+                                );
+                                
+                                return (
+                                <div className={`customTile ${isFechaOcupada ? 'fechaOcupada' : ''}`}>
+                                </div>
+                                );
+                            }}
+                            minDate={fechaActual}
+                            selectRange
+                            tileDisabled={deshabilitarFechas}
+                            value={[fechaInicioSeleccionada, fechaFinSeleccionada]}
+                            onChange={() => {}}
+                            onClickDay={(value) => handleFechaSeleccionada(value)}
+                        />
+                    </div>
+                    {error && <div className="errorMessage">{error}</div>}
                     <div className='botonesSlider'>
                     <button className='boton botonAlquilarProducto' onClick={openModal}>COMPARTIR</button>
                         {showModal && <ShareModal producto={producto} onClose={closeModal} />}
-                    <button className='boton botonAlquilarProducto'>ALQUILAR</button>
+                    <button className='boton botonAlquilarProducto' onClick={handleReservaClick}>ALQUILAR</button>
                     </div>
                 </div>
             </div>
