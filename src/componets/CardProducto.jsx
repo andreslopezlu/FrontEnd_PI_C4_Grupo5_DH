@@ -1,62 +1,104 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-
 import Modal from './Modal';
 
 function CardProducto(props) {
   const [favorito, setFavorito] = useState(false);
   const [mostrarModal, setMostrarModal] = useState(false);
 
-  const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-  const userId = infoLocalStorage ? infoLocalStorage.userId : null;
 
+
+  useEffect(() => {
+    const obtenerFavorito = async () => {
+
+      const userIdString = localStorage.getItem('userId');
+      const userId = userIdString ? parseInt(userIdString, 10) : null;
+      const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+    
+      if (userId && infoLocalStorage) {
+        const headers = {
+          'Authorization': `Bearer ${infoLocalStorage.jwt}`,
+        };
+    
+        try {
+          const response = await axios.get(`http://localhost:8080/favorites/by-user-and-product/${userId}/${props.id}`, {
+            headers,
+          });
+    
+          // Verificar si la respuesta tiene un estado 404 (Not Found)
+          if (response.status === 404) {
+            setFavorito(false);  // No se encontró el recurso
+          } else {
+            setFavorito(response.data);  // Resto de los casos
+          }
+        } catch (error) {
+          // Capturar la excepción
+          if (error.response) {
+            // Si la excepción es de un error de servidor, establecer el estado de favorito a false
+            setFavorito(false);
+          } else {
+            // Si la excepción es de otro tipo, mostrarla en consola
+            console.error('Error al obtener el estado de favorito:', error);
+          }
+        }
+      }
+    };
+  
+    obtenerFavorito();
+  }, [props.id, props.reloadProductos]);
+
+  
+  
   const toggleFavorito = async () => {
     const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+    const userIdString = localStorage.getItem('userId');
+    const userId = userIdString ? parseInt(userIdString, 10) : null;
   
     if (infoLocalStorage && (infoLocalStorage.role === 'ADMIN' || infoLocalStorage.role === 'USER')) {
-      setFavorito(!favorito);
-  
-      /* const userId = infoLocalStorage.id;  // Asegúrate de que userId esté definido */
-      /* alert(userId); */
-      if (userId) {
-        const registrarFavorito = {
-          product: {
-            id: props.id,
-          },
-          user: {
-            id: userId,
-          },
-        };
-        
-        axios.post("http://localhost:8080/favorites/create", registrarFavorito)
-          .then(response => {
-            alert("Favorito creado");
-            console.log(response.data);
-          })
-          .catch(error => {
-            console.error(error);
-            alert("Favorito no fue creado");
+      try {
+        if (favorito) {
+          // Si el producto ya está marcado como favorito, enviar una solicitud DELETE para quitarlo
+          await axios.delete(`http://localhost:8080/favorites/by-user-and-product/${userId}/${props.id}`, {
+            headers: {
+              'Authorization': `Bearer ${infoLocalStorage.jwt}`,
+            },
           });
-      } else {
-        // Manejo apropiado cuando userId no está definido
-        console.error("Error: No se pudo obtener el ID del usuario desde localStorage.");
+  
+          setFavorito(false);
+        } else {
+          // Si el producto no está marcado como favorito, enviar una solicitud POST para agregarlo
+          await axios.post('http://localhost:8080/favorites/create', {
+            product: {
+              id: props.id,
+            },
+            user: {
+              id: userId,
+            },
+          }, {
+            headers: {
+              'Authorization': `Bearer ${infoLocalStorage.jwt}`,
+            },
+          });
+  
+          setFavorito(true);
+        }
+      } catch (error) {
+        console.error('Error al actualizar estado de favorito:', error);
       }
     } else {
       // Mostrar el modal de autenticación en lugar de cambiar el estado de favorito
       setMostrarModal(true);
     }
   };
-
+  
   const cerrarModal = () => {
     setMostrarModal(false);
   };
 
-
   return (
-    
     <div className='CardProducto'>
       <div className='CardFavoritoIcon' onClick={toggleFavorito}>
         <FontAwesomeIcon
@@ -78,14 +120,13 @@ function CardProducto(props) {
         {props.mostrarBotonEliminar && <button className='boton'>Eliminar</button>}
 
         {mostrarModal && (
-        <Modal onClose={cerrarModal}>
-          <p>Debes iniciar sesión para marcar como favorito.</p>
-        </Modal>
-      )}
+          <Modal onClose={cerrarModal}>
+            <p>Debes iniciar sesión para marcar como favorito.</p>
+          </Modal>
+        )}
       </div>
     </div>
   );
 }
 
 export default CardProducto;
-

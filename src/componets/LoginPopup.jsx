@@ -6,7 +6,6 @@ function LoginPopup({ onClose }) {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Falta enviar una solicitud al servidor para autenticar al usuario
   }
 
   return (

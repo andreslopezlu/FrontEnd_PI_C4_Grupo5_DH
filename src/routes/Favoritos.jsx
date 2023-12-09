@@ -1,0 +1,80 @@
+import React from 'react';
+import { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
+import CardProducto from '../componets/CardProducto';
+function Favoritos() {
+    const [favoritos, setFavoritos] = useState([]);
+  
+    const obtenerImagenes = async (productId) => {
+      try {
+        const imgres = await axios.get(`http://localhost:8080/images/product/${productId}`);
+        return imgres.data;
+      } catch (error) {
+        console.error("Error al obtener datos de imágenes de la API: ", error);
+        return [];
+      }
+    };
+  
+    useEffect(() => {
+      const obtenerFavoritos = async () => {
+        const userIdString = localStorage.getItem('userId');
+        const userId = userIdString ? parseInt(userIdString, 10) : null;
+        const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+  
+        if (userId && infoLocalStorage) {
+          const headers = {
+            'Authorization': `Bearer ${infoLocalStorage.jwt}`,
+          };
+  
+          try {
+            const response = await axios.get(`http://localhost:8080/favorites/by-user/${userId}`, {
+              headers,
+            });
+  
+            const favoritosIds = response.data.map((favorito) => favorito.product.id);
+            const productosFavoritos = await Promise.all(
+              favoritosIds.map(async (productoId) => {
+                const productoResponse = await axios.get(`http://localhost:8080/products/${productoId}`);
+                const imagenes = await obtenerImagenes(productoId);
+                return {
+                  ...productoResponse.data,
+                  img: imagenes,
+                };
+              })
+            );
+  
+            setFavoritos(productosFavoritos);
+          } catch (error) {
+            console.error("Error al obtener los productos favoritos del usuario:", error);
+          }
+        }
+      };
+  
+      obtenerFavoritos();
+    }, []);
+  
+    return (
+      <div className="favoritos-container">
+        <h2 className='homeH2'>Tus Productos Favoritos</h2>
+        {favoritos.length === 0 ? (
+          <p>No tienes productos marcados como favoritos.</p>
+        ) : (
+            <div className='homeCardCategorias homeCardProductos'>
+            {favoritos.map((producto) => (
+              <CardProducto
+                key={producto.id}
+                id={producto.id}
+                img={producto.img.length > 0 ? producto.img[0].url : "../imagenes/no_encontrado.png"}
+                name={producto.name}
+                precio={producto.costPerDay.toLocaleString('es-CO')}
+                mostrarBotonAlquilar={true}
+                mostrarBotonEliminar={false}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+  
+  export default Favoritos;

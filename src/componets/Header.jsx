@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import ErrorInisioSesion from './ErrorInisioSesion';
 
 
-function Header() {
-
+function Header({ setReloadProductos }) {
+  
   const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
   const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
   const [loginUsername, setLoginUsername] = useState('');
@@ -15,10 +15,12 @@ function Header() {
   const [ciudades, setCiudades] = useState([])
   const [rol, setRole] = useState('')
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isUser, setIsUser] = useState(false);
   const [jwt, setJwt] = useState('');
   const [nombreUsuario , setNombreUsuario] = useState('');
   const [apellidoUsuario , setApellidoUsuario] = useState('');
-
+  const [userId, setUserId] = useState(null);
+  const navigate = useNavigate();
 
   //------------------Logica Ver Pagina Admin------------
 
@@ -35,7 +37,20 @@ function Header() {
     }
   }
   //--------------------------------------------------------
-
+  //------------------Logica Ver Pagina Historial/Favoritos------------
+  const tipoUsuario2 = () => {
+    const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+    setJwt(infoLocalStorage.jwt);
+    const role = infoLocalStorage.role;
+    setRole(role);
+    if (role === 'ADMIN' && role === 'USER') {
+      setIsUser(true);
+    }
+    else {
+      setIsUser(false);
+    }
+  }
+  //--------------------------------------------------------
   const openLoginPopup = () => {
     setLoginPopupOpen(true);
   };
@@ -69,6 +84,7 @@ function Header() {
   const cerrarSesion = () => {
     setIsLoggedIn(false);
     setIsAdmin(false);
+    setIsUser(false);
     setJwt('');
     localStorage.clear();
   }
@@ -81,21 +97,55 @@ function Header() {
       username: loginUsername,
       password: loginPassword,
     }
+
     axios.post("http://localhost:8080/api/auth/login", iniciarSesion)
-      .then(res => {
-        setError("")
-        localStorage.setItem('jwtToken', JSON.stringify(res.data));
-        tipoUsuario();
-        closeLoginPopup();
-        setIsLoggedIn(true);
-        setNombreUsuario((res.data.name).charAt(0).toUpperCase());
-        setApellidoUsuario((res.data.lastname).charAt(0).toUpperCase());
-      })
-      .catch(error => {
-        setError("Usuario no registrado o contraseña incorrecta")
-        console.error("Error al obtener datos de la API: ", error);
-      });
-  };
+    .then((res) => {
+      setError("");
+      localStorage.setItem("jwtToken", JSON.stringify(res.data));
+      tipoUsuario();
+      tipoUsuario2();
+      closeLoginPopup();
+      setIsLoggedIn(true);
+      setNombreUsuario((res.data.name).charAt(0).toUpperCase());
+      setApellidoUsuario((res.data.lastname).charAt(0).toUpperCase());
+      // Redirigir al usuario a la página de inicio
+      navigate('/producto');
+
+      // Realizar la solicitud para obtener el ID del usuario
+      const correoUsuario = loginUsername;
+      obtenerIdUsuario(correoUsuario);
+
+      setReloadProductos(prev => !prev);
+    })
+    .catch((error) => {
+      setError("Usuario no registrado o contraseña incorrecta");
+      console.error("Error al obtener datos de la API: ", error);
+    });
+};
+
+const obtenerIdUsuario = async (correoUsuario) => {
+  try {
+    const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+    const token = infoLocalStorage.jwt;
+
+    const response = await axios.get(`http://localhost:8080/user/by-email/${correoUsuario}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const usuario = response.data;
+    setUserId(usuario.id);
+    console.log("El id del usuario es: ", usuario.id);
+    localStorage.setItem('userId', String(usuario.id));
+
+  } catch (error) {
+    console.error("Error al obtener datos del usuario por correo electrónico: ", error);
+  }
+};
+
+
+
+    
 
   //------------------- Registrar Usuario -----------------------
 
@@ -163,6 +213,7 @@ function Header() {
   //--------------------------------------------------------------
 
   return (
+    
     <div>
       <div className='header'>
         <div className='logo_menu'>
@@ -187,7 +238,22 @@ function Header() {
                 </li>
                 {isAdmin && (<li>
                   <Link to='/administrador'>ADMINISTRACIÓN</Link>
-                </li>)}
+                </li>)
+                }
+                {
+                  isLoggedIn && (
+                    <li>
+                      <Link to='/favoritos'>FAVORITOS</Link>
+                    </li>
+                  )
+                }
+                {
+                  isLoggedIn && (
+                    <li>
+                      <Link to='/historial'>HISTORIAL</Link>
+                    </li>
+                  )
+                }
               </ul>
             </div>
           </nav>

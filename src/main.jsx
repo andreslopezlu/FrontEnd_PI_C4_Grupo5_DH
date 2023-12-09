@@ -13,7 +13,9 @@ import EditarProducto from './routes/EditarProducto.jsx'
 import AñadirCategoria from './routes/AñadirCategoria.jsx'
 import Producto from './routes/Producto.jsx'
 import Detalles from './routes/Detalles.jsx'
-import Politicas from './routes/Politicas';
+import Politicas from './routes/Politicas'
+import Historial from './routes/Historial.jsx'
+import Favoritos from './routes/Favoritos.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -30,6 +32,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path='/administrador/añadir_categoria' element={<AñadirCategoria/>} />
             <Route path='/administrador' element={<Administrador />} />
             <Route path='/favs' element={<Favs />} />
+            <Route path='/historial' element={<Historial />} />
+            <Route path='/favoritos' element={<Favoritos />} />
             <Route path='/politicas' element={<Politicas />} />
           </Route>
         </Routes>

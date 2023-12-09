@@ -40,8 +40,10 @@ function Home() {
     ]
 
     const { productos } = useContext(ProductContext);
+    
     const [loading, setLoading] = useState(false);
 
+    const [reloadProductos, setReloadProductos] = useState(false);
     const [productosMezclados, setProductosMezclados] = useState([]);
     const productosPorPagina = 10;
 
@@ -91,7 +93,7 @@ function Home() {
                                 </div>}
                     <div className='homeCardCategorias homeCardProductos'>
                         {productosMezclados.slice(0, productosPorPagina).map(props => (
-                            <CardProducto
+                                <CardProducto
                                 key={props.id}
                                 id={props.id}
                                 carpeta={props.carpeta}
@@ -100,6 +102,7 @@ function Home() {
                                 precio={props.costPerDay.toLocaleString('es-CO')}
                                 mostrarBotonAlquilar={true}
                                 mostrarBotonEliminar={false}
+                                reloadProductos={reloadProductos}
                             />
                         ))}
                     </div>

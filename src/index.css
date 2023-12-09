@@ -1449,3 +1449,26 @@ h4 {
   margin: 0 10px;
   cursor: pointer;
 }
+
+/* Historial.css */
+
+.historial-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .reservas-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .reserva-item {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Puedes agregar más estilos según sea necesario */
+  
