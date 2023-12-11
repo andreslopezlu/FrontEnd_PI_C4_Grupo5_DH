@@ -4,12 +4,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function Historial() {
-const [reservas, setReservas] = useState([]);
+  const [reservas, setReservas] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-useEffect(() => {
+
+  useEffect(() => {
     const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
     const userID = infoLocalStorage.id;
-    
+    setLoading(true);
+
     // Obtener las reservas anteriores del usuario
     axios.get(`http://localhost:8080/reservations/by-user/${userID}`, {
       headers: {
@@ -18,28 +21,33 @@ useEffect(() => {
     })
       .then(response => {
         setReservas(response.data);
+        setLoading(false);
       })
       .catch(error => {
         console.error("Error al obtener las reservas del usuario: ", error);
       });
   }, []);
 
-return (
+  return (
     <div className="historial-container">
-    <h2>Historial de Reservas</h2>
-    {reservas.length === 0 ? (
+      <h2>Historial de Reservas</h2>
+      {reservas.length === 0 ? (
         <p>No hay reservas anteriores.</p>
-    ) : (
+      ) : (
         <ul className="reservas-list">
-        {reservas.map(reserva => (
+          {reservas.map(reserva => (
             <li key={reserva.id} className="reserva-item">
-            <p><strong>Fecha de reserva:</strong> {reserva.check_in_date}</p>
-            <p><strong>Fecha de uso:</strong> {reserva.checkout_date}</p>
-            <p><strong>Producto reservado:</strong> {reserva.product.name}</p>
+              <p><strong>Fecha de reserva:</strong> {reserva.check_in_date}</p>
+              <p><strong>Fecha de uso:</strong> {reserva.checkout_date}</p>
+              <p><strong>Producto reservado:</strong> {reserva.product.name}</p>
             </li>
-        ))}
+          ))}
         </ul>
-    )}
+      )}
+      {loading &&
+        <div className='cargandoProducto'>
+          <img className='gifCargandoProducto' src="../../public/imagenes/cargando1.gif" alt="" />
+        </div>}
     </div>
   );
 }

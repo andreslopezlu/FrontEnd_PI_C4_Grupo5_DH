@@ -4,6 +4,8 @@ import axios from 'axios';
 import CardProducto from '../componets/CardProducto';
 function Favoritos() {
     const [favoritos, setFavoritos] = useState([]);
+    const [loading, setLoading] = useState(false);
+
   
     const obtenerImagenes = async (productId) => {
       try {
@@ -17,6 +19,7 @@ function Favoritos() {
   
     useEffect(() => {
       const obtenerFavoritos = async () => {
+        setLoading(true);
         const userIdString = localStorage.getItem('userId');
         const userId = userIdString ? parseInt(userIdString, 10) : null;
         const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
@@ -44,6 +47,7 @@ function Favoritos() {
             );
   
             setFavoritos(productosFavoritos);
+            setLoading(false);
           } catch (error) {
             console.error("Error al obtener los productos favoritos del usuario:", error);
           }
@@ -73,6 +77,10 @@ function Favoritos() {
             ))}
           </div>
         )}
+        {loading &&
+        <div className='cargandoProducto'>
+          <img className='gifCargandoProducto' src="../../public/imagenes/cargando1.gif" alt="" />
+        </div>}
       </div>
     );
   }

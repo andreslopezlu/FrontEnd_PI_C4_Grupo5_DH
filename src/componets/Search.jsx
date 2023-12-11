@@ -4,6 +4,7 @@ import { useDebounce } from 'use-debounce';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 const Search = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -13,6 +14,8 @@ const Search = () => {
     const [selectedStartDate, setSelectedStartDate] = useState(null);
     const [selectedEndDate, setSelectedEndDate] = useState(null);
     const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
+    const [productoID , setProductoID] = useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (debouncedSearchTerm) {
@@ -24,6 +27,8 @@ const Search = () => {
         try {
             const response = await axios.get(`http://localhost:8080/products/by-input/${term}`);
             setSuggestions(response.data);
+            setProductoID(response.data[0]);
+            console.log(productoID[0]);
         } catch (error) {
             console.error('Error fetching suggestions:', error);
         }
@@ -91,11 +96,14 @@ const Search = () => {
     };
 
     const realizarBusqueda = () => {
-        if (validateDateRange()) {
-            console.log('Búsqueda realizada con éxito');
-        } else {
-            console.error('Error en el rango de fechas');
-        }
+        const ruta = productoID.id;
+        console.log(ruta)
+        navigate(`/producto/${ruta}`)
+        // if (validateDateRange()) {
+        //     console.log('Búsqueda realizada con éxito');
+        // } else {
+        //     console.error('Error en el rango de fechas');
+        // }
     };
 
     const inputProps = {
