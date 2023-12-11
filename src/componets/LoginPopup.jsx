@@ -6,7 +6,30 @@ function LoginPopup(props) {
 
     const [loginUsername, setLoginUsername] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
+    const [userId, setUserId] = useState(null);
     const [error, setError] = useState("")
+
+
+
+    const obtenerIdUsuario = async (correoUsuario) => {
+        try {
+            const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+            const token = infoLocalStorage.jwt;
+
+            const response = await axios.get(`http://localhost:8080/user/by-email/${correoUsuario}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            const usuario = response.data;
+            setUserId(usuario.id);
+            console.log("El id del usuario es: ", usuario.id);
+            localStorage.setItem('userId', String(usuario.id));
+
+        } catch (error) {
+            console.error("Error al obtener datos del usuario por correo electrónico: ", error);
+        }
+    };
 
     const closeLoginPopup = () => {
         setError("");
@@ -28,6 +51,8 @@ function LoginPopup(props) {
                 console.log("sesion iniciada")
                 closeLoginPopup();
                 props.redireccionPaginaReserva();
+                const correoUsuario = loginUsername;
+                obtenerIdUsuario(correoUsuario);
             })
             .catch((error) => {
                 setError("Usuario no registrado o contraseña incorrecta");
@@ -68,8 +93,8 @@ function LoginPopup(props) {
                     <button className="boton botoningreso" type="submit">Iniciar Sesión</button>
                 </form>
                 <p className="registerLink">¿No tienes una cuenta? <span
-                className='registerLinkHere'
-                onClick={props.abrirSinupPopup}
+                    className='registerLinkHere'
+                    onClick={props.abrirSinupPopup}
                 >Regístrate aquí</span>
                 </p>
             </div>

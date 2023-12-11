@@ -6,7 +6,7 @@ import MenuMobile from './MenuMobile';
 
 
 function Header() {
-  
+
   const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
   const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
   const [loginUsername, setLoginUsername] = useState('');
@@ -50,7 +50,7 @@ function Header() {
   };
 
 
-  //------------------Logica Ver Pagina Admin------------
+  //------------------Logica Ver Pagina Admin / Historial / Favoritos ------------ 
 
   const tipoUsuario = () => {
     const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
@@ -59,27 +59,17 @@ function Header() {
     setRole(role);
     if (role === 'ADMIN') {
       setIsAdmin(true);
-    }
-    else {
-      setIsAdmin(false);
-    }
-  }
-  //------------------Logica Ver Pagina Historial/Favoritos------------
-  const tipoUsuario2 = () => {
-    const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-    setJwt(infoLocalStorage.jwt);
-    const role = infoLocalStorage.role;
-    setRole(role);
-    if (role === 'ADMIN' && role === 'USER') {
       setIsUser(true);
     }
-    else {
-      setIsUser(false);
+    if (role === 'USER') {
+      setIsUser(true);
     }
   }
+
   //--------------------------------------------------------
   const openLoginPopup = () => {
     setLoginPopupOpen(true);
+    setSignupPopupOpen(false);
   };
 
   const closeLoginPopup = () => {
@@ -90,6 +80,7 @@ function Header() {
   };
 
   const openSignupPopup = () => {
+    setLoginPopupOpen(false);
     setSignupPopupOpen(true);
     axios.get("http://localhost:8080/cities")
       .then(res => {
@@ -127,46 +118,46 @@ function Header() {
     }
 
     axios.post("http://localhost:8080/api/auth/login", iniciarSesion)
-    .then((res) => {
-      setError("");
-      localStorage.setItem("jwtToken", JSON.stringify(res.data));
-      tipoUsuario();
-      tipoUsuario2();
-      closeLoginPopup();
-      setIsLoggedIn(true);
-      setNombreUsuario((res.data.name).charAt(0).toUpperCase());
-      setApellidoUsuario((res.data.lastname).charAt(0).toUpperCase());
+      .then((res) => {
+        setError("");
+        localStorage.setItem("jwtToken", JSON.stringify(res.data));
+        tipoUsuario();
+        // tipoUsuario2();
+        closeLoginPopup();
+        setIsLoggedIn(true);
+        setNombreUsuario((res.data.name).charAt(0).toUpperCase());
+        setApellidoUsuario((res.data.lastname).charAt(0).toUpperCase());
 
-      // Realizar la solicitud para obtener el ID del usuario
-      const correoUsuario = loginUsername;
-      obtenerIdUsuario(correoUsuario);
+        //Realizar la solicitud para obtener el ID del usuario
+        const correoUsuario = loginUsername;
+        obtenerIdUsuario(correoUsuario);
 
-    })
-    .catch((error) => {
-      setError("Usuario no registrado o contraseña incorrecta");
-      console.error("Error al obtener datos de la API: ", error);
-    });
-};
+      })
+      .catch((error) => {
+        setError("Usuario no registrado o contraseña incorrecta");
+        console.error("Error al obtener datos de la API: ", error);
+      });
+  };
 
-const obtenerIdUsuario = async (correoUsuario) => {
-  try {
-    const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-    const token = infoLocalStorage.jwt;
+  const obtenerIdUsuario = async (correoUsuario) => {
+    try {
+      const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+      const token = infoLocalStorage.jwt;
 
-    const response = await axios.get(`http://localhost:8080/user/by-email/${correoUsuario}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const usuario = response.data;
-    setUserId(usuario.id);
-    console.log("El id del usuario es: ", usuario.id);
-    localStorage.setItem('userId', String(usuario.id));
+      const response = await axios.get(`http://localhost:8080/user/by-email/${correoUsuario}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const usuario = response.data;
+      setUserId(usuario.id);
+      console.log("El id del usuario es: ", usuario.id);
+      localStorage.setItem('userId', String(usuario.id));
 
-  } catch (error) {
-    console.error("Error al obtener datos del usuario por correo electrónico: ", error);
-  }
-};
+    } catch (error) {
+      console.error("Error al obtener datos del usuario por correo electrónico: ", error);
+    }
+  };
 
 
   //------------------- Registrar Usuario -----------------------
@@ -186,6 +177,11 @@ const obtenerIdUsuario = async (correoUsuario) => {
     id: 0,
     name: 'Selecciona tu rol',
   });
+
+  const crearUsuario = () => {
+    setSignupPopupOpen(true);
+    setIsLoggedIn(false);
+  }
 
   const handleCiudadChange = (event) => {
     const selectedCityId = parseInt(event.target.value, 10); // Convertir a entero usando parseInt
@@ -242,11 +238,11 @@ const obtenerIdUsuario = async (correoUsuario) => {
 
 
   return (
-    
+
     <div>
       <div className='header'>
         <div className='logoPageDiv'>
-          <MenuMobile isLoggedIn={isLoggedIn}/>
+          <MenuMobile isLoggedIn={isLoggedIn} />
           <Link to='/home'><img className='logoPageImg' src="../../public/imagenes/logo.png" alt="logo" /></Link>
         </div>
         <div>
@@ -345,7 +341,7 @@ const obtenerIdUsuario = async (correoUsuario) => {
               />
               <button className="boton botoningreso" type="submit">Iniciar Sesión</button>
             </form>
-            <p className="registerLink">¿No tienes una cuenta? <span className='registerLinkHere'>Regístrate aquí</span></p>
+            <p className="registerLink">¿No tienes una cuenta? <span className='registerLinkHere' onClick={crearUsuario}>Regístrate aquí</span></p>
           </div>
         </div>
       )}

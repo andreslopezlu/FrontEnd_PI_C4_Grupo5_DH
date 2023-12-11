@@ -5,15 +5,13 @@ import axios from 'axios';
 
 function Historial() {
 const [reservas, setReservas] = useState([]);
-const userIdString = localStorage.getItem('userId');
-const userId = userIdString ? parseInt(userIdString, 10) : null;
-
 
 useEffect(() => {
     const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-
+    const userID = infoLocalStorage.id;
+    
     // Obtener las reservas anteriores del usuario
-    axios.get(`http://localhost:8080/reservations/by-user/${userId}`, {
+    axios.get(`http://localhost:8080/reservations/by-user/${userID}`, {
       headers: {
         'Authorization': `Bearer ${infoLocalStorage.jwt}`,
       },

@@ -73,7 +73,7 @@ const ReservaProducto = () => {
         }
     }, [userEmail]);
 
-    
+
 
     useEffect(() => {
         if (productId) {
@@ -106,14 +106,16 @@ const ReservaProducto = () => {
                 checkout_date: fechaFin.toString(),
                 comments: comentarios,
             };
-    
+
             const headers = {
                 'Authorization': `Bearer ${infoLocalStorage.jwt}`
             };
-    
+
             try {
                 const response = await axios.post('http://localhost:8080/reservations/create', reservaData, { headers });
                 console.log('Reserva creada exitosamente:', response.data);
+                alert(`La reserva del producto ${response.data.product.name} se realizo satisfactoriamente`);
+                navigate('/historial')
             } catch (error) {
                 console.error('Error al crear la reserva:', error);
                 //setError('Error al crear la reserva. Intente nuevamente más tarde.');
@@ -131,33 +133,42 @@ const ReservaProducto = () => {
 
     return (
         <div className="reservaProducto">
-            <h2>Confirma tu reserva</h2>
-            
+            <h2>Confirma tu Reserva</h2>
+
             <h3>Detalles del Producto</h3>
-            <div>
-                {productImages.length > 0 && (
-                    <img src={productImages[0].url} alt="Imagen 1" />
-                )}
+            <div className='reservaProductoDiv1'>
+                <p className='reservaProductoNombre'>{productInfo.name}</p>
+                <div className='reservaProductoImgP'>
+                    <div className='reservaProductoDivImg'>
+                        {productImages.length > 0 && (
+                            <img src={productImages[0].url} alt="Imagen 1" />
+                        )}
+                    </div>
+                    <p>{productInfo.description}</p>
+                </div>
             </div>
-            <p>Nombre: {productInfo.name}</p>
-            <p>Descripción: {productInfo.description}</p>
-            
-            
+
             <h3>Detalles de la reserva</h3>
-            <p>Fecha de inicio: {fechaInicio}</p>
-            <p>Fecha de fin: {fechaFin}</p>
-            <p>Costo por día: {productInfo.costPerDay.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</p>
-            <p>Cantidad de días reservados: {cantidadDias}</p>
-            <p>Costo total: {costoTotal.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</p>
+            <div className='reservaProductoDiv2'>
+                <p><span className='reservaProductoSpan'>Fecha de inicio</span>{fechaInicio}</p>
+                <p><span className='reservaProductoSpan'>Fecha de fin</span>{fechaFin}</p>
+                <p><span className='reservaProductoSpan'>Costo por día</span>{productInfo.costPerDay.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</p>
+                <p><span className='reservaProductoSpan'>Cantidad de días reservados</span>{cantidadDias}</p>
+                <p><span className='reservaProductoSpan'>Costo total</span>{costoTotal.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</p>
+            </div>
+
 
             <h3>Detalles del Usuario</h3>
-            <p>Nombre: {userInfo.name}</p>
-            <p>Correo: {userEmail}</p>
-            <p>Telefono: {userInfo.phoneNumber}</p>
-
-            {error && <div className="errorMessage">{error}</div>}
-            <button className="confirmButton" onClick={handleConfirmarReserva}>Confirmar Reserva</button>
-            <button className="cancelButton" onClick={handleCancelarReserva}>Cancelar</button>
+            <div className='reservaProductoDiv2'>
+                <p><span className='reservaProductoSpan'>Nombre</span>{userInfo.name}</p>
+                <p><span className='reservaProductoSpan'>Correo</span>{userEmail}</p>
+                <p><span className='reservaProductoSpan'>Telefono</span>{userInfo.phoneNumber}</p>
+            </div>
+            <div className='reservaProductoDivButon'>
+                {error && <div className="errorMessage">{error}</div>}
+                <button className="cancelButton" onClick={handleCancelarReserva}>Cancelar</button>
+                <button className="confirmButton" onClick={handleConfirmarReserva}>Confirmar Reserva</button>
+            </div>
         </div>
     );
 };
