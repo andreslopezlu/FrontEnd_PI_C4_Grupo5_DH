@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import CardError from './CardError';
-import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 function LoginPopup(props) {
 
     const [loginUsername, setLoginUsername] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
-    const navigate = useNavigate();
     const [error, setError] = useState("")
 
     const closeLoginPopup = () => {
