@@ -1,31 +1,47 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-function MenuMobile() {
-    const [desplegado, setDesplegado] = useState(false);
+function MenuMobile({ isLoggedIn }) {
     const menuRef = useRef(null);
-
-    const opciones = [{
-        name: 'Home',
-        link: 'home'
-    },
-    {
-        name: 'Productos',
-        link: 'producto'
-    },
-    {
-        name: 'Contacto',
-        link: 'contacto'
-    },
-    {
-        name: 'Favoritos',
-        link: 'favs'
-    },
-        // {
-        //     name: 'Administración',
-        //     link: 'administrador'
-        // },
+    const opcionesIniciales = [
+        {
+            name: 'Home',
+            link: 'home'
+        },
+        {
+            name: 'Productos',
+            link: 'producto'
+        },
+        {
+            name: 'Contacto',
+            link: 'contacto'
+        }
     ]
+    const [desplegado, setDesplegado] = useState(false);
+    const [opciones, setOpciones] = useState(opcionesIniciales);
+
+
+    useEffect(() => {
+        const añadirOpciones = () => {
+            const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
+            const administrador = { name: 'Administración', link: 'administrador' }
+            const favoritos = { name: 'Favoritos', link: 'favoritos' }
+
+            if (infoLocalStorage && infoLocalStorage.role !== 'ADMIN') {
+                setOpciones(prevOpciones => [...prevOpciones, favoritos]);
+            } else if (infoLocalStorage && infoLocalStorage.role === 'ADMIN') {
+                setOpciones(prevOpciones => [...prevOpciones, favoritos, administrador]);
+            }
+        }
+
+        if (isLoggedIn) {
+            añadirOpciones();
+        } else if (!isLoggedIn) {
+            setOpciones(opcionesIniciales);
+        }
+
+    }, [isLoggedIn]);
+
 
     const handleToggle = () => {
         setDesplegado(!desplegado);

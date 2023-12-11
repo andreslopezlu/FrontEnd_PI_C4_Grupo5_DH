@@ -6,7 +6,6 @@ import './index.css'
 
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import Contacto from './routes/Contacto.jsx'
-import Favs from './routes/Favs.jsx'
 import Administrador from './routes/Administrador.jsx'
 import AñadirProducto from './routes/AñadirProducto.jsx'
 import EditarProducto from './routes/EditarProducto.jsx'
@@ -41,7 +40,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path='/administrador/añadir_categoria' element={<AñadirCategoria/>} />
             <Route path='/administrador/editar_categoria/:id' element={<EditarCategoria />} />
             <Route path='/administrador' element={<Administrador />} />
-            <Route path='/favs' element={<Favs />} />
             <Route path='/historial' element={<Historial />} />
             <Route path='/favoritos' element={<Favoritos />} />
             <Route path='/politicas' element={<Politicas />} />

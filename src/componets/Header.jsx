@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import axios from 'axios'
-import ErrorInisioSesion from './ErrorInisioSesion';
+import CardError from './CardError';
 import MenuMobile from './MenuMobile';
 
 
-function Header({ setReloadProductos }) {
+function Header() {
   
   const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
   const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
@@ -143,7 +143,6 @@ function Header({ setReloadProductos }) {
       const correoUsuario = loginUsername;
       obtenerIdUsuario(correoUsuario);
 
-      setReloadProductos(prev => !prev);
     })
     .catch((error) => {
       setError("Usuario no registrado o contraseña incorrecta");
@@ -249,7 +248,7 @@ const obtenerIdUsuario = async (correoUsuario) => {
     <div>
       <div className='header'>
         <div className='logoPageDiv'>
-          <MenuMobile />
+          <MenuMobile isLoggedIn={isLoggedIn}/>
           <Link to='/home'><img className='logoPageImg' src="../../public/imagenes/logo.png" alt="logo" /></Link>
         </div>
         <div>
@@ -259,9 +258,6 @@ const obtenerIdUsuario = async (correoUsuario) => {
                 <li>
                   <Link to='/home'>HOME</Link>
                 </li>
-                {/* <li>
-                  <Link to='/favs'>Favoritos</Link>
-                </li> */}
                 <li>
                   <Link to='/producto'>PRODUCTOS</Link>
                 </li>
@@ -301,7 +297,7 @@ const obtenerIdUsuario = async (correoUsuario) => {
           </div>
         )}
         {isLoggedIn && (
-          <div className='header_iniciarSesionMobile'>
+          <div className='header_sesionIniciada'>
             <p
               className='inicialesUser'
               onClick={menuCerrarSeionToggle}
@@ -346,7 +342,7 @@ const obtenerIdUsuario = async (correoUsuario) => {
                   placeholder="Contraseña"
                 />
               </div>
-              <ErrorInisioSesion
+              <CardError
                 info={error}
               />
               <button className="boton botoningreso" type="submit">Iniciar Sesión</button>

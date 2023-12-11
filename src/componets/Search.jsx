@@ -4,8 +4,6 @@ import { useDebounce } from 'use-debounce';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import './Search.css';
-
 
 const Search = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -66,13 +64,13 @@ const Search = () => {
     const eventEnter = (e) => {
         if (e.key === 'Enter') {
             const inputValue = e.target.value && e.target.value.trim();
-        if (inputValue) {
-            const split = inputValue.split('-');
-            const producto = {
-                producto: split[0].trim(),
-            };
-            seleccionarProducto(producto);
-        }
+            if (inputValue) {
+                const split = inputValue.split('-');
+                const producto = {
+                    producto: split[0].trim(),
+                };
+                seleccionarProducto(producto);
+            }
         }
     };
 
@@ -109,64 +107,70 @@ const Search = () => {
 
     return (
         <div className="search-block">
-        <h2>Búsqueda</h2>
-        <p>Ingrese un término de búsqueda para encontrar productos.</p>
-        <div className="search-fields">
-            <div className="date-picker-container">
-                <label>Rango de Fechas:</label>
-                <div className="date-picker">
-                    <label>Inicio:</label>
-                    <DatePicker
-                        selected={selectedStartDate}
-                        onChange={(date) => handleStartDateChange(date)}
-                        selectsStart
-                        startDate={selectedStartDate}
-                        endDate={selectedEndDate}
-                        dateFormat="dd/MM/yyyy"
-                        isClearable
-                        minDate={new Date()}
-                    />
-                </div>
-                <div className="date-picker">
-                    <label>Fin:</label>
-                    <DatePicker
-                        selected={selectedEndDate}
-                        onChange={(date) => handleEndDateChange(date)}
-                        selectsEnd
-                        startDate={selectedStartDate}
-                        endDate={selectedEndDate}
-                        minDate={selectedStartDate}
-                        dateFormat="dd/MM/yyyy"
-                        isClearable
-                    />
-                </div>
-            </div>
-            <Autosuggest
-                suggestions={showSuggestions ? suggestions : []}
-                onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-                onSuggestionsClearRequested={onSuggestionsClearRequested}
-                getSuggestionValue={getSuggestionValue}
-                renderSuggestion={renderSuggestion}
-                inputProps={inputProps}
-                shouldRenderSuggestions={() => true}
-                highlightFirstSuggestion={true}
-                renderInputComponent={(inputProps) => (
-                    <input {...inputProps} className="form-control" id="autosuggest-container" />
-                )}
-                renderSuggestionsContainer={({ containerProps, children, query }) => (
-                    <div
-                    {...containerProps}
-                    className={`suggestions-container ${showSuggestions ? 'visible' : 'hidden'}`}
-                    >
-                    {children}
+            <h2>BUSQUEDA</h2>
+            <p>Ingrese un término de búsqueda para encontrar productos.</p>
+            <div className="search-fields">
+                <div className="date-picker-container">
+                    <label>Rango de Fechas:</label>
+                    <div className='date-picker-container-date'>
+                    <div className="date-picker">
+                        <label>Inicio:</label>
+                        <DatePicker
+                            className='inputFechaBuscador'
+                            showIcon
+                            selected={selectedStartDate}
+                            onChange={(date) => handleStartDateChange(date)}
+                            selectsStart
+                            startDate={selectedStartDate}
+                            endDate={selectedEndDate}
+                            dateFormat="dd/MM/yyyy"
+                            isClearable
+                            minDate={new Date()}
+                        />
                     </div>
-                )}
-                onSuggestionSelected={(event, { suggestion }) => handleClick(suggestion)}
-            />
-        </div>
-        <button className="search-button" onClick={realizarBusqueda}>
-            Realizar búsqueda
-        </button>
+                    <div className="date-picker">
+                        <label>Fin:</label>
+                        <DatePicker
+                            showIcon
+                            className='inputFechaBuscador'
+                            selected={selectedEndDate}
+                            onChange={(date) => handleEndDateChange(date)}
+                            selectsEnd
+                            startDate={selectedStartDate}
+                            endDate={selectedEndDate}
+                            minDate={selectedStartDate}
+                            dateFormat="dd/MM/yyyy"
+                            isClearable
+                        />
+                    </div>
+                    </div>
+                </div>
+                <Autosuggest
+                    suggestions={showSuggestions ? suggestions : []}
+                    onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+                    onSuggestionsClearRequested={onSuggestionsClearRequested}
+                    getSuggestionValue={getSuggestionValue}
+                    renderSuggestion={renderSuggestion}
+                    inputProps={inputProps}
+                    shouldRenderSuggestions={() => true}
+                    highlightFirstSuggestion={true}
+                    renderInputComponent={(inputProps) => (
+                        <input {...inputProps} className="form-control" id="autosuggest-container" />
+                    )}
+                    renderSuggestionsContainer={({ containerProps, children, query }) => (
+                        <div
+                            {...containerProps}
+                            className={`suggestions-container ${showSuggestions ? 'visible' : 'hidden'}`}
+                        >
+                            {children}
+                        </div>
+                    )}
+                    onSuggestionSelected={(event, { suggestion }) => handleClick(suggestion)}
+                />
+            </div>
+            <button className="search-button boton" onClick={realizarBusqueda}>
+                Buscar
+            </button>
         </div>
     );
 };
