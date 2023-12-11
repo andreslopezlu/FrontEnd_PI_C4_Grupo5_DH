@@ -128,7 +128,9 @@ const ReservaProducto = () => {
     }
 
     if (!productInfo || !userInfo) {
-        return <p>Cargando...</p>;
+        return <div className='cargandoProducto'>
+            <img className='gifCargandoProducto' src="../../public/imagenes/cargando1.gif" alt="" />
+        </div>;
     }
 
     return (
