@@ -37,6 +37,8 @@ function Home() {
         <div>
             <div className='home'>
                 <div className='buscador'>
+                    <h2>BUSQUEDA</h2>
+                    <p>Ingrese un término de búsqueda para encontrar productos.</p>
                     <Search />
                 </div>
                 <div className='categorias'>

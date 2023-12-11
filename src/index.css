@@ -235,23 +235,27 @@ a {
         list-style: none;
         position: absolute;
         top: 50px;
-        left: 2px;
-        background-color: #f5dec0;
+        left: -8px;
+        /* background-color: #f5dec0; */
+        background-color: #1a1a1a;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
     }
-
+    
     .menuDesplegableLi {
         padding: 10px;
         cursor: pointer;
-        color: #000000;
-        font-weight: 700;
+        /* color: #000000; */
+        color: #ffffff;
+        font-weight: 500;
         font-size: 18px;
     }
 
     .menuDesplegableLi:hover {
-        background-color: #DF922F;
+        background-color: #ffba60;
+        border-radius: 5px;
+        color: #000000;
     }
 }
 
@@ -383,7 +387,6 @@ a {
 .search-block {
     max-width: 650px;
     margin: auto;
-    margin-top: 30px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -395,14 +398,21 @@ a {
     gap: 20px;
 }
 
+.buscador{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 /* Estilos para el encabezado */
-.search-block h2 {
+.buscador h2 {
     color: #DF922F;
     text-align: center;
 }
 
 /* Estilos para el párrafo de instrucciones */
-.search-block p {
+.buscador p {
     font-size: 18px;
     text-align: center;
 }
@@ -427,7 +437,11 @@ a {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 75px;
+}
+
+.rangoFechas{
+    margin-bottom: 20px;
+    font-size: 20px;
 }
 
 .date-picker-container-date {
@@ -439,8 +453,9 @@ a {
 
 /* Estilos para las etiquetas de los selectores de fechas */
 .date-picker label {
-    font-size: 14px;
-    color: #333;
+    font-size: 18px;
+    color: #000000;
+    font-weight: 500;
     margin-bottom: 10px;
 }
 

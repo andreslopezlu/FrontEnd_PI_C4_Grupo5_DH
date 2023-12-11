@@ -107,11 +107,11 @@ const Search = () => {
 
     return (
         <div className="search-block">
-            <h2>BUSQUEDA</h2>
-            <p>Ingrese un término de búsqueda para encontrar productos.</p>
+            {/* <h2>BUSQUEDA</h2>
+            <p>Ingrese un término de búsqueda para encontrar productos.</p> */}
             <div className="search-fields">
                 <div className="date-picker-container">
-                    <label>Rango de Fechas:</label>
+                    <label className='rangoFechas'>Rango de Fechas:</label>
                     <div className='date-picker-container-date'>
                     <div className="date-picker">
                         <label>Inicio:</label>
