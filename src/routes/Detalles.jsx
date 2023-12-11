@@ -27,12 +27,12 @@ function Detalles() {
         axios.get(`http://localhost:8080/reservations/by-product/${idProducto}`)
             .then((res) => {
                 const reservas = res.data;
-    
+
                 const fechasOcupadas = reservas.map((reserva) => ({
                     start: ajustarDiferenciaHoraria(new Date(reserva.check_in_date)),
                     end: ajustarDiferenciaHoraria(new Date(reserva.checkout_date)),
                 })).filter((reserva) => reserva.end >= fechaActual);
-    
+
                 setFechasReservadas(fechasOcupadas);
                 setError(null);
             })
@@ -89,7 +89,7 @@ function Detalles() {
         if (date < fechaActual) {
             return true;
         }
-    
+
         // Deshabilitar fechas ocupadas
         const adjustedDate = new Date(date);
         adjustedDate.setHours(0, 0, 0, 0);
@@ -97,8 +97,8 @@ function Detalles() {
             (fecha) =>
                 adjustedDate.getTime() >= new Date(fecha.start).getTime() &&
                 adjustedDate.getTime() <= new Date(fecha.end).getTime()
-            );
-    
+        );
+
         return isFechaOcupada;
     };
 
@@ -110,15 +110,15 @@ function Detalles() {
             if (!fechaFinSeleccionada && date > fechaInicioSeleccionada) {
                 const rangoPropuesto = getDiasEntreFechas(fechaInicioSeleccionada, date);
                 const todasFechasDisponibles = rangoPropuesto.every(fecha =>
-                !fechasReservadas.some(
-                    ocupada =>
-                    fecha.getTime() >= new Date(ocupada.start).getTime() &&
-                    fecha.getTime() <= new Date(ocupada.end).getTime()
-                )
+                    !fechasReservadas.some(
+                        ocupada =>
+                            fecha.getTime() >= new Date(ocupada.start).getTime() &&
+                            fecha.getTime() <= new Date(ocupada.end).getTime()
+                    )
                 );
-        
+
                 if (todasFechasDisponibles) {
-                setFechaFinSeleccionada(date);
+                    setFechaFinSeleccionada(date);
                 } else {
                     alert("Las fechas seleccionadas incluyen fechas ocupadas. Por favor, inténtelo de nuevo con otro rango.");
                     setFechaInicioSeleccionada(null);
@@ -131,16 +131,16 @@ function Detalles() {
             }
         }
     };
-    
+
     const getDiasEntreFechas = (fechaInicio, fechaFin) => {
         const dias = [];
         const diaActual = new Date(fechaInicio);
-    
+
         while (diaActual <= fechaFin) {
             dias.push(new Date(diaActual));
             diaActual.setDate(diaActual.getDate() + 1);
         }
-    
+
         return dias;
     };
 
@@ -175,7 +175,7 @@ function Detalles() {
 
     const handleReservaClick = () => {
         const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-    
+
         if (infoLocalStorage && fechaInicioSeleccionada && fechaFinSeleccionada) {
             navigate(`/producto/${idProducto}/reserva?fechaInicio=${fechaInicioSeleccionada.toISOString().split('T')[0]}&fechaFin=${fechaFinSeleccionada.toISOString().split('T')[0]}`);
         } else {
@@ -187,91 +187,101 @@ function Detalles() {
     return (
         <div className="cardContainer">
             <div className="detailsContainer">
+                <Link to="/producto">
+                    <img
+                        className="imgVolverDetalleProductos"
+                        src="../../public/imagenes/salir.png"
+                        alt=""
+                    />
+                </Link>
                 <div className="detallesNombre">
                     <h2>{producto && producto.name}</h2>
-                    <Link to="/producto">
-                        <img
-                            className="imgVolverProductos"
-                            src="../../public/imagenes/salir.png"
-                            alt=""
-                        />
-                    </Link>
                 </div>
-                <div className='sliderContainer'>
-                    <div className="imgContainer">
+
+                <div className='contenidoDetalleProducto'>
+                    <div className='sliderContainer'>
+                        <div className="imgContainer">
+                            <div
+                                className="slider"
+                                style={{
+                                    transform: `translateX(-${currentImage * 100}%)`,
+                                }}
+                            >
+                                {producto.img.map((imagen, index) => (
+                                    <img
+                                        className="imgenesDetalleProducto"
+                                        key={index + 100}
+                                        src={imagen.url}
+                                        alt={`Imagen ${index + 1}`}
+                                    />
+                                ))}
+                            </div>
+
+                        </div>
                         <div
-                            className="slider"
-                            style={{
-                                transform: `translateX(-${currentImage * 100}%)`,
-                            }}
+                            ref={thumbnailContainerRef}
+                            className="thumbnailContainer"
                         >
                             {producto.img.map((imagen, index) => (
                                 <img
-                                    className="imgenesDetalleProducto"
-                                    key={index + 100}
+                                    className={`thumbnail ${index === currentImage ? 'activeImg' : ''}`}
+                                    key={index}
                                     src={imagen.url}
-                                    alt={`Imagen ${index + 1}`}
+                                    alt={`Thumbnail ${(index + 1) * 99}`}
+                                    onClick={() => setCurrentImage(index)}
                                 />
                             ))}
                         </div>
+                        <button className='boton botonDesplazarImg botonDesplazarImgAntes' onClick={prevImage}>{'<'}</button>
+                        <button className='boton botonDesplazarImg botonDesplazarImgDespues' onClick={nextImage}>{'>'}</button>
+                    </div>
 
-                    </div>
-                    <div
-                        ref={thumbnailContainerRef}
-                        className="thumbnailContainer"
-                    >
-                        {producto.img.map((imagen, index) => (
-                            <img
-                                className={`thumbnail ${index === currentImage ? 'activeImg' : ''}`}
-                                key={index}
-                                src={imagen.url}
-                                alt={`Thumbnail ${(index + 1) * 99}`}
-                                onClick={() => setCurrentImage(index)}
+
+                    <div className='detailCalendarContainer'>
+
+                        <div className="priceDetailContainer">
+                            <p className='priceDetailContainerDescripcion'>{producto && producto.description}</p>
+                            <p>{producto && producto.specifications}</p>
+                            <p><b>Categoria:</b> {producto && producto.category.name}</p>
+                            <p><b>Precio:</b> ${producto && producto.costPerDay}/día</p>
+
+                        </div>
+
+                        <div className='calendarContainer'>
+                            <p className='calendarContainerTitulo'><b>Disponibilidad del producto:</b></p>
+                            <Calendar
+                                tileContent={({ date }) => {
+                                    const adjustedDate = new Date(date);
+                                    adjustedDate.setHours(0, 0, 0, 0);
+
+                                    const isFechaOcupada = fechasReservadas.some(
+                                        (fecha) =>
+                                            adjustedDate.getTime() >= new Date(fecha.start).getTime() &&
+                                            adjustedDate.getTime() <= new Date(fecha.end).getTime()
+                                    );
+
+                                    return (
+                                        <div className={`customTile ${isFechaOcupada ? 'fechaOcupada' : ''}`}>
+                                        </div>
+                                    );
+                                }}
+                                minDate={fechaActual}
+                                selectRange
+                                tileDisabled={deshabilitarFechas}
+                                value={[fechaInicioSeleccionada, fechaFinSeleccionada]}
+                                onChange={() => { }}
+                                onClickDay={(value) => handleFechaSeleccionada(value)}
                             />
-                        ))}
-                    </div>
-                    <div className='botonesSlider'>
-                    <button className='boton botonDesplazarImg' onClick={prevImage}>Anterior</button>
-                    <button className='boton botonDesplazarImg' onClick={nextImage}>Siguiente</button>
+                            {error && <div className="errorMessage">{error}</div>}
+                        </div>
+
                     </div>
                 </div>
-                <div className="priceDetailContainer">
-                    <p>{producto && producto.description}</p>
-                    <p>{producto && producto.specifications}</p>
-                    <p><b>Categoria:</b> {producto && producto.category.name}</p>
-                    <p><b>Precio:</b> ${producto && producto.costPerDay}/día</p>
-                    <div className='calendarContainer'>
-                        <p><b>Disponibilidad del producto:</b></p>
-                        <Calendar
-                            tileContent={({ date }) => {
-                                const adjustedDate = new Date(date);
-                                adjustedDate.setHours(0, 0, 0, 0);
 
-                                const isFechaOcupada = fechasReservadas.some(
-                                (fecha) =>
-                                    adjustedDate.getTime()  >= new Date(fecha.start).getTime() &&
-                                    adjustedDate.getTime()  <= new Date(fecha.end).getTime()
-                                );
-                                
-                                return (
-                                <div className={`customTile ${isFechaOcupada ? 'fechaOcupada' : ''}`}>
-                                </div>
-                                );
-                            }}
-                            minDate={fechaActual}
-                            selectRange
-                            tileDisabled={deshabilitarFechas}
-                            value={[fechaInicioSeleccionada, fechaFinSeleccionada]}
-                            onChange={() => {}}
-                            onClickDay={(value) => handleFechaSeleccionada(value)}
-                        />
-                    </div>
-                    {error && <div className="errorMessage">{error}</div>}
-                    <div className='botonesSlider'>
+                <div className='botonesSlider botonesAlquilarComprarContainer'>
                     <button className='boton botonAlquilarProducto' onClick={openModal}>COMPARTIR</button>
-                        {showModal && <ShareModal producto={producto} onClose={closeModal} />}
+                    {showModal && <ShareModal producto={producto} onClose={closeModal} />}
                     <button className='boton botonAlquilarProducto' onClick={handleReservaClick}>ALQUILAR</button>
-                    </div>
                 </div>
             </div>
         </div>
