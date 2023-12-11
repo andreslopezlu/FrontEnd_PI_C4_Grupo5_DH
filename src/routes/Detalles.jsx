@@ -6,6 +6,8 @@ import ShareModal from '../componets/ShareModal';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../Calendar.css'
+import LoginPopup from '../componets/LoginPopup';
+import SignupPopup from '../componets/SignupPopup';
 
 function Detalles() {
     const navigate = useNavigate();
@@ -173,19 +175,59 @@ function Detalles() {
         );
     };
 
+    const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
+    const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
+
+    const cerrarPopup = () => {
+        setLoginPopupOpen(false)
+        setSignupPopupOpen(false)
+    }
+
+    const abrirSinupPopup = () => {
+        setLoginPopupOpen(false)
+        setSignupPopupOpen(true)
+    }
+
+    const abrirLoginPopup = () => {
+        setLoginPopupOpen(true)
+        setSignupPopupOpen(false)
+    }
+
+
+    const redireccionPaginaReserva = () => {
+        navigate(`/producto/${idProducto}/reserva?fechaInicio=${fechaInicioSeleccionada.toISOString().split('T')[0]}&fechaFin=${fechaFinSeleccionada.toISOString().split('T')[0]}`);
+    }
+
     const handleReservaClick = () => {
         const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
 
         if (infoLocalStorage && fechaInicioSeleccionada && fechaFinSeleccionada) {
             navigate(`/producto/${idProducto}/reserva?fechaInicio=${fechaInicioSeleccionada.toISOString().split('T')[0]}&fechaFin=${fechaFinSeleccionada.toISOString().split('T')[0]}`);
-        } else {
-            const currentUrl = window.location.pathname + window.location.search;
-            navigate(`/login?redirect=${encodeURIComponent(currentUrl)}`);
+        } else if (fechaInicioSeleccionada === null || fechaFinSeleccionada === null) {
+            alert("Escoja una fecha de inicio y fin de la reserva")
+        }
+        else {
+            alert("Debes iniciar sesion para poder realizar un reserva")
+            setLoginPopupOpen(true)
         }
     };
 
+
     return (
         <div className="cardContainer">
+            {isLoginPopupOpen && (
+                <LoginPopup
+                    cerrarPopup={cerrarPopup}
+                    redireccionPaginaReserva={redireccionPaginaReserva}
+                    abrirSinupPopup={abrirSinupPopup}
+                />
+            )}
+            {isSignupPopupOpen && (
+                <SignupPopup
+                    cerrarPopup={cerrarPopup}
+                    abrirLoginPopup={abrirLoginPopup}
+                />
+            )}
             <div className="detailsContainer">
                 <Link to="/producto">
                     <img

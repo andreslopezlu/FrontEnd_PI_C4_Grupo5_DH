@@ -1113,7 +1113,7 @@ textarea  */
 
 .detailsContainer {
     position: relative;
-    max-width: 850px;
+    max-width: 900px;
     height: auto;
     margin: 20px;
     padding: 20px;
@@ -1131,10 +1131,7 @@ textarea  */
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 810px;
-    /* display: grid;
-    grid-template-columns: 50% 50%;
-    grid-row: 100%; */
+    width: 850px;
 }
 
 .detailCalendarContainer{
@@ -1149,8 +1146,8 @@ textarea  */
 /* calendario */
 
 .calendarContainer{
-    width: 380px;
-    height: 350px;
+    width: 400px;
+    height: 390px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -1193,6 +1190,10 @@ textarea  */
 .detallesNombre h2 {
     font-size: 40px;
     text-align: center;
+}
+
+.react-calendar{
+    border-radius: 10px;
 }
 
 /* Slider de imagenes */
@@ -1273,6 +1274,9 @@ textarea  */
     width: 100%;
     margin: 10px;
     margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .botonDesplazarImg {
@@ -1285,13 +1289,13 @@ textarea  */
 
 .botonDesplazarImgAntes{
     position: absolute;
-    top: 155px;
+    top: 185px;
     left: 5px;
 }
 
 .botonDesplazarImgDespues{
     position: absolute;
-    top: 155px;
+    top: 185px;
     right: 5px;
 }
 /* ------------------ Footer ----------------------*/
@@ -1637,8 +1641,8 @@ h4 {
 }
 
 /* Estilos adicionales para el contenido dentro del cuadro emergente, como campos de inicio de sesión o registro */
-.popup-content {
-    /* Agrega estilos según el contenido de tus cuadros emergentes */
+.popupSinup{
+    margin-top: 100px;
 }
 
 .close-button-img {
@@ -1708,6 +1712,9 @@ h4 {
     color: #ff0000;
     /* margin-top: 30px; */
     text-align: center;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 
@@ -1952,12 +1959,12 @@ h4 {
     color: #333;
 }
 
-.registerLink a {
+.registerLinkHere{
     color: #ffb61a;
     text-decoration: none;
     font-weight: bold;
 }
 
-.registerLink a:hover {
+.registerLinkHere:hover {
     text-decoration: underline;
 }

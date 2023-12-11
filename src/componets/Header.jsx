@@ -39,7 +39,6 @@ function Header() {
       } else {
         setIsAdmin(false);
       }
-
       setJwt(infoLocalStorage.jwt);
       setIsLoggedIn(true);
       setNombreUsuario((infoLocalStorage.name).charAt(0).toUpperCase());
@@ -65,7 +64,6 @@ function Header() {
       setIsAdmin(false);
     }
   }
-  //--------------------------------------------------------
   //------------------Logica Ver Pagina Historial/Favoritos------------
   const tipoUsuario2 = () => {
     const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
@@ -347,13 +345,14 @@ const obtenerIdUsuario = async (correoUsuario) => {
               />
               <button className="boton botoningreso" type="submit">Iniciar Sesión</button>
             </form>
+            <p className="registerLink">¿No tienes una cuenta? <span className='registerLinkHere'>Regístrate aquí</span></p>
           </div>
         </div>
       )}
 
       {isSignupPopupOpen && (
         <div className="popup-bg">
-          <div className="popup">
+          <div className="popup popupSinup">
             <button className="close-button" onClick={closeSignupPopup}>
               <img className="close-button-img" src="../../public/imagenes/salir.png" alt="Cerrar" />
             </button>
