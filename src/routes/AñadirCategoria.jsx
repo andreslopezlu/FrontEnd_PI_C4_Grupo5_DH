@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import { NavLink, Link, Navigate } from 'react-router-dom'
+import { NavLink, Link, Navigate , useNavigate} from 'react-router-dom'
 import axios from 'axios';
 import { ProductContext } from '../componets/utils/ProductoContext';
 
@@ -7,7 +7,7 @@ function AñadirCategoria() {
 
     const { recargarProductos, verificarAcceso } = useContext(ProductContext);
     const form = useRef();
-
+    const navigate = useNavigate();
     const [categoriaNombre, setCategoriaNombre] = useState('');
     const [categoriaDescripcion, setCategoriaDescripcion] = useState('');
     const [selectedFile, setselectedFile] = useState(null);
@@ -45,6 +45,9 @@ function AñadirCategoria() {
                 console.log(response.data);
                 form.current.reset();
                 recargarProductos();
+                alert(`Categoria ${response.data.name} creada`)
+                navigate('/administrador')
+                
             })
             .catch(error => {
                 console.error(error);

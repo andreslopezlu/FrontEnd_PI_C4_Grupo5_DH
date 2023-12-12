@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { NavLink, Link, useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import { ProductContext } from '../componets/utils/ProductoContext';
+
 
 function EditarCategoria() {
     const params = useParams();

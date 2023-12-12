@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import { NavLink, Link, Navigate } from 'react-router-dom'
+import { NavLink, Link, Navigate , useNavigate} from 'react-router-dom'
 import axios from 'axios';
 import { ProductContext } from '../componets/utils/ProductoContext';
 
@@ -8,6 +8,8 @@ function AñadirProducto() {
   
   const {recargarProductos , verificarAcceso} = useContext(ProductContext);
   const form = useRef();
+  const navigate = useNavigate();
+
   
   const [categorias, setCategorias] = useState([]);
   const [ciudades, setCiudades] = useState([]);
@@ -72,6 +74,7 @@ function AñadirProducto() {
         console.log(response.data);
         handleUpload(response.data.id);
         form.current.reset();
+        navigate('/administrador')
       })
       .catch(error => {
         console.error(error);

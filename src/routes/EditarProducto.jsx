@@ -102,7 +102,7 @@ function EditarProducto() {
       city_id: parseInt(cuidadSeleccionada, 10)
     }
 
-    // console.log(editarProducto);
+    console.log(editarProducto);
 
     axios.put("http://localhost:8080/products/update", editarProducto, {
       headers: {
@@ -119,7 +119,7 @@ function EditarProducto() {
       })
       .catch(error => {
         console.error(error);
-        alert("Usuario no editado");
+        alert("Producto no editado");
       });
 
   }
