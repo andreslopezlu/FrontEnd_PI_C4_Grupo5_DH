@@ -1,7 +1,6 @@
 name: 'cd-front'
 run-name: 'cd-front'
 on:
-  workflow_dispatch:
   pull_request:
     branches: [ main ]
 
@@ -26,7 +25,7 @@ jobs:
 
         tf_action: 'apply'
         tf_state_bucket_destroy: true
-        aws_spa_source_folder: '/dist'
+        aws_spa_source_folder: '../../../../../dist'
         
         aws_spa_cdn_enabled: true
         aws_resource_identifier: '1023c04_GRUPO5_final'
