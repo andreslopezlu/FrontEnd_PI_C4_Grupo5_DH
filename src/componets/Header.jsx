@@ -252,6 +252,7 @@ function Header() {
           <MenuMobile isLoggedIn={isLoggedIn} />
           <Link to='/home'><img className='logoPageImg' src={logoImg} alt="logo" /></Link>
         </div>
+        <h1>Hola!</h1>
         <div>
           <nav className=''>
             <div className='menuNav'>
