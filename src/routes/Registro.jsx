@@ -26,7 +26,7 @@
 //   const navigate = useNavigate();
 
 //   useEffect(() => {
-//     axios.get("http://localhost:8080/cities")
+//     axios.get("https://one023c04-grupo5-back.onrender.com/cities")
 //       .then(res => {
 //         setCiudades(res.data);
 //       })
@@ -72,7 +72,7 @@
 //       role: rolSeleccionado,
 //     };
 
-//     axios.post("http://localhost:8080/user/create", registrarUsuario)
+//     axios.post("https://one023c04-grupo5-back.onrender.com/user/create", registrarUsuario)
 //       .then(response => {
 //         setError('');
 //         alert("Usuario creado");

@@ -14,9 +14,11 @@ function App() {
 
   return (
     <ProductContextProvider>
+      <div className='app'>
       <Header setReloadProductos={setReloadProductos} />
       <Outlet reloadProductos={reloadProductos} setReloadProductos={setReloadProductos} />
       <Footer />
+      </div>
     </ProductContextProvider>
   );
 }

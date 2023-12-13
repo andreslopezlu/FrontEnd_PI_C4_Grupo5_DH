@@ -89,7 +89,7 @@ function Header() {
   const openSignupPopup = () => {
     setLoginPopupOpen(false);
     setSignupPopupOpen(true);
-    axios.get("http://localhost:8080/cities")
+    axios.get("https://one023c04-grupo5-back.onrender.com/cities")
       .then(res => {
         setCiudades(res.data);
       })
@@ -124,7 +124,7 @@ function Header() {
       password: loginPassword,
     }
 
-    axios.post("http://localhost:8080/api/auth/login", iniciarSesion)
+    axios.post("https://one023c04-grupo5-back.onrender.com/api/auth/login", iniciarSesion)
       .then((res) => {
         setError("");
         localStorage.setItem("jwtToken", JSON.stringify(res.data));
@@ -151,7 +151,7 @@ function Header() {
       const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
       const token = infoLocalStorage.jwt;
 
-      const response = await axios.get(`http://localhost:8080/user/by-email/${correoUsuario}`, {
+      const response = await axios.get(`https://one023c04-grupo5-back.onrender.com/user/by-email/${correoUsuario}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -222,7 +222,7 @@ function Header() {
       role: rolSeleccionado,
     }
 
-    axios.post("http://localhost:8080/user/create", registrarUsuario)
+    axios.post("https://one023c04-grupo5-back.onrender.com/user/create", registrarUsuario)
       .then(response => {
         alert("Usuario creado");
         console.log(response.data);

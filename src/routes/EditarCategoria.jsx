@@ -21,7 +21,7 @@ function EditarCategoria() {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/categories/${idCategoria}`)
+        axios.get(`https://one023c04-grupo5-back.onrender.com/categories/${idCategoria}`)
             .then((res) => {
                 setValoresIniciales(res.data);
                 setUrlImage(res.data.urlImage)
@@ -65,7 +65,7 @@ function EditarCategoria() {
             }
         };
 
-        axios.put("http://localhost:8080/categories/update", formData, config)
+        axios.put("https://one023c04-grupo5-back.onrender.com/categories/update", formData, config)
             .then(response => {
                 console.log("Categoria editada");
                 alert("Categoria editada");

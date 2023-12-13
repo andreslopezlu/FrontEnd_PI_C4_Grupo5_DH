@@ -617,18 +617,24 @@ a {
     background-color: #fcfcfc;
 }
 
-/* .suggestions-container.visible {
-    display: block;
-}
-
-.suggestions-container.hidden {
-    display: none;
-} */
-
 .suggestions-container::-webkit-scrollbar {
     width: 0px;
     background: transparent;
 }
+
+@media (max-width:520) {
+
+    .search-block{
+        width: 380px;
+    }
+
+    .inputFechaBuscador{
+        width: 100px;
+    }
+
+}
+
+
 
 /* ----- Card Producto -----*/
 

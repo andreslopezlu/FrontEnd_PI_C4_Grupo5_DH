@@ -7,6 +7,7 @@ import axios from 'axios';
 import Search from '../componets/Search';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import cargando1 from "../../public/imagenes/cargando1.gif"
+import CardCaracteristicas from '../componets/CardCaracteristicas';
 
 
 function Home() {
@@ -37,6 +38,8 @@ function Home() {
     return (
         <div>
             <div className='home'>
+                <div>
+                </div>
                 <div className='buscador'>
                     <h2>BUSQUEDA</h2>
                     <p>Ingrese un término de búsqueda para encontrar productos.</p>
