@@ -26,4 +26,4 @@ jobs:
         aws_spa_cdn_enabled: true
         aws_resource_identifier: '1023c04_GRUPO5_final'
 
-        aws_spa_source_folder: 'dist/'
+        aws_spa_source_folder: 'dist'
