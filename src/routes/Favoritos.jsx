@@ -11,7 +11,7 @@ function Favoritos() {
   
     const obtenerImagenes = async (productId) => {
       try {
-        const imgres = await axios.get(`/images/product/${productId}`);
+        const imgres = await axios.get(`https://one023c04-grupo5-back.onrender.com/images/product/${productId}`);
         return imgres.data;
       } catch (error) {
         console.error("Error al obtener datos de imágenes de la API: ", error);
