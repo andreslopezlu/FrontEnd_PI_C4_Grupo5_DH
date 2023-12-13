@@ -50,6 +50,9 @@ function EditarProducto() {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(0);
   const [cuidadSeleccionada, setCuidadSeleccionada] = useState(0);
   const [selectedFiles, setSelectedFiles] = useState(null);
+  const [totalReviews , setTotalReviews] = useState(null)
+  const [totalScore , setTotalScore] = useState(null)
+
 
   const obtenerImagenes = (productId) => {
     return axios.get(`http://localhost:8080/images/product/${productId}`)
@@ -99,7 +102,9 @@ function EditarProducto() {
       average_score: 5.0,
       costPerDay: productoCosto,
       category_id: parseInt(categoriaSeleccionada, 10),
-      city_id: parseInt(cuidadSeleccionada, 10)
+      city_id: parseInt(cuidadSeleccionada, 10),
+      totalReviews : totalReviews,
+      totalScore : totalScore,
     }
 
     console.log(editarProducto);
@@ -158,6 +163,8 @@ function EditarProducto() {
     setProductoCosto(producto.costPerDay);
     setCategoriaSeleccionada(producto.category.id);
     setCuidadSeleccionada(producto.city.id);
+    setTotalScore(producto.totalScore);
+    setTotalReviews(producto.totalReviews)
   }
 
   const navigate = useNavigate();
