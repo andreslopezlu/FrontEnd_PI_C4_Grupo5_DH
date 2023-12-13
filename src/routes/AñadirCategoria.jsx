@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 import { NavLink, Link, Navigate , useNavigate} from 'react-router-dom'
 import axios from 'axios';
 import { ProductContext } from '../componets/utils/ProductoContext';
+import salir from "../../public/imagenes/salir.png"
 
 function AñadirCategoria() {
 
@@ -72,7 +73,7 @@ function AñadirCategoria() {
             {verificarAcceso()}
             <h2>AGREGAR CATEGORIA</h2>
             <div className='formAñadirProducto'>
-                <Link to='/administrador'><img className='formImgSalir' src="../../public/imagenes/salir.png" alt="" /></Link>
+                <Link to='/administrador'><img className='formImgSalir' src={salir} alt="" /></Link>
                 <form
                     ref={form}
                     onSubmit={handleSubmit}

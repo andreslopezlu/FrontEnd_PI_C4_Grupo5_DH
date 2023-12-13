@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 import { NavLink, Link, Navigate, useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { ProductContext } from '../componets/utils/ProductoContext';
+import salir from "../../public/imagenes/salir.png"
 
 function EditarProducto() {
   const params = useParams();
@@ -172,7 +173,7 @@ function EditarProducto() {
       {verificarAcceso()}
       <h2>EDITAR PRODUCTO ID: {producto.id}</h2>
       <div className='formAñadirProducto'>
-        <Link to='/administrador'><img className='formImgSalir' src="../../public/imagenes/salir.png" alt="" /></Link>
+        <Link to='/administrador'><img className='formImgSalir' src={salir} alt="" /></Link>
         {/* <Link to='/administrador'><p className='boton botonSalirEditarProductos formImgSalir'>X</p></Link> */}
         <form
           // ref={form}

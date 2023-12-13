@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import cargando1 from "../../public/imagenes/cargando1.gif"
 
 function Historial() {
   const [reservas, setReservas] = useState([]);
@@ -46,7 +47,7 @@ function Historial() {
       )}
       {loading &&
         <div className='cargandoProducto'>
-          <img className='gifCargandoProducto' src="../../public/imagenes/cargando1.gif" alt="" />
+          <img className='gifCargandoProducto' src={cargando1} alt="" />
         </div>}
     </div>
   );

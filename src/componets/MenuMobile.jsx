@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import menu from "../../public/imagenes/menu.png"
 
 function MenuMobile({ isLoggedIn }) {
     const menuRef = useRef(null);
@@ -69,7 +70,7 @@ function MenuMobile({ isLoggedIn }) {
 
     return (
         <div className="menuDesplegable" ref={menuRef}>
-            <img onClick={handleToggle} className='menuImg' src="../../public/imagenes/menu.png" alt="logo" />
+            <img onClick={handleToggle} className='menuImg' src={menu} alt="logo" />
             {desplegado && (
                 <ul className='menuDesplegableUl'>
                     {opciones.map((opcion, index) => (
