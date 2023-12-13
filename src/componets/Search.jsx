@@ -97,7 +97,6 @@ const Search = () => {
 
     const realizarBusqueda = () => {
         const ruta = productoID.id;
-        console.log(ruta)
         navigate(`/producto/${ruta}`)
         // if (validateDateRange()) {
         //     console.log('Búsqueda realizada con éxito');

@@ -9,25 +9,23 @@ function CardProducto(props) {
   const [favorito, setFavorito] = useState(false);
   const [mostrarModal, setMostrarModal] = useState(false);
 
-
-
   useEffect(() => {
     const obtenerFavorito = async () => {
 
       const userIdString = localStorage.getItem('userId');
       const userId = userIdString ? parseInt(userIdString, 10) : null;
       const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
-    
+
       if (userId && infoLocalStorage) {
         const headers = {
           'Authorization': `Bearer ${infoLocalStorage.jwt}`,
         };
-    
+
         try {
           const response = await axios.get(`http://localhost:8080/favorites/by-user-and-product/${userId}/${props.id}`, {
             headers,
           });
-    
+
           // Verificar si la respuesta tiene un estado 404 (Not Found)
           if (response.status === 404) {
             setFavorito(false);  // No se encontró el recurso
@@ -46,17 +44,15 @@ function CardProducto(props) {
         }
       }
     };
-  
+
     obtenerFavorito();
   }, [props.id, props.reloadProductos]);
 
-  
-  
   const toggleFavorito = async () => {
     const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
     const userIdString = localStorage.getItem('userId');
     const userId = userIdString ? parseInt(userIdString, 10) : null;
-  
+
     if (infoLocalStorage && (infoLocalStorage.role === 'ADMIN' || infoLocalStorage.role === 'USER')) {
       try {
         if (favorito) {
@@ -66,7 +62,7 @@ function CardProducto(props) {
               'Authorization': `Bearer ${infoLocalStorage.jwt}`,
             },
           });
-  
+
           setFavorito(false);
         } else {
           // Si el producto no está marcado como favorito, enviar una solicitud POST para agregarlo
@@ -82,7 +78,7 @@ function CardProducto(props) {
               'Authorization': `Bearer ${infoLocalStorage.jwt}`,
             },
           });
-  
+
           setFavorito(true);
         }
       } catch (error) {
@@ -93,7 +89,7 @@ function CardProducto(props) {
       setMostrarModal(true);
     }
   };
-  
+
   const cerrarModal = () => {
     setMostrarModal(false);
   };

@@ -158,7 +158,7 @@ function Header() {
       });
       const usuario = response.data;
       setUserId(usuario.id);
-      console.log("El id del usuario es: ", usuario.id);
+      // console.log("El id del usuario es: ", usuario.id);
       localStorage.setItem('userId', String(usuario.id));
 
     } catch (error) {
@@ -252,7 +252,6 @@ function Header() {
           <MenuMobile isLoggedIn={isLoggedIn} />
           <Link to='/home'><img className='logoPageImg' src={logoImg} alt="logo" /></Link>
         </div>
-        <h1>Hola jajaja mmmmmm!</h1>
         <div>
           <nav className=''>
             <div className='menuNav'>

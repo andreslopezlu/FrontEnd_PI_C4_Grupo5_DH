@@ -99,11 +99,13 @@ function EditarProducto() {
       specifications: productoEspecificacion,
       active: true,
       available: true,
-      // average_score: productoScore,
-      average_score: 5.0,
       costPerDay: productoCosto,
-      category_id: parseInt(categoriaSeleccionada, 10),
-      city_id: parseInt(cuidadSeleccionada, 10),
+      city : {
+        id : parseInt(cuidadSeleccionada, 10)
+      },
+      category : {
+        id : parseInt(categoriaSeleccionada, 10),
+      },
       totalReviews : totalReviews,
       totalScore : totalScore,
     }
