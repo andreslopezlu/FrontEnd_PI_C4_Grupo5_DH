@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 import { NavLink, Link, useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { ProductContext } from '../componets/utils/ProductoContext';
-
+import salir from "../../public/imagenes/salir.png"
 
 function EditarCategoria() {
     const params = useParams();
@@ -95,7 +95,7 @@ function EditarCategoria() {
             {verificarAcceso()}
             <h2>EDITAR CATEGORIA ID: {categoria.id}</h2>
             <div className='formAñadirProducto'>
-            <Link to='/administrador'><img className='formImgSalir' src="../../public/imagenes/salir.png" alt="" /></Link>
+            <Link to='/administrador'><img className='formImgSalir' src={salir} alt="" /></Link>
                 <form
                     onSubmit={handleSubmit}
                 >

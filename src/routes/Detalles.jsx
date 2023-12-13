@@ -8,6 +8,7 @@ import 'react-calendar/dist/Calendar.css';
 import '../Calendar.css'
 import LoginPopup from '../componets/LoginPopup';
 import SignupPopup from '../componets/SignupPopup';
+import salir from "../../public/imagenes/salir.png"
 
 function Detalles() {
     const navigate = useNavigate();
@@ -232,7 +233,7 @@ function Detalles() {
                 <Link to="/producto">
                     <img
                         className="imgVolverDetalleProductos"
-                        src="../../public/imagenes/salir.png"
+                        src={salir}
                         alt=""
                     />
                 </Link>

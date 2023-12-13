@@ -6,6 +6,7 @@ import { ProductContext } from '../componets/utils/ProductoContext';
 import axios from 'axios';
 import Search from '../componets/Search';
 import { faL } from '@fortawesome/free-solid-svg-icons';
+import cargando1 from "../../public/imagenes/cargando1.gif"
 
 
 function Home() {
@@ -60,7 +61,7 @@ function Home() {
                     <p className='homeP'>Descubre nuestra selección de herramientas altamente recomendadas</p>
                     {loading &&
                         <div className='cargandoProducto'>
-                            <img className='gifCargandoProducto' src="../../public/imagenes/cargando1.gif" alt="" />
+                            <img className='gifCargandoProducto' src={cargando1} alt="" />
                         </div>}
                     <div className='homeCardCategorias homeCardProductos'>
                         {productosMezclados.slice(0, productosPorPagina).map(props => (
