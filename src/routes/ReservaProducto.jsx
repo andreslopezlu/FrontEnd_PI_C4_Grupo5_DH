@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
+import cargando1 from "../../public/imagenes/cargando1.gif"
 
 const ReservaProducto = () => {
     const navigate = useNavigate();
@@ -129,7 +130,7 @@ const ReservaProducto = () => {
 
     if (!productInfo || !userInfo) {
         return <div className='cargandoProducto'>
-            <img className='gifCargandoProducto' src="../../public/imagenes/cargando1.gif" alt="" />
+            <img className='gifCargandoProducto' src={cargando1} alt="" />
         </div>;
     }
 

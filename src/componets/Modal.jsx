@@ -1,4 +1,5 @@
 import React from 'react';
+import salir from "../../public/imagenes/salir.png"
 
 const Modal = ({ onClose, children }) => {
   return (
@@ -6,7 +7,7 @@ const Modal = ({ onClose, children }) => {
       <div className="modal">
         <img
           className="close-button"
-          src="../../public/imagenes/salir.png"
+          src={salir}
           alt="Cerrar"
           onClick={onClose}
         />

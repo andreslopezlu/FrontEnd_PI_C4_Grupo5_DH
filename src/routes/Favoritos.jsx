@@ -2,6 +2,8 @@ import React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import CardProducto from '../componets/CardProducto';
+import cargando1 from "../../public/imagenes/cargando1.gif"
+
 function Favoritos() {
     const [favoritos, setFavoritos] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -79,7 +81,7 @@ function Favoritos() {
         )}
         {loading &&
         <div className='cargandoProducto'>
-          <img className='gifCargandoProducto' src="../../public/imagenes/cargando1.gif" alt="" />
+          <img className='gifCargandoProducto' src={cargando1} alt="" />
         </div>}
       </div>
     );

@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import CardError from './CardError';
-
-
+import salir from "../../public/imagenes/salir.png"
+import iconoUsuario from "../../public/imagenes/iconousuario.svg"
+import iconoCorreo from "../../public/imagenes/iconocorreo.svg"
+import iconoContrasena from "../../public/imagenes/iconocontrasena.svg"
+import telefonoIco from "../../public/imagenes/telefono_ico.png"
+import ubicacionIco from "../../public/imagenes/ubicacion_ico.png"
 
 function SignupPopup(props) {
 
@@ -97,13 +101,13 @@ function SignupPopup(props) {
         <div className="popup-bg">
             <div className="popup popupSinup">
                 <button className="close-button" onClick={props.cerrarPopup}>
-                    <img className="close-button-img" src="../../public/imagenes/salir.png" alt="Cerrar" />
+                    <img className="close-button-img" src={salir} alt="Cerrar" />
                 </button>
                 <h2 className="popup-title">Crear Cuenta</h2>
                 <form onSubmit={handleSignup}>
 
                     <div className="input-container">
-                        <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
+                        <img src={iconoUsuario} className="custom-icon" />
                         <input
                             type="text"
                             value={signupUser}
@@ -113,7 +117,7 @@ function SignupPopup(props) {
                     </div>
 
                     <div className="input-container">
-                        <img src="../../public/imagenes/iconocorreo.svg" className="custom-icon" />
+                        <img src={iconoCorreo} className="custom-icon" />
                         <input
                             type="email"
                             value={signupEmail}
@@ -123,7 +127,7 @@ function SignupPopup(props) {
                     </div>
 
                     <div className="input-container">
-                        <img src="../../public/imagenes/iconocontrasena.svg" className="custom-icon" />
+                        <img src={iconoContrasena} className="custom-icon" />
                         <input
                             type="password"
                             value={signupPassword}
@@ -132,7 +136,7 @@ function SignupPopup(props) {
                         />
                     </div>
                     <div className="input-container">
-                        <img src="../../public/imagenes/iconocontrasena.svg" className="custom-icon" />
+                        <img src={iconoContrasena} className="custom-icon" />
                         <input
                             type="password"
                             value={signupConfirmPassword}
@@ -144,7 +148,7 @@ function SignupPopup(props) {
                     {/* ------------------------------------------------------------ */}
 
                     <div className="input-container">
-                        <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
+                        <img src={iconoUsuario} className="custom-icon" />
                         <input
                             type="text"
                             value={signupName}
@@ -154,7 +158,7 @@ function SignupPopup(props) {
                     </div>
 
                     <div className="input-container">
-                        <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
+                        <img src={iconoUsuario} className="custom-icon" />
                         <input
                             type="text"
                             value={signupLastName}
@@ -164,7 +168,7 @@ function SignupPopup(props) {
                     </div>
 
                     <div className="input-container">
-                        <img src="../../public/imagenes/telefono_ico.png" className="custom-icon" />
+                        <img src={telefonoIco} className="custom-icon" />
                         <input
                             type="number"
                             value={signupPhoneNumber}
@@ -174,7 +178,7 @@ function SignupPopup(props) {
                     </div>
 
                     <div className="input-container">
-                        <img src="../../public/imagenes/ubicacion_ico.png" className="custom-icon" />
+                        <img src={ubicacionIco} className="custom-icon" />
                         <select
                             className='estilosForm'
                             name='ciudad'
@@ -192,7 +196,7 @@ function SignupPopup(props) {
                     </div>
 
                     <div className="input-container">
-                        <img src="../../public/imagenes/ubicacion_ico.png" className="custom-icon" />
+                        <img src={ubicacionIco} className="custom-icon" />
                         <select
                             className='estilosForm'
                             name='role'

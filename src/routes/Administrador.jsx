@@ -3,7 +3,9 @@ import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import CardMessageConfirm from '../componets/CardMessageConfirm';
 import { ProductContext } from '../componets/utils/ProductoContext';
-
+import salir from "../../public/imagenes/salir.png"
+import adminNoDisponible from "../../public/imagenes/admin_no_disponible.png"
+import cargando1 from "../../public/imagenes/cargando1.gif"
 
 function Administrador() {
 
@@ -139,8 +141,8 @@ function Administrador() {
             <h2 className='h2Administracion'>ADMINISTRACIÓN</h2>
             {isMobile ? (
                 <div className='alert-message'>
-                    <Link to='/home'><img className='formImgSalir salirAdmin' src="../../public/imagenes/salir.png" alt="" /></Link>
-                    <img className='imgNoDisponibleAdmin' src="../../public/imagenes/admin_no_disponible.png" alt="" />
+                    <Link to='/home'><img className='formImgSalir salirAdmin' src={salir} alt="" /></Link>
+                    <img className='imgNoDisponibleAdmin' src={adminNoDisponible} alt="" />
                     <h3>El panel de administración no está disponible desde dispositivos móviles.</h3>
                 </div>
             ) : (
@@ -207,7 +209,7 @@ function Administrador() {
                             </table>
                             {loading &&
                                 <div className='cargandoProducto'>
-                                    <img className='gifCargandoProducto' src="../../public/imagenes/cargando1.gif" alt="" />
+                                    <img className='gifCargandoProducto' src={cargando1} alt="" />
                                 </div>}
                         </div>
                     )}
@@ -252,7 +254,7 @@ function Administrador() {
                             </table>
                             {loading &&
                                 <div className='cargandoProducto'>
-                                    <img className='gifCargandoProducto' src="../../public/imagenes/cargando1.gif" alt="" />
+                                    <img className='gifCargandoProducto' src={cargando1} alt="" />
                                 </div>}
                         </div>
                     )}

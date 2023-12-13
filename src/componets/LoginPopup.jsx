@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import CardError from './CardError';
 import axios from 'axios';
+import salir from "../../public/imagenes/salir.png"
+import iconoUsuario from "../../public/imagenes/iconousuario.svg"
+import iconoContrasena from "../../public/imagenes/iconocontrasena.svg"
 
 function LoginPopup(props) {
 
@@ -64,12 +67,12 @@ function LoginPopup(props) {
         <div className="popup-bg">
             <div className="popup">
                 <button className="close-button" onClick={props.cerrarPopup}>
-                    <img className="close-button-img" src="../../public/imagenes/salir.png" alt="Cerrar" />
+                    <img className="close-button-img" src={salir} alt="Cerrar" />
                 </button>
                 <h2 className="popup-title">Iniciar Sesión</h2>
                 <form onSubmit={handleLogin}>
                     <div className="input-container">
-                        <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
+                        <img src={iconoUsuario} className="custom-icon" />
                         <input
                             type="text"
                             value={loginUsername}
@@ -79,7 +82,7 @@ function LoginPopup(props) {
                     </div>
 
                     <div className="input-container">
-                        <img src="../../public/imagenes/iconocontrasena.svg" className="custom-icon" />
+                        <img src={iconoContrasena} className="custom-icon" />
                         <input
                             type="password"
                             value={loginPassword}

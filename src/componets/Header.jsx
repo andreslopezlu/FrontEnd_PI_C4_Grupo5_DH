@@ -3,7 +3,14 @@ import { Link, Navigate, useLocation } from 'react-router-dom';
 import axios from 'axios'
 import CardError from './CardError';
 import MenuMobile from './MenuMobile';
-
+import logoImg from "../../public/imagenes/logo.png"
+import salir from "../../public/imagenes/salir.png"
+import iconoUsuario from "../../public/imagenes/iconousuario.svg"
+import iconoContrasena from "../../public/imagenes/iconocontrasena.svg"
+import telefonoIco from "../../public/imagenes/telefono_ico.png"
+import ubicacionIco from "../../public/imagenes/ubicacion_ico.png"
+import iconoCorreo from "../../public/imagenes/iconocorreo.svg"
+import fondo from "../../public/imagenes/fondo.png"
 
 function Header() {
 
@@ -243,8 +250,9 @@ function Header() {
       <div className='header'>
         <div className='logoPageDiv'>
           <MenuMobile isLoggedIn={isLoggedIn} />
-          <Link to='/home'><img className='logoPageImg' src="../../public/imagenes/logo.png" alt="logo" /></Link>
+          <Link to='/home'><img className='logoPageImg' src={logoImg} alt="logo" /></Link>
         </div>
+        <h1>Hola jajaja mmmmmm!</h1>
         <div>
           <nav className=''>
             <div className='menuNav'>
@@ -313,12 +321,12 @@ function Header() {
         <div className="popup-bg">
           <div className="popup">
             <button className="close-button" onClick={closeLoginPopup}>
-              <img className="close-button-img" src="../../public/imagenes/salir.png" alt="Cerrar" />
+              <img className="close-button-img" src={salir} alt="Cerrar" />
             </button>
             <h2 className="popup-title">Iniciar Sesión</h2>
             <form onSubmit={handleLogin}>
               <div className="input-container">
-                <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
+                <img src={iconoUsuario} className="custom-icon" />
                 <input
                   type="text"
                   value={loginUsername}
@@ -328,7 +336,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../../public/imagenes/iconocontrasena.svg" className="custom-icon" />
+                <img src={iconoContrasena} className="custom-icon" />
                 <input
                   type="password"
                   value={loginPassword}
@@ -350,13 +358,13 @@ function Header() {
         <div className="popup-bg">
           <div className="popup popupSinup">
             <button className="close-button" onClick={closeSignupPopup}>
-              <img className="close-button-img" src="../../public/imagenes/salir.png" alt="Cerrar" />
+              <img className="close-button-img" src={salir} alt="Cerrar" />
             </button>
             <h2 className="popup-title">Crear Cuenta</h2>
             <form onSubmit={handleSignup}>
 
               <div className="input-container">
-                <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
+                <img src={iconoUsuario} className="custom-icon" />
                 <input
                   type="text"
                   value={signupUser}
@@ -366,7 +374,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../../public/imagenes/iconocorreo.svg" className="custom-icon" />
+                <img src={iconoCorreo} className="custom-icon" />
                 <input
                   type="email"
                   value={signupEmail}
@@ -376,7 +384,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../../public/imagenes/iconocontrasena.svg" className="custom-icon" />
+                <img src={iconoContrasena} className="custom-icon" />
                 <input
                   type="password"
                   value={signupPassword}
@@ -385,7 +393,7 @@ function Header() {
                 />
               </div>
               <div className="input-container">
-                <img src="../../public/imagenes/iconocontrasena.svg" className="custom-icon" />
+                <img src={iconoContrasena} className="custom-icon" />
                 <input
                   type="password"
                   value={signupConfirmPassword}
@@ -397,7 +405,7 @@ function Header() {
               {/* ------------------------------------------------------------ */}
 
               <div className="input-container">
-                <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
+                <img src={iconoUsuario} className="custom-icon" />
                 <input
                   type="text"
                   value={signupName}
@@ -407,7 +415,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../../public/imagenes/iconousuario.svg" className="custom-icon" />
+                <img src={iconoUsuario} className="custom-icon" />
                 <input
                   type="text"
                   value={signupLastName}
@@ -417,7 +425,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../../public/imagenes/telefono_ico.png" className="custom-icon" />
+                <img src={telefonoIco} className="custom-icon" />
                 <input
                   type="number"
                   value={signupPhoneNumber}
@@ -427,7 +435,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../../public/imagenes/ubicacion_ico.png" className="custom-icon" />
+                <img src={ubicacionIco} className="custom-icon" />
                 <select
                   className='estilosForm'
                   name='ciudad'
@@ -445,7 +453,7 @@ function Header() {
               </div>
 
               <div className="input-container">
-                <img src="../../public/imagenes/ubicacion_ico.png" className="custom-icon" />
+                <img src={ubicacionIco} className="custom-icon" />
                 <select
                   className='estilosForm'
                   name='role'
@@ -467,7 +475,7 @@ function Header() {
         </div>
       )}
       <div className='imgFondo'>
-        <img src="../../public/imagenes/fondo.png" alt="img_fondo" />
+        <img src={fondo} alt="img_fondo" />
         <h1>ALQUILER DE HERRAMIENTAS</h1>
         <p>Construyendo Futuro Juntos</p>
       </div>
