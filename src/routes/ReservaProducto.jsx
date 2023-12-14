@@ -17,6 +17,8 @@ const ReservaProducto = () => {
     const [cantidadDias, setCantidadDias] = useState(0);
     const [costoTotal, setCostoTotal] = useState(0);
     const [comentarios, setComentarios] = useState('');
+    const [loading, setLoading] = useState(false);
+
 
     const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
 
@@ -100,6 +102,7 @@ const ReservaProducto = () => {
 
     const handleConfirmarReserva = async () => {
         if (userInfo) {
+            setLoading(true);
             const reservaData = {
                 product: productInfo,
                 user: userInfo,
@@ -116,8 +119,10 @@ const ReservaProducto = () => {
                 const response = await axios.post('https://one023c04-grupo5-back.onrender.com/reservations/create', reservaData, { headers });
                 console.log('Reserva creada exitosamente:', response.data);
                 alert(`La reserva del producto ${response.data.product.name} se realizo satisfactoriamente`);
+                setLoading(false);
                 navigate('/historial')
             } catch (error) {
+                setLoading(false);
                 console.error('Error al crear la reserva:', error);
                 //setError('Error al crear la reserva. Intente nuevamente más tarde.');
             }
@@ -135,43 +140,50 @@ const ReservaProducto = () => {
     }
 
     return (
-        <div className="reservaProducto">
-            <h2>Confirma tu Reserva</h2>
-
-            <h3>Detalles del Producto</h3>
-            <div className='reservaProductoDiv1'>
-                <p className='reservaProductoNombre'>{productInfo.name}</p>
-                <div className='reservaProductoImgP'>
-                    <div className='reservaProductoDivImg'>
-                        {productImages.length > 0 && (
-                            <img src={productImages[0].url} alt="Imagen 1" />
-                        )}
+        <div>
+            <div className="reservaProducto">
+                <div>
+                    <h2>Confirma tu Reserva</h2>
+                    <h3>Detalles del Producto</h3>
+                    <div className='reservaProductoDiv1'>
+                        <p className='reservaProductoNombre'>{productInfo.name}</p>
+                        <div className='reservaProductoImgP'>
+                            <div className='reservaProductoDivImg'>
+                                {productImages.length > 0 && (
+                                    <img src={productImages[0].url} alt="Imagen 1" />
+                                )}
+                            </div>
+                            <p>{productInfo.description}</p>
+                        </div>
                     </div>
-                    <p>{productInfo.description}</p>
+
+                    <h3>Detalles de la reserva</h3>
+                    <div className='reservaProductoDiv2'>
+                        <p><span className='reservaProductoSpan'>Fecha de inicio</span>{fechaInicio}</p>
+                        <p><span className='reservaProductoSpan'>Fecha de fin</span>{fechaFin}</p>
+                        <p><span className='reservaProductoSpan'>Costo por día</span>{productInfo.costPerDay.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</p>
+                        <p><span className='reservaProductoSpan'>Cantidad de días reservados</span>{cantidadDias}</p>
+                        <p><span className='reservaProductoSpan'>Costo total</span>{costoTotal.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</p>
+                    </div>
+
+                    <h3>Detalles del Usuario</h3>
+
+                    <div className='reservaProductoDiv2'>
+                        <p><span className='reservaProductoSpan'>Nombre</span>{userInfo.name}</p>
+                        <p><span className='reservaProductoSpan'>Correo</span>{userEmail}</p>
+                        <p><span className='reservaProductoSpan'>Telefono</span>{userInfo.phoneNumber}</p>
+                    </div>
+                    <div className='reservaProductoDivButon'>
+                        {error && <div className="errorMessage">{error}</div>}
+                        <button className="cancelButton" onClick={handleCancelarReserva}>Cancelar</button>
+                        <button className="confirmButton" onClick={handleConfirmarReserva}>Confirmar Reserva</button>
+                    </div>
                 </div>
             </div>
-
-            <h3>Detalles de la reserva</h3>
-            <div className='reservaProductoDiv2'>
-                <p><span className='reservaProductoSpan'>Fecha de inicio</span>{fechaInicio}</p>
-                <p><span className='reservaProductoSpan'>Fecha de fin</span>{fechaFin}</p>
-                <p><span className='reservaProductoSpan'>Costo por día</span>{productInfo.costPerDay.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</p>
-                <p><span className='reservaProductoSpan'>Cantidad de días reservados</span>{cantidadDias}</p>
-                <p><span className='reservaProductoSpan'>Costo total</span>{costoTotal.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</p>
-            </div>
-
-
-            <h3>Detalles del Usuario</h3>
-            <div className='reservaProductoDiv2'>
-                <p><span className='reservaProductoSpan'>Nombre</span>{userInfo.name}</p>
-                <p><span className='reservaProductoSpan'>Correo</span>{userEmail}</p>
-                <p><span className='reservaProductoSpan'>Telefono</span>{userInfo.phoneNumber}</p>
-            </div>
-            <div className='reservaProductoDivButon'>
-                {error && <div className="errorMessage">{error}</div>}
-                <button className="cancelButton" onClick={handleCancelarReserva}>Cancelar</button>
-                <button className="confirmButton" onClick={handleConfirmarReserva}>Confirmar Reserva</button>
-            </div>
+            {loading &&
+                <div className='cargandoProducto popup-bg'>
+                    <img className='gifCargandoProducto' src={cargando1} alt="" />
+                </div>}
         </div>
     );
 };

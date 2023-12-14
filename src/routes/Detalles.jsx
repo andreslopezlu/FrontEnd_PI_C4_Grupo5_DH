@@ -251,15 +251,17 @@ function Detalles() {
                                 }}
                             >
                                 {producto.img.map((imagen, index) => (
-                                    <img
-                                        className="imgenesDetalleProducto"
-                                        key={index + 100}
-                                        src={imagen.url}
-                                        alt={`Imagen ${index + 1}`}
-                                    />
+                                    <div key={index + 1000}>
+                                        <img
+                                            className="imgenesDetalleProducto"
+                                            // key={index + 100}
+                                            src={imagen.url}
+                                            alt={`Imagen ${index + 1}`}
+                                        /></div>
                                 ))}
                             </div>
-
+                            <button className='boton botonDesplazarImg botonDesplazarImgAntes' onClick={prevImage}>{'<'}</button>
+                            <button className='boton botonDesplazarImg botonDesplazarImgDespues' onClick={nextImage}>{'>'}</button>
                         </div>
                         <div
                             ref={thumbnailContainerRef}
@@ -275,8 +277,7 @@ function Detalles() {
                                 />
                             ))}
                         </div>
-                        <button className='boton botonDesplazarImg botonDesplazarImgAntes' onClick={prevImage}>{'<'}</button>
-                        <button className='boton botonDesplazarImg botonDesplazarImgDespues' onClick={nextImage}>{'>'}</button>
+
                     </div>
 
 

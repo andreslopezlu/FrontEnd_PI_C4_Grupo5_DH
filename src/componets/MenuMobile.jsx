@@ -27,11 +27,12 @@ function MenuMobile({ isLoggedIn }) {
             const infoLocalStorage = JSON.parse(localStorage.getItem('jwtToken'));
             const administrador = { name: 'Administración', link: 'administrador' }
             const favoritos = { name: 'Favoritos', link: 'favoritos' }
+            const historial = { name: 'Historial', link: 'historial' }
 
             if (infoLocalStorage && infoLocalStorage.role !== 'ADMIN') {
-                setOpciones(prevOpciones => [...prevOpciones, favoritos]);
+                setOpciones(prevOpciones => [...prevOpciones, favoritos , historial]);
             } else if (infoLocalStorage && infoLocalStorage.role === 'ADMIN') {
-                setOpciones(prevOpciones => [...prevOpciones, favoritos, administrador]);
+                setOpciones(prevOpciones => [...prevOpciones, favoritos, historial, administrador]);
             }
         }
 
